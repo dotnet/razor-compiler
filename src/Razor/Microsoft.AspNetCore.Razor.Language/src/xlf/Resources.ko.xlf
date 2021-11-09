@@ -1,0 +1,759 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en" target-language="ko" original="../Resources.resx">
+    <body>
+      <trans-unit id="AddTagHelperDirective_Description">
+        <source>Register Tag Helpers for use in the current document.</source>
+        <target state="new">Register Tag Helpers for use in the current document.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="AddTagHelperDirective_StringToken_Description">
+        <source>Add tag helpers from the specified type name and assembly name. Specify '*' for the type name to include all tag helper types from the specified assembly.</source>
+        <target state="new">Add tag helpers from the specified type name and assembly name. Specify '*' for the type name to include all tag helper types from the specified assembly.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="AddTagHelperDirective_StringToken_Name">
+        <source>TypeName, AssemblyName</source>
+        <target state="new">TypeName, AssemblyName</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ArgumentCannotBeNullOrEmpty">
+        <source>Value cannot be null or an empty string.</source>
+        <target state="new">Value cannot be null or an empty string.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="BlockDirectiveCannotBeImported">
+        <source>Block directive '{0}' cannot be imported.</source>
+        <target state="new">Block directive '{0}' cannot be imported.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="BlockName_Code">
+        <source>code</source>
+        <target state="new">code</target>
+        <note>This is a literal used when composing ParserError_* messages. Most blocks are named by the keyword that starts them, for example "if".  However, for those without keywords, a (localizable) name must be used.  This literal is ALWAYS used mid-sentence, thus should not be capitalized.</note>
+      </trans-unit>
+      <trans-unit id="BlockName_ExplicitExpression">
+        <source>explicit expression</source>
+        <target state="new">explicit expression</target>
+        <note>This is a literal used when composing ParserError_* messages. Most blocks are named by the keyword that starts them, for example "if".  However, for those without keywords, a (localizable) name must be used.  This literal is ALWAYS used mid-sentence, thus should not be capitalized.</note>
+      </trans-unit>
+      <trans-unit id="Block_Type_Not_Specified">
+        <source>Block cannot be built because a Type has not been specified in the BlockBuilder</source>
+        <target state="new">Block cannot be built because a Type has not been specified in the BlockBuilder</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="CSharpToken_CharacterLiteral">
+        <source>&lt;&lt;character literal&gt;&gt;</source>
+        <target state="new">&lt;&lt;character literal&gt;&gt;</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="CSharpToken_Comment">
+        <source>&lt;&lt;comment&gt;&gt;</source>
+        <target state="new">&lt;&lt;comment&gt;&gt;</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="CSharpToken_Identifier">
+        <source>&lt;&lt;identifier&gt;&gt;</source>
+        <target state="new">&lt;&lt;identifier&gt;&gt;</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="CSharpToken_IntegerLiteral">
+        <source>&lt;&lt;integer literal&gt;&gt;</source>
+        <target state="new">&lt;&lt;integer literal&gt;&gt;</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="CSharpToken_Keyword">
+        <source>&lt;&lt;keyword&gt;&gt;</source>
+        <target state="new">&lt;&lt;keyword&gt;&gt;</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="CSharpToken_Newline">
+        <source>&lt;&lt;newline sequence&gt;&gt;</source>
+        <target state="new">&lt;&lt;newline sequence&gt;&gt;</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="CSharpToken_RealLiteral">
+        <source>&lt;&lt;real literal&gt;&gt;</source>
+        <target state="new">&lt;&lt;real literal&gt;&gt;</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="CSharpToken_StringLiteral">
+        <source>&lt;&lt;string literal&gt;&gt;</source>
+        <target state="new">&lt;&lt;string literal&gt;&gt;</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="CSharpToken_Whitespace">
+        <source>&lt;&lt;white space&gt;&gt;</source>
+        <target state="new">&lt;&lt;white space&gt;&gt;</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="CodeWriter_InvalidNewLine">
+        <source>Invalid newline sequence '{0}'. Support newline sequences are '\r\n' and '\n'.</source>
+        <target state="new">Invalid newline sequence '{0}'. Support newline sequences are '\r\n' and '\n'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="Component_EditorRequiredParameterNotSpecified">
+        <source>Component '{0}' expects a value for the parameter '{1}', but a value may not have been provided.</source>
+        <target state="new">Component '{0}' expects a value for the parameter '{1}', but a value may not have been provided.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="CssRewriter_ImportNotAllowed">
+        <source>@import rules are not supported within scoped CSS files because the loading order would be undefined. @import may only be placed in non-scoped CSS files.</source>
+        <target state="new">@import rules are not supported within scoped CSS files because the loading order would be undefined. @import may only be placed in non-scoped CSS files.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="Diagnostic_CodeTarget_UnsupportedExtension">
+        <source>The document type '{0}' does not support the extension '{1}'.</source>
+        <target state="new">The document type '{0}' does not support the extension '{1}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="DirectiveDescriptor_InvalidDirectiveKeyword">
+        <source>Invalid directive keyword '{0}'. Directives must have a non-empty keyword that consists only of letters.</source>
+        <target state="new">Invalid directive keyword '{0}'. Directives must have a non-empty keyword that consists only of letters.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="DirectiveDescriptor_InvalidNonOptionalToken">
+        <source>A non-optional directive token cannot follow an optional directive token.</source>
+        <target state="new">A non-optional directive token cannot follow an optional directive token.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="DirectiveExpectsBooleanLiteral">
+        <source>The '{0}' directive expects a boolean literal.</source>
+        <target state="new">The '{0}' directive expects a boolean literal.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="DirectiveExpectsCSharpAttribute">
+        <source>The '{0}' directive expects a C# attribute.</source>
+        <target state="new">The '{0}' directive expects a C# attribute.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="DirectiveExpectsIdentifier">
+        <source>The '{0}' directive expects an identifier.</source>
+        <target state="new">The '{0}' directive expects an identifier.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="DirectiveExpectsNamespace">
+        <source>The '{0}' directive expects a namespace name.</source>
+        <target state="new">The '{0}' directive expects a namespace name.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="DirectiveExpectsQuotedStringLiteral">
+        <source>The '{0}' directive expects a string surrounded by double quotes.</source>
+        <target state="new">The '{0}' directive expects a string surrounded by double quotes.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="DirectiveExpectsTypeName">
+        <source>The '{0}' directive expects a type name.</source>
+        <target state="new">The '{0}' directive expects a type name.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="DirectiveGenericTypeParameterIdentifierMismatch">
+        <source>The type parameter in the generic type constraint '{1}' does not match the type parameter '{2}' defined in the directive '{0}'.</source>
+        <target state="new">The type parameter in the generic type constraint '{1}' does not match the type parameter '{2}' defined in the directive '{0}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="DirectiveMustAppearAtStartOfLine">
+        <source>The '{0}` directive must appear at the start of the line.</source>
+        <target state="new">The '{0}` directive must appear at the start of the line.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="DirectiveTokensMustBeSeparatedByWhitespace">
+        <source>The '{0}' directives value(s) must be separated by whitespace.</source>
+        <target state="new">The '{0}' directives value(s) must be separated by whitespace.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="DocumentMissingTarget">
+        <source>The document of kind '{0}' does not have a '{1}'. The document classifier must set a value for '{2}'.</source>
+        <target state="new">The document of kind '{0}' does not have a '{1}'. The document classifier must set a value for '{2}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="DuplicateDirective">
+        <source>The '{0}' directive may only occur once per document.</source>
+        <target state="new">The '{0}' directive may only occur once per document.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="EndBlock_Called_Without_Matching_StartBlock">
+        <source>"EndBlock" was called without a matching call to "StartBlock".</source>
+        <target state="new">"EndBlock" was called without a matching call to "StartBlock".</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ErrorComponent_Newline">
+        <source>line break</source>
+        <target state="new">line break</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="FeatureDependencyMissing">
+        <source>The '{0}' feature requires a '{1}' provided by the '{2}'.</source>
+        <target state="new">The '{0}' feature requires a '{1}' provided by the '{2}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="FeatureMustBeInitialized">
+        <source>The feature must be initialized by setting the '{0}' property.</source>
+        <target state="new">The feature must be initialized by setting the '{0}' property.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="FunctionsDirective_Description">
+        <source>Specify a C# code block.</source>
+        <target state="new">Specify a C# code block.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="HtmlToken_NewLine">
+        <source>&lt;&lt;newline sequence&gt;&gt;</source>
+        <target state="new">&lt;&lt;newline sequence&gt;&gt;</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="HtmlToken_RazorComment">
+        <source>&lt;&lt;razor comment&gt;&gt;</source>
+        <target state="new">&lt;&lt;razor comment&gt;&gt;</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="HtmlToken_Text">
+        <source>&lt;&lt;text&gt;&gt;</source>
+        <target state="new">&lt;&lt;text&gt;&gt;</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="HtmlToken_WhiteSpace">
+        <source>&lt;&lt;white space&gt;&gt;</source>
+        <target state="new">&lt;&lt;white space&gt;&gt;</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="InheritsDirective_Description">
+        <source>Specify the base class for the current document.</source>
+        <target state="new">Specify the base class for the current document.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="InheritsDirective_TypeToken_Description">
+        <source>The base type that the current page inherits.</source>
+        <target state="new">The base type that the current page inherits.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="InheritsDirective_TypeToken_Name">
+        <source>TypeName</source>
+        <target state="new">TypeName</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="IntermediateNodeBuilder_PopInvalid">
+        <source>The '{0}' operation is not valid when the builder is empty.</source>
+        <target state="new">The '{0}' operation is not valid when the builder is empty.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="IntermediateNodeReference_CollectionIsReadOnly">
+        <source>The node '{0}' has a read-only child collection and cannot be modified.</source>
+        <target state="new">The node '{0}' has a read-only child collection and cannot be modified.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="IntermediateNodeReference_NodeNotFound">
+        <source>The reference is invalid. The node '{0}' could not be found as a child of '{1}'.</source>
+        <target state="new">The reference is invalid. The node '{0}' could not be found as a child of '{1}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="IntermediateNodeReference_NotInitialized">
+        <source>The reference is invalid. References initialized with the default constructor cannot modify nodes.</source>
+        <target state="new">The reference is invalid. References initialized with the default constructor cannot modify nodes.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="IntermediateNodes_InvalidParentNode">
+        <source>The '{0}' node type can only be used as a direct child of a '{1}' node.</source>
+        <target state="new">The '{0}' node type can only be used as a direct child of a '{1}' node.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="InvalidOperation_SpanIsNotChangeOwner">
+        <source>The node '{0}' is not the owner of change '{1}'.</source>
+        <target state="new">The node '{0}' is not the owner of change '{1}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="InvalidTagHelperLookupText">
+        <source>Invalid tag helper directive look up text '{0}'. The correct look up text format is: "name, assemblyName".</source>
+        <target state="new">Invalid tag helper directive look up text '{0}'. The correct look up text format is: "name, assemblyName".</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="InvalidTagHelperPrefixValue">
+        <source>Invalid tag helper directive '{0}' value. '{1}' is not allowed in prefix '{2}'.</source>
+        <target state="new">Invalid tag helper directive '{0}' value. '{1}' is not allowed in prefix '{2}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="KeyMustNotBeNull">
+        <source>The key must not be null.</source>
+        <target state="new">The key must not be null.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="Language_Does_Not_Support_RazorComment">
+        <source>Cannot use built-in RazorComment handler, language characteristics does not define the CommentStart, CommentStar and CommentBody known token types or parser does not override TokenizerBackedParser.OutputSpanBeforeRazorComment</source>
+        <target state="new">Cannot use built-in RazorComment handler, language characteristics does not define the CommentStart, CommentStar and CommentBody known token types or parser does not override TokenizerBackedParser.OutputSpanBeforeRazorComment</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="MismatchedContentEncoding">
+        <source>The specified encoding '{0}' does not match the content's encoding '{1}'.</source>
+        <target state="new">The specified encoding '{0}' does not match the content's encoding '{1}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="NamespaceDirective_Description">
+        <source>Specify the base namespace for the document.</source>
+        <target state="new">Specify the base namespace for the document.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="NamespaceDirective_NamespaceToken_Description">
+        <source>The namespace for the document.</source>
+        <target state="new">The namespace for the document.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="NamespaceDirective_NamespaceToken_Name">
+        <source>Namespace</source>
+        <target state="new">Namespace</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_AtInCode_Must_Be_Followed_By_Colon_Paren_Or_Identifier_Start">
+        <source>The "@" character must be followed by a ":", "(", or a C# identifier.  If you intended to switch to markup, use an HTML start tag, for example:
+
+@if(isLoggedIn) {{
+    &lt;p&gt;Hello, @user!&lt;/p&gt;
+}}</source>
+        <target state="new">The "@" character must be followed by a ":", "(", or a C# identifier.  If you intended to switch to markup, use an HTML start tag, for example:
+
+@if(isLoggedIn) {{
+    &lt;p&gt;Hello, @user!&lt;/p&gt;
+}}</target>
+        <note>"{{" is an escape sequence for string.Format, when outputted to the user it will be displayed as "{"</note>
+      </trans-unit>
+      <trans-unit id="ParseError_BlockComment_Not_Terminated">
+        <source>End of file was reached before the end of the block comment.  All comments started with "/*" sequence must be terminated with a matching "*/" sequence.</source>
+        <target state="new">End of file was reached before the end of the block comment.  All comments started with "/*" sequence must be terminated with a matching "*/" sequence.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_DirectiveMustHaveValue">
+        <source>Directive '{0}' must have a value.</source>
+        <target state="new">Directive '{0}' must have a value.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_Expected_CloseBracket_Before_EOF">
+        <source>An opening "{0}" is missing the corresponding closing "{1}".</source>
+        <target state="new">An opening "{0}" is missing the corresponding closing "{1}".</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_Expected_EndOfBlock_Before_EOF">
+        <source>The {0} block is missing a closing "{1}" character.  Make sure you have a matching "{1}" character for all the "{2}" characters within this block, and that none of the "{1}" characters are being interpreted as markup.</source>
+        <target state="new">The {0} block is missing a closing "{1}" character.  Make sure you have a matching "{1}" character for all the "{2}" characters within this block, and that none of the "{1}" characters are being interpreted as markup.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_HelperDirectiveNotAvailable">
+        <source>The {0} directive is not supported.</source>
+        <target state="new">The {0} directive is not supported.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_IncompleteQuotesAroundDirective">
+        <source>Optional quote around the directive '{0}' is missing the corresponding opening or closing quote.</source>
+        <target state="new">Optional quote around the directive '{0}' is missing the corresponding opening or closing quote.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_InlineMarkup_Blocks_Cannot_Be_Nested">
+        <source>Inline markup blocks (@&lt;p&gt;Content&lt;/p&gt;) cannot be nested.  Only one level of inline markup is allowed.</source>
+        <target state="new">Inline markup blocks (@&lt;p&gt;Content&lt;/p&gt;) cannot be nested.  Only one level of inline markup is allowed.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_MarkupBlock_Must_Start_With_Tag">
+        <source>Markup in a code block must start with a tag and all start tags must be matched with end tags.  Do not use unclosed tags like "&lt;br&gt;".  Instead use self-closing tags like "&lt;br/&gt;".</source>
+        <target state="new">Markup in a code block must start with a tag and all start tags must be matched with end tags.  Do not use unclosed tags like "&lt;br&gt;".  Instead use self-closing tags like "&lt;br/&gt;".</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_MissingEndTag">
+        <source>The "{0}" element was not closed.  All elements must be either self-closing or have a matching end tag.</source>
+        <target state="new">The "{0}" element was not closed.  All elements must be either self-closing or have a matching end tag.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_NamespaceImportAndTypeAlias_Cannot_Exist_Within_CodeBlock">
+        <source>Namespace imports and type aliases cannot be placed within code blocks.  They must immediately follow an "@" character in markup.  It is recommended that you put them at the top of the page, as in the following example:
+
+@using System.Drawing;
+@{{
+    // OK here to use types from System.Drawing in the page.
+}}</source>
+        <target state="new">Namespace imports and type aliases cannot be placed within code blocks.  They must immediately follow an "@" character in markup.  It is recommended that you put them at the top of the page, as in the following example:
+
+@using System.Drawing;
+@{{
+    // OK here to use types from System.Drawing in the page.
+}}</target>
+        <note>"{{" is an escape sequence for string.Format, when outputted to the user it will be displayed as "{"</note>
+      </trans-unit>
+      <trans-unit id="ParseError_OuterTagMissingName">
+        <source>Outer tag is missing a name. The first character of a markup block must be an HTML tag with a valid name.</source>
+        <target state="new">Outer tag is missing a name. The first character of a markup block must be an HTML tag with a valid name.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_RazorComment_Not_Terminated">
+        <source>End of file was reached before the end of the block comment.  All comments that start with the "@*" sequence must be terminated with a matching "*@" sequence.</source>
+        <target state="new">End of file was reached before the end of the block comment.  All comments that start with the "@*" sequence must be terminated with a matching "*@" sequence.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_ReservedWord">
+        <source>"{0}" is a reserved word and cannot be used in implicit expressions.  An explicit expression ("@()") must be used.</source>
+        <target state="new">"{0}" is a reserved word and cannot be used in implicit expressions.  An explicit expression ("@()") must be used.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_Sections_Cannot_Be_Nested">
+        <source>Section blocks ("{0}") cannot be nested.  Only one level of section blocks are allowed.</source>
+        <target state="new">Section blocks ("{0}") cannot be nested.  Only one level of section blocks are allowed.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_SingleLine_ControlFlowStatements_CannotContainMarkup">
+        <source>Single-statement control-flow statements in Razor documents statements cannot contain markup. Markup should be enclosed in "{{" and "}}".</source>
+        <target state="new">Single-statement control-flow statements in Razor documents statements cannot contain markup. Markup should be enclosed in "{{" and "}}".</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_TextTagCannotContainAttributes">
+        <source>"&lt;text&gt;" and "&lt;/text&gt;" tags cannot contain attributes.</source>
+        <target state="new">"&lt;text&gt;" and "&lt;/text&gt;" tags cannot contain attributes.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_UnexpectedEndTag">
+        <source>Encountered end tag "{0}" with no matching start tag.  Are your start/end tags properly balanced?</source>
+        <target state="new">Encountered end tag "{0}" with no matching start tag.  Are your start/end tags properly balanced?</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_Unexpected_Character_At_Start_Of_CodeBlock">
+        <source>"{0}" is not valid at the start of a code block.  Only identifiers, keywords, comments, "(" and "{{" are valid.</source>
+        <target state="new">"{0}" is not valid at the start of a code block.  Only identifiers, keywords, comments, "(" and "{{" are valid.</target>
+        <note>"{{" is an escape sequence for string.Format, when outputted to the user it will be displayed as "{"</note>
+      </trans-unit>
+      <trans-unit id="ParseError_Unexpected_EndOfFile_At_Start_Of_CodeBlock">
+        <source>End-of-file was found after the "@" character.  "@" must be followed by a valid code block.  If you want to output an "@", escape it using the sequence: "@@"</source>
+        <target state="new">End-of-file was found after the "@" character.  "@" must be followed by a valid code block.  If you want to output an "@", escape it using the sequence: "@@"</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_Unexpected_Identifier_At_Position">
+        <source>'{0}' is not valid in this position. Valid options are '{1}'</source>
+        <target state="new">'{0}' is not valid in this position. Valid options are '{1}'</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_Unexpected_Nested_CodeBlock">
+        <source>Unexpected "{{" after "@" character. Once inside the body of a code block (@if {{}}, @{{}}, etc.) you do not need to use "@{{" to switch to code.</source>
+        <target state="new">Unexpected "{{" after "@" character. Once inside the body of a code block (@if {{}}, @{{}}, etc.) you do not need to use "@{{" to switch to code.</target>
+        <note>"{{" is an escape sequence for string.Format, when outputted to the user it will be displayed as "{"</note>
+      </trans-unit>
+      <trans-unit id="ParseError_Unexpected_WhiteSpace_At_Start_Of_CodeBlock">
+        <source>A space or line break was encountered after the "@" character.  Only valid identifiers, keywords, comments, "(" and "{{" are valid at the start of a code block and they must occur immediately following "@" with no space in between.</source>
+        <target state="new">A space or line break was encountered after the "@" character.  Only valid identifiers, keywords, comments, "(" and "{{" are valid at the start of a code block and they must occur immediately following "@" with no space in between.</target>
+        <note>"{{" is an escape sequence for string.Format, when outputted to the user it will be displayed as "{"</note>
+      </trans-unit>
+      <trans-unit id="ParseError_UnfinishedTag">
+        <source>End of file or an unexpected character was reached before the "{0}" tag could be parsed.  Elements inside markup blocks must be complete. They must either be self-closing ("&lt;br /&gt;") or have matching end tags ("&lt;p&gt;Hello&lt;/p&gt;").  If you intended to display a "&lt;" character, use the "&amp;lt;" HTML entity.</source>
+        <target state="new">End of file or an unexpected character was reached before the "{0}" tag could be parsed.  Elements inside markup blocks must be complete. They must either be self-closing ("&lt;br /&gt;") or have matching end tags ("&lt;p&gt;Hello&lt;/p&gt;").  If you intended to display a "&lt;" character, use the "&amp;lt;" HTML entity.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParseError_Unterminated_String_Literal">
+        <source>Unterminated string literal.  Strings that start with a quotation mark (") must be terminated before the end of the line.  However, strings that start with @ and a quotation mark (@") can span multiple lines.</source>
+        <target state="new">Unterminated string literal.  Strings that start with a quotation mark (") must be terminated before the end of the line.  However, strings that start with @ and a quotation mark (@") can span multiple lines.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParserContext_CannotCompleteTree_NoRootBlock">
+        <source>Cannot complete the tree, StartBlock must be called at least once.</source>
+        <target state="new">Cannot complete the tree, StartBlock must be called at least once.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParserContext_CannotCompleteTree_OutstandingBlocks">
+        <source>Cannot complete the tree, there are still open blocks.</source>
+        <target state="new">Cannot complete the tree, there are still open blocks.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ParserContext_NoCurrentBlock">
+        <source>Cannot finish span, there is no current block. Call StartBlock at least once before finishing a span</source>
+        <target state="new">Cannot finish span, there is no current block. Call StartBlock at least once before finishing a span</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="Parser_Context_Not_Set">
+        <source>Parser was started with a null Context property.  The Context property must be set BEFORE calling any methods on the parser.</source>
+        <target state="new">Parser was started with a null Context property.  The Context property must be set BEFORE calling any methods on the parser.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PhaseDependencyMissing">
+        <source>The '{0}' phase requires a '{1}' provided by the '{2}'.</source>
+        <target state="new">The '{0}' phase requires a '{1}' provided by the '{2}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PhaseMustBeInitialized">
+        <source>The phase must be initialized by setting the '{0}' property.</source>
+        <target state="new">The phase must be initialized by setting the '{0}' property.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PropertyMustNotBeNull">
+        <source>The '{0}.{1}' property must not be null.</source>
+        <target state="new">The '{0}.{1}' property must not be null.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="RazorLanguageVersion_InvalidVersion">
+        <source>The Razor language version '{0}' is unrecognized or not supported by this version of Razor.</source>
+        <target state="new">The Razor language version '{0}' is unrecognized or not supported by this version of Razor.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="RazorProjectEngineMissingFeatureDependency">
+        <source>The '{0}' is missing feature '{1}'.</source>
+        <target state="new">The '{0}' is missing feature '{1}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="RazorProject_PathMustStartWithForwardSlash">
+        <source>Path must begin with a forward slash '/'.</source>
+        <target state="new">Path must begin with a forward slash '/'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="RemoveTagHelperDirective_Description">
+        <source>Remove Tag Helpers for use in the current document.</source>
+        <target state="new">Remove Tag Helpers for use in the current document.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="RemoveTagHelperDirective_StringToken_Description">
+        <source>Remove tag helpers from the specified type name and assembly name. Specify '*' for the type name to remove all tag helper types from the specified assembly.</source>
+        <target state="new">Remove tag helpers from the specified type name and assembly name. Specify '*' for the type name to remove all tag helper types from the specified assembly.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="RemoveTagHelperDirective_StringToken_Name">
+        <source>TypeName, AssemblyName</source>
+        <target state="new">TypeName, AssemblyName</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="RenderingContextRequiresDelegate">
+        <source>The '{0}' requires a '{1}' delegate to be set.</source>
+        <target state="new">The '{0}' requires a '{1}' delegate to be set.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="RewriterError_EmptyTagHelperBoundAttribute">
+        <source>Attribute '{0}' on tag helper element '{1}' requires a value. Tag helper bound attributes of type '{2}' cannot be empty or contain only whitespace.</source>
+        <target state="new">Attribute '{0}' on tag helper element '{1}' requires a value. Tag helper bound attributes of type '{2}' cannot be empty or contain only whitespace.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="Rewriter_InsufficientStack">
+        <source>Not enough stack space to continue parsing this document. Razor doesn't support deeply nested elements.</source>
+        <target state="new">Not enough stack space to continue parsing this document. Razor doesn't support deeply nested elements.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="SectionDirective_Description">
+        <source>Define a section to be rendered in the configured layout page.</source>
+        <target state="new">Define a section to be rendered in the configured layout page.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="SectionDirective_NameToken_Description">
+        <source>The name of the section.</source>
+        <target state="new">The name of the section.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="SectionDirective_NameToken_Name">
+        <source>SectionName</source>
+        <target state="new">SectionName</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="SectionExample">
+        <source>@section Header { ... }</source>
+        <target state="new">@section Header { ... }</target>
+        <note>In CSHTML, the @section keyword is case-sensitive and lowercase (as with all C# keywords)</note>
+      </trans-unit>
+      <trans-unit id="TagHelperAssemblyNameCannotBeEmptyOrNull">
+        <source>Tag helper directive assembly name cannot be null or empty.</source>
+        <target state="new">Tag helper directive assembly name cannot be null or empty.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelperBlockRewriter_IndexerAttributeNameMustIncludeKey">
+        <source>The tag helper attribute '{0}' in element '{1}' is missing a key. The syntax is '&lt;{1} {0}{{ key }}="value"&gt;'.</source>
+        <target state="new">The tag helper attribute '{0}' in element '{1}' is missing a key. The syntax is '&lt;{1} {0}{{ key }}="value"&gt;'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelperBlockRewriter_TagHelperAttributeListMustBeWellFormed">
+        <source>TagHelper attributes must be well-formed.</source>
+        <target state="new">TagHelper attributes must be well-formed.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelperParseTreeRewriter_CannotHaveNonTagContent">
+        <source>The parent &lt;{0}&gt; tag helper does not allow non-tag content. Only child tag helper(s) targeting tag name(s) '{1}' are allowed.</source>
+        <target state="new">The parent &lt;{0}&gt; tag helper does not allow non-tag content. Only child tag helper(s) targeting tag name(s) '{1}' are allowed.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelperParseTreeRewriter_EndTagTagHelperMustNotHaveAnEndTag">
+        <source>Found an end tag (&lt;/{0}&gt;) for tag helper '{1}' with tag structure that disallows an end tag ('{2}').</source>
+        <target state="new">Found an end tag (&lt;/{0}&gt;) for tag helper '{1}' with tag structure that disallows an end tag ('{2}').</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelperParseTreeRewriter_InconsistentTagStructure">
+        <source>Tag helpers '{0}' and '{1}' targeting element '{2}' must not expect different {3} values.</source>
+        <target state="new">Tag helpers '{0}' and '{1}' targeting element '{2}' must not expect different {3} values.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelperParseTreeRewriter_InvalidNestedTag">
+        <source>The &lt;{0}&gt; tag is not allowed by parent &lt;{1}&gt; tag helper. Only child tags with name(s) '{2}' are allowed.</source>
+        <target state="new">The &lt;{0}&gt; tag is not allowed by parent &lt;{1}&gt; tag helper. Only child tags with name(s) '{2}' are allowed.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelperPrefixDirective_Description">
+        <source>Specify a prefix that is required in an element name for it to be included in Tag Helper processing.</source>
+        <target state="new">Specify a prefix that is required in an element name for it to be included in Tag Helper processing.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelperPrefixDirective_PrefixToken_Description">
+        <source>The tag prefix to apply to tag helpers.</source>
+        <target state="new">The tag prefix to apply to tag helpers.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelperPrefixDirective_PrefixToken_Name">
+        <source>Prefix</source>
+        <target state="new">Prefix</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidBoundAttributeName">
+        <source>Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with name '{2}' because the name contains a '{3}' character.</source>
+        <target state="new">Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with name '{2}' because the name contains a '{3}' character.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidBoundAttributeNameStartsWith">
+        <source>Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with name '{2}' because the name starts with '{3}'.</source>
+        <target state="new">Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with name '{2}' because the name starts with '{3}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidBoundAttributeNullOrWhitespace">
+        <source>Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with a null or empty name.</source>
+        <target state="new">Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with a null or empty name.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidBoundAttributeParameterName">
+        <source>Invalid tag helper bound attribute parameter '{1}' on bound attribute '{0}'. Tag helpers cannot bind to HTML attribute parameters with name '{1}' because the name contains a '{3}' character.</source>
+        <target state="new">Invalid tag helper bound attribute parameter '{1}' on bound attribute '{0}'. Tag helpers cannot bind to HTML attribute parameters with name '{1}' because the name contains a '{3}' character.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidBoundAttributeParameterNullOrWhitespace">
+        <source>Invalid tag helper bound attribute parameter '{0}'. Tag helpers cannot bind to HTML attribute parameters with a null or empty name.</source>
+        <target state="new">Invalid tag helper bound attribute parameter '{0}'. Tag helpers cannot bind to HTML attribute parameters with a null or empty name.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidBoundAttributePrefix">
+        <source>Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with prefix '{2}' because the prefix contains a '{3}' character.</source>
+        <target state="new">Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with prefix '{2}' because the prefix contains a '{3}' character.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidBoundAttributePrefixStartsWith">
+        <source>Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with prefix '{2}' because the prefix starts with '{3}'.</source>
+        <target state="new">Invalid tag helper bound property '{1}' on tag helper '{0}'. Tag helpers cannot bind to HTML attributes with prefix '{2}' because the prefix starts with '{3}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidBoundDirectiveAttributeName">
+        <source>Invalid tag helper bound directive attribute '{1}' on tag helper '{0}'. The directive attribute '{2}' should start with a '@' character.</source>
+        <target state="new">Invalid tag helper bound directive attribute '{1}' on tag helper '{0}'. The directive attribute '{2}' should start with a '@' character.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidBoundDirectiveAttributePrefix">
+        <source>Invalid tag helper bound directive attribute '{1}' on tag helper '{0}'. Tag helpers cannot bind to directive attributes with prefix '{2}' because the prefix doesn't start with a '@' character.</source>
+        <target state="new">Invalid tag helper bound directive attribute '{1}' on tag helper '{0}'. Tag helpers cannot bind to directive attributes with prefix '{2}' because the prefix doesn't start with a '@' character.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidRequiredDirectiveAttributeName">
+        <source>Invalid tag helper required directive attribute '{0}'. The directive attribute '{1}' should start with a '@' character.</source>
+        <target state="new">Invalid tag helper required directive attribute '{0}'. The directive attribute '{1}' should start with a '@' character.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidRestrictedChild">
+        <source>Invalid restricted child '{1}' for tag helper '{0}'. Tag helpers cannot restrict child elements that contain a '{2}' character.</source>
+        <target state="new">Invalid restricted child '{1}' for tag helper '{0}'. Tag helpers cannot restrict child elements that contain a '{2}' character.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidRestrictedChildNullOrWhitespace">
+        <source>Invalid restricted child for tag helper '{0}'. Name cannot be null or whitespace.</source>
+        <target state="new">Invalid restricted child for tag helper '{0}'. Name cannot be null or whitespace.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidTargetedAttributeName">
+        <source>Tag helpers cannot target attribute name '{0}' because it contains a '{1}' character.</source>
+        <target state="new">Tag helpers cannot target attribute name '{0}' because it contains a '{1}' character.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidTargetedAttributeNameNullOrWhitespace">
+        <source>Targeted attribute name cannot be null or whitespace.</source>
+        <target state="new">Targeted attribute name cannot be null or whitespace.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidTargetedParentTagName">
+        <source>Tag helpers cannot target parent tag name '{0}' because it contains a '{1}' character.</source>
+        <target state="new">Tag helpers cannot target parent tag name '{0}' because it contains a '{1}' character.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidTargetedParentTagNameNullOrWhitespace">
+        <source>Targeted parent tag name cannot be null or whitespace.</source>
+        <target state="new">Targeted parent tag name cannot be null or whitespace.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidTargetedTagName">
+        <source>Tag helpers cannot target tag name '{0}' because it contains a '{1}' character.</source>
+        <target state="new">Tag helpers cannot target tag name '{0}' because it contains a '{1}' character.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelper_InvalidTargetedTagNameNullOrWhitespace">
+        <source>Targeted tag name cannot be null or whitespace.</source>
+        <target state="new">Targeted tag name cannot be null or whitespace.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelpersParseTreeRewriter_FoundMalformedTagHelper">
+        <source>Found a malformed '{0}' tag helper. Tag helpers must have a start and end tag or be self closing.</source>
+        <target state="new">Found a malformed '{0}' tag helper. Tag helpers must have a start and end tag or be self closing.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelpersParseTreeRewriter_MissingCloseAngle">
+        <source>Missing close angle for tag helper '{0}'.</source>
+        <target state="new">Missing close angle for tag helper '{0}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelpers_AttributesMustHaveAName">
+        <source>Tag Helper '{0}'s attributes must have names.</source>
+        <target state="new">Tag Helper '{0}'s attributes must have names.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelpers_CannotHaveCSharpInTagDeclaration">
+        <source>The tag helper '{0}' must not have C# in the element's attribute declaration area.</source>
+        <target state="new">The tag helper '{0}' must not have C# in the element's attribute declaration area.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelpers_CodeBlocks_NotSupported_InAttributes">
+        <source>Code blocks (e.g. @{{var variable = 23;}}) must not appear in non-string tag helper attribute values.
+ Already in an expression (code) context. If necessary an explicit expression (e.g. @(@readonly)) may be used.</source>
+        <target state="new">Code blocks (e.g. @{{var variable = 23;}}) must not appear in non-string tag helper attribute values.
+ Already in an expression (code) context. If necessary an explicit expression (e.g. @(@readonly)) may be used.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TagHelpers_InlineMarkupBlocks_NotSupported_InAttributes">
+        <source>Inline markup blocks (e.g. @&lt;p&gt;content&lt;/p&gt;) must not appear in non-string tag helper attribute values.
+ Expected a '{0}' attribute value, not a string.</source>
+        <target state="new">Inline markup blocks (e.g. @&lt;p&gt;content&lt;/p&gt;) must not appear in non-string tag helper attribute values.
+ Expected a '{0}' attribute value, not a string.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="Token_Unknown">
+        <source>&lt;&lt;unknown&gt;&gt;</source>
+        <target state="new">&lt;&lt;unknown&gt;&gt;</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="UnexpectedDirectiveKind">
+        <source>Unreachable code. This can happen when a new {0} is introduced.</source>
+        <target state="new">Unreachable code. This can happen when a new {0} is introduced.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="UnexpectedDirectiveLiteral">
+        <source>Unexpected literal following the '{0}' directive. Expected '{1}'.</source>
+        <target state="new">Unexpected literal following the '{0}' directive. Expected '{1}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="UnexpectedEOFAfterDirective">
+        <source>Unexpected end of file following the '{0}' directive. Expected '{1}'.</source>
+        <target state="new">Unexpected end of file following the '{0}' directive. Expected '{1}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="UnsupportedChecksumAlgorithm">
+        <source>The hash algorithm '{0}' is not supported for checksum generation. Supported algorithms are: '{1}'. Set '{2}' to '{3}' to suppress automatic checksum generation.</source>
+        <target state="new">The hash algorithm '{0}' is not supported for checksum generation. Supported algorithms are: '{1}'. Set '{2}' to '{3}' to suppress automatic checksum generation.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="VirtualFileSystem_FileDoesNotBelongToDirectory">
+        <source>File path '{0}' does not belong to the directory '{1}'.</source>
+        <target state="new">File path '{0}' does not belong to the directory '{1}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="VirtualFileSystem_InvalidRelativePath">
+        <source>The file path '{0}' is invalid. File path is the root relative path of the file starting with '/' and should not contain any '\' characters.</source>
+        <target state="new">The file path '{0}' is invalid. File path is the root relative path of the file starting with '/' and should not contain any '\' characters.</target>
+        <note />
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

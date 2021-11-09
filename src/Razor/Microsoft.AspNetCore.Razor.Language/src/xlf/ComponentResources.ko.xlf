@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en" target-language="ko" original="../ComponentResources.resx">
+    <body>
+      <trans-unit id="AttributeDirective_AttributeToken_Description">
+        <source>The C# attribute that will be applied to the current class.</source>
+        <target state="new">The C# attribute that will be applied to the current class.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="AttributeDirective_AttributeToken_Name">
+        <source>Attribute</source>
+        <target state="new">Attribute</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="AttributeDirective_Description">
+        <source>Specifies the C# attribute that will be applied to the current class.</source>
+        <target state="new">Specifies the C# attribute that will be applied to the current class.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="BindTagHelper_Component_Documentation">
+        <source>Binds the provided expression to the '{0}' property and a change event delegate to the '{1}' property of the component.</source>
+        <target state="new">Binds the provided expression to the '{0}' property and a change event delegate to the '{1}' property of the component.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="BindTagHelper_Element_Culture_Documentation">
+        <source>Specifies the culture to use for conversions.</source>
+        <target state="new">Specifies the culture to use for conversions.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="BindTagHelper_Element_Documentation">
+        <source>Binds the provided expression to the '{0}' attribute and a change event delegate to the '{1}' attribute.</source>
+        <target state="new">Binds the provided expression to the '{0}' attribute and a change event delegate to the '{1}' attribute.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="BindTagHelper_Element_Event_Documentation">
+        <source>Specifies the event handler name to attach for change notifications for the value provided by the '{0}' attribute.</source>
+        <target state="new">Specifies the event handler name to attach for change notifications for the value provided by the '{0}' attribute.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="BindTagHelper_Element_Format_Documentation">
+        <source>Specifies a format to convert the value specified by the '{0}' attribute. The format string can currently only be used with expressions of type &lt;code&gt;DateTime&lt;/code&gt;.</source>
+        <target state="new">Specifies a format to convert the value specified by the '{0}' attribute. The format string can currently only be used with expressions of type &lt;code&gt;DateTime&lt;/code&gt;.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="BindTagHelper_Fallback_Documentation">
+        <source>Binds the provided expression to an attribute and a change event, based on the naming of the bind attribute. For example: &lt;code&gt;@bind-value="..."&lt;/code&gt; and &lt;code&gt;@bind-value:event="onchange"&lt;/code&gt; will assign the current value of the expression to the 'value' attribute, and assign a delegate that attempts to set the value to the 'onchange' attribute.</source>
+        <target state="new">Binds the provided expression to an attribute and a change event, based on the naming of the bind attribute. For example: &lt;code&gt;@bind-value="..."&lt;/code&gt; and &lt;code&gt;@bind-value:event="onchange"&lt;/code&gt; will assign the current value of the expression to the 'value' attribute, and assign a delegate that attempts to set the value to the 'onchange' attribute.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="BindTagHelper_Fallback_Event_Documentation">
+        <source>Specifies the event handler name to attach for change notifications for the value provided by the '{0}' attribute.</source>
+        <target state="new">Specifies the event handler name to attach for change notifications for the value provided by the '{0}' attribute.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="BindTagHelper_Fallback_Format_Documentation">
+        <source>Specifies a format to convert the value specified by the corresponding bind attribute. For example: &lt;code&gt;@bind-value:format="..."&lt;/code&gt; will apply a format string to the value specified in &lt;code&gt;@bind-value="..."&lt;/code&gt;. The format string can currently only be used with expressions of type &lt;code&gt;DateTime&lt;/code&gt;.</source>
+        <target state="new">Specifies a format to convert the value specified by the corresponding bind attribute. For example: &lt;code&gt;@bind-value:format="..."&lt;/code&gt; will apply a format string to the value specified in &lt;code&gt;@bind-value="..."&lt;/code&gt;. The format string can currently only be used with expressions of type &lt;code&gt;DateTime&lt;/code&gt;.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ChildContentParameterName_Documentation">
+        <source>Specifies the parameter name for the '{0}' child content expression.</source>
+        <target state="new">Specifies the parameter name for the '{0}' child content expression.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ChildContentParameterName_TopLevelDocumentation">
+        <source>Specifies the parameter name for all child content expressions.</source>
+        <target state="new">Specifies the parameter name for all child content expressions.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ComponentTypeParameter_Documentation">
+        <source>Specifies the type of the type parameter {0} for the {1} component.</source>
+        <target state="new">Specifies the type of the type parameter {0} for the {1} component.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="EventHandlerTagHelper_Documentation">
+        <source>Sets the '{0}' attribute to the provided string or delegate value. A delegate value should be of type '{1}'.</source>
+        <target state="new">Sets the '{0}' attribute to the provided string or delegate value. A delegate value should be of type '{1}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="EventHandlerTagHelper_PreventDefault_Documentation">
+        <source>Specifies whether to cancel (if cancelable) the default action that belongs to the '{0}' event.</source>
+        <target state="new">Specifies whether to cancel (if cancelable) the default action that belongs to the '{0}' event.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="EventHandlerTagHelper_StopPropagation_Documentation">
+        <source>Specifies whether to prevent further propagation of the '{0}' event in the capturing and bubbling phases.</source>
+        <target state="new">Specifies whether to prevent further propagation of the '{0}' event in the capturing and bubbling phases.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ImplementsDirective_Description">
+        <source>Declares an interface implementation for the current class.</source>
+        <target state="new">Declares an interface implementation for the current class.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ImplementsDirective_TypeToken_Description">
+        <source>The interface type implemented by the current class.</source>
+        <target state="new">The interface type implemented by the current class.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ImplementsDirective_TypeToken_Name">
+        <source>TypeName</source>
+        <target state="new">TypeName</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="KeyTagHelper_Documentation">
+        <source>Ensures that the component or element will be preserved across renders if (and only if) the supplied key value matches.</source>
+        <target state="new">Ensures that the component or element will be preserved across renders if (and only if) the supplied key value matches.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="LayoutDirective_Description">
+        <source>Declares a layout type for the current document.</source>
+        <target state="new">Declares a layout type for the current document.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="LayoutDirective_TypeToken_Description">
+        <source>The interface type implemented by the current document.</source>
+        <target state="new">The interface type implemented by the current document.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="LayoutDirective_TypeToken_Name">
+        <source>TypeName</source>
+        <target state="new">TypeName</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PageDirectiveCannotBeImported">
+        <source>The '@{0}' directive specified in {1} file will not be imported. The directive must appear at the top of each Razor file</source>
+        <target state="new">The '@{0}' directive specified in {1} file will not be imported. The directive must appear at the top of each Razor file</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PageDirective_Description">
+        <source>Mark the page as a routable component.</source>
+        <target state="new">Mark the page as a routable component.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PageDirective_RouteToken_Description">
+        <source>An optional route template for the component.</source>
+        <target state="new">An optional route template for the component.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PageDirective_RouteToken_Name">
+        <source>route template</source>
+        <target state="new">route template</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PreserveWhitespaceDirective_BooleanToken_Description">
+        <source>True if whitespace should be preserved, otherwise false.</source>
+        <target state="new">True if whitespace should be preserved, otherwise false.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PreserveWhitespaceDirective_BooleanToken_Name">
+        <source>Preserve</source>
+        <target state="new">Preserve</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PreserveWhitespaceDirective_Description">
+        <source>Specifies whether or not whitespace should be preserved exactly. Defaults to false for better performance.</source>
+        <target state="new">Specifies whether or not whitespace should be preserved exactly. Defaults to false for better performance.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="RefTagHelper_Documentation">
+        <source>Populates the specified field or property with a reference to the element or component.</source>
+        <target state="new">Populates the specified field or property with a reference to the element or component.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="SplatTagHelper_Documentation">
+        <source>Merges a collection of attributes into the current element or component.</source>
+        <target state="new">Merges a collection of attributes into the current element or component.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TypeParamDirective_Constraint_Description">
+        <source>The constraints applied to the type parameter.</source>
+        <target state="new">The constraints applied to the type parameter.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TypeParamDirective_Constraint_Name">
+        <source>type parameter constraint</source>
+        <target state="new">type parameter constraint</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TypeParamDirective_Description">
+        <source>Declares a generic type parameter for the generated component class.</source>
+        <target state="new">Declares a generic type parameter for the generated component class.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TypeParamDirective_Token_Description">
+        <source>The name of the type parameter.</source>
+        <target state="new">The name of the type parameter.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="TypeParamDirective_Token_Name">
+        <source>type parameter</source>
+        <target state="new">type parameter</target>
+        <note />
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
