@@ -1,0 +1,297 @@
+// Validating benchmarks:
+No exporters defined, results will not be persisted.
+No column providers defined, result table will be empty.
+Assembly Microsoft.AspNetCore.Razor.Microbenchmarks which defines benchmarks references non-optimized Microsoft.AspNetCore.Razor.Language
+	If you own this dependency, please, build it in RELEASE.
+	If you don't, you can disable this policy by using 'config.WithOptions(ConfigOptions.DisableOptimizationsValidator)'.
+Assembly Microsoft.AspNetCore.Razor.Microbenchmarks which defines benchmarks references non-optimized Microsoft.AspNetCore.Mvc.Razor.Extensions
+	If you own this dependency, please, build it in RELEASE.
+	If you don't, you can disable this policy by using 'config.WithOptions(ConfigOptions.DisableOptimizationsValidator)'.
+Assembly Microsoft.AspNetCore.Razor.Microbenchmarks which defines benchmarks is non-optimized
+Benchmark was built without optimization enabled (most probably a DEBUG configuration). Please, build it in RELEASE.
+If you want to debug the benchmarks, please see https://benchmarkdotnet.org/articles/guides/troubleshooting.html#debugging-benchmarks.
+// ***** BenchmarkRunner: Start   *****
+// ***** Found 6 benchmark(s) in total *****
+// ***** Building 1 exe(s) in Parallel: Start   *****
+// ***** Done, took 00:00:00 (0.2 sec)   *****
+// Found 2 benchmarks:
+//   CodeGenerationBenchmark.'Razor Design Time Code Generation of MSN.com': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+//   CodeGenerationBenchmark.'Razor Runtime Code Generation of MSN.com': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+
+// **************************
+// Benchmark: CodeGenerationBenchmark.'Razor Design Time Code Generation of MSN.com': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+// *** Execute ***
+// Launch: 1 / 1
+
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 2.1.27 (CoreCLR 4.6.29916.01, CoreFX 4.6.29916.03), X64 RyuJIT DEBUG
+// GC=Concurrent Server
+// Job: Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+
+WorkloadActual   1: 1 op, 1199683000.00 ns, 1.1997 s/op
+
+WorkloadResult   1: 1 op, 1199683000.00 ns, 1.1997 s/op
+
+
+Mean = 1.200 s, StdErr = 0.000 s (0.00%), N = 1, StdDev = 0.000 s
+Min = 1.200 s, Q1 = 1.200 s, Median = 1.200 s, Q3 = 1.200 s, Max = 1.200 s
+IQR = 0.000 s, LowerFence = 1.200 s, UpperFence = 1.200 s
+ConfidenceInterval = [NaN s; NaN s] (CI 99.9%), Margin = NaN s (NaN% of Mean)
+Skewness = NaN, Kurtosis = NaN, MValue = 2
+
+// **************************
+// Benchmark: CodeGenerationBenchmark.'Razor Runtime Code Generation of MSN.com': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+// *** Execute ***
+// Launch: 1 / 1
+
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 2.1.27 (CoreCLR 4.6.29916.01, CoreFX 4.6.29916.03), X64 RyuJIT DEBUG
+// GC=Concurrent Server
+// Job: Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+
+WorkloadActual   1: 1 op, 611017100.00 ns, 611.0171 ms/op
+
+WorkloadResult   1: 1 op, 611017100.00 ns, 611.0171 ms/op
+
+
+Mean = 611.017 ms, StdErr = 0.000 ms (0.00%), N = 1, StdDev = 0.000 ms
+Min = 611.017 ms, Q1 = 611.017 ms, Median = 611.017 ms, Q3 = 611.017 ms, Max = 611.017 ms
+IQR = 0.000 ms, LowerFence = 611.017 ms, UpperFence = 611.017 ms
+ConfidenceInterval = [NaN ms; NaN ms] (CI 99.9%), Margin = NaN ms (NaN% of Mean)
+Skewness = NaN, Kurtosis = NaN, MValue = 2
+
+// ***** BenchmarkRunner: Finish  *****
+
+// * Export *
+
+// * Detailed results *
+CodeGenerationBenchmark.'Razor Design Time Code Generation of MSN.com': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+Runtime = ; GC = 
+Mean = 1.200 s, StdErr = 0.000 s (0.00%), N = 1, StdDev = 0.000 s
+Min = 1.200 s, Q1 = 1.200 s, Median = 1.200 s, Q3 = 1.200 s, Max = 1.200 s
+IQR = 0.000 s, LowerFence = 1.200 s, UpperFence = 1.200 s
+ConfidenceInterval = [NaN s; NaN s] (CI 99.9%), Margin = NaN s (NaN% of Mean)
+Skewness = NaN, Kurtosis = NaN, MValue = 2
+-------------------- Histogram --------------------
+[1.200 s ; 1.200 s) | @
+---------------------------------------------------
+
+CodeGenerationBenchmark.'Razor Runtime Code Generation of MSN.com': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+Runtime = ; GC = 
+Mean = 611.017 ms, StdErr = 0.000 ms (0.00%), N = 1, StdDev = 0.000 ms
+Min = 611.017 ms, Q1 = 611.017 ms, Median = 611.017 ms, Q3 = 611.017 ms, Max = 611.017 ms
+IQR = 0.000 ms, LowerFence = 611.017 ms, UpperFence = 611.017 ms
+ConfidenceInterval = [NaN ms; NaN ms] (CI 99.9%), Margin = NaN ms (NaN% of Mean)
+Skewness = NaN, Kurtosis = NaN, MValue = 2
+-------------------- Histogram --------------------
+[611.017 ms ; 611.017 ms) | @
+---------------------------------------------------
+
+// * Summary *
+
+BenchmarkDotNet=v0.13.0, OS=Windows 10.0.19043.1165 (21H1/May2021Update)
+Intel Core i7-8700 CPU 3.20GHz (Coffee Lake), 1 CPU, 12 logical and 6 physical cores
+.NET SDK=6.0.100-rc.1.21415.3
+  [Host] : .NET Core 2.1.27 (CoreCLR 4.6.29916.01, CoreFX 4.6.29916.03), X64 RyuJIT DEBUG
+
+
+|
+|
+|
+|
+
+// * Legends *
+  1 ms : 1 Millisecond (0.001 sec)
+
+// ***** BenchmarkRunner: End *****
+// ** Remained 4 benchmark(s) to run **
+Run time: 00:00:02 (2.63 sec), executed benchmarks: 2
+
+// Found 2 benchmarks:
+//   RazorTagHelperParsingBenchmark.'TagHelper Design Time Processing': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+//   RazorTagHelperParsingBenchmark.'Component Directive Parsing': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+
+// **************************
+// Benchmark: RazorTagHelperParsingBenchmark.'TagHelper Design Time Processing': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+// *** Execute ***
+// Launch: 1 / 1
+
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 2.1.27 (CoreCLR 4.6.29916.01, CoreFX 4.6.29916.03), X64 RyuJIT DEBUG
+// GC=Concurrent Server
+// Job: Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+
+WorkloadActual   1: 1 op, 14197800.00 ns, 14.1978 ms/op
+
+WorkloadResult   1: 1 op, 14197800.00 ns, 14.1978 ms/op
+
+
+Mean = 14.198 ms, StdErr = 0.000 ms (0.00%), N = 1, StdDev = 0.000 ms
+Min = 14.198 ms, Q1 = 14.198 ms, Median = 14.198 ms, Q3 = 14.198 ms, Max = 14.198 ms
+IQR = 0.000 ms, LowerFence = 14.198 ms, UpperFence = 14.198 ms
+ConfidenceInterval = [NaN ms; NaN ms] (CI 99.9%), Margin = NaN ms (NaN% of Mean)
+Skewness = NaN, Kurtosis = NaN, MValue = 2
+
+// **************************
+// Benchmark: RazorTagHelperParsingBenchmark.'Component Directive Parsing': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+// *** Execute ***
+// Launch: 1 / 1
+
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 2.1.27 (CoreCLR 4.6.29916.01, CoreFX 4.6.29916.03), X64 RyuJIT DEBUG
+// GC=Concurrent Server
+// Job: Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+
+WorkloadActual   1: 1 op, 925100.00 ns, 925.1000 us/op
+
+WorkloadResult   1: 1 op, 925100.00 ns, 925.1000 us/op
+
+
+Mean = 925.100 μs, StdErr = 0.000 μs (0.00%), N = 1, StdDev = 0.000 μs
+Min = 925.100 μs, Q1 = 925.100 μs, Median = 925.100 μs, Q3 = 925.100 μs, Max = 925.100 μs
+IQR = 0.000 μs, LowerFence = 925.100 μs, UpperFence = 925.100 μs
+ConfidenceInterval = [NaN μs; NaN μs] (CI 99.9%), Margin = NaN μs (NaN% of Mean)
+Skewness = NaN, Kurtosis = NaN, MValue = 2
+
+// ***** BenchmarkRunner: Finish  *****
+
+// * Export *
+
+// * Detailed results *
+RazorTagHelperParsingBenchmark.'TagHelper Design Time Processing': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+Runtime = ; GC = 
+Mean = 14.198 ms, StdErr = 0.000 ms (0.00%), N = 1, StdDev = 0.000 ms
+Min = 14.198 ms, Q1 = 14.198 ms, Median = 14.198 ms, Q3 = 14.198 ms, Max = 14.198 ms
+IQR = 0.000 ms, LowerFence = 14.198 ms, UpperFence = 14.198 ms
+ConfidenceInterval = [NaN ms; NaN ms] (CI 99.9%), Margin = NaN ms (NaN% of Mean)
+Skewness = NaN, Kurtosis = NaN, MValue = 2
+-------------------- Histogram --------------------
+[14.198 ms ; 14.198 ms) | @
+---------------------------------------------------
+
+RazorTagHelperParsingBenchmark.'Component Directive Parsing': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+Runtime = ; GC = 
+Mean = 925.100 μs, StdErr = 0.000 μs (0.00%), N = 1, StdDev = 0.000 μs
+Min = 925.100 μs, Q1 = 925.100 μs, Median = 925.100 μs, Q3 = 925.100 μs, Max = 925.100 μs
+IQR = 0.000 μs, LowerFence = 925.100 μs, UpperFence = 925.100 μs
+ConfidenceInterval = [NaN μs; NaN μs] (CI 99.9%), Margin = NaN μs (NaN% of Mean)
+Skewness = NaN, Kurtosis = NaN, MValue = 2
+-------------------- Histogram --------------------
+[925.100 μs ; 925.101 μs) | @
+---------------------------------------------------
+
+// * Summary *
+
+BenchmarkDotNet=v0.13.0, OS=Windows 10.0.19043.1165 (21H1/May2021Update)
+Intel Core i7-8700 CPU 3.20GHz (Coffee Lake), 1 CPU, 12 logical and 6 physical cores
+.NET SDK=6.0.100-rc.1.21415.3
+  [Host] : .NET Core 2.1.27 (CoreCLR 4.6.29916.01, CoreFX 4.6.29916.03), X64 RyuJIT DEBUG
+
+
+|
+|
+|
+|
+
+// * Legends *
+  1 μs : 1 Microsecond (0.000001 sec)
+
+// ***** BenchmarkRunner: End *****
+// ** Remained 2 benchmark(s) to run **
+Run time: 00:00:00 (0.46 sec), executed benchmarks: 2
+
+// Found 2 benchmarks:
+//   SyntaxTreeGenerationBenchmark.'Razor Design Time Syntax Tree Generation of MSN.com': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+//   SyntaxTreeGenerationBenchmark.'Razor Runtime Syntax Tree Generation of MSN.com': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+
+// **************************
+// Benchmark: SyntaxTreeGenerationBenchmark.'Razor Design Time Syntax Tree Generation of MSN.com': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+// *** Execute ***
+// Launch: 1 / 1
+
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 2.1.27 (CoreCLR 4.6.29916.01, CoreFX 4.6.29916.03), X64 RyuJIT DEBUG
+// GC=Concurrent Server
+// Job: Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+
+WorkloadActual   1: 1 op, 363227200.00 ns, 363.2272 ms/op
+
+WorkloadResult   1: 1 op, 363227200.00 ns, 363.2272 ms/op
+
+
+Mean = 363.227 ms, StdErr = 0.000 ms (0.00%), N = 1, StdDev = 0.000 ms
+Min = 363.227 ms, Q1 = 363.227 ms, Median = 363.227 ms, Q3 = 363.227 ms, Max = 363.227 ms
+IQR = 0.000 ms, LowerFence = 363.227 ms, UpperFence = 363.227 ms
+ConfidenceInterval = [NaN ms; NaN ms] (CI 99.9%), Margin = NaN ms (NaN% of Mean)
+Skewness = NaN, Kurtosis = NaN, MValue = 2
+
+// **************************
+// Benchmark: SyntaxTreeGenerationBenchmark.'Razor Runtime Syntax Tree Generation of MSN.com': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+// *** Execute ***
+// Launch: 1 / 1
+
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 2.1.27 (CoreCLR 4.6.29916.01, CoreFX 4.6.29916.03), X64 RyuJIT DEBUG
+// GC=Concurrent Server
+// Job: Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+
+WorkloadActual   1: 1 op, 309638800.00 ns, 309.6388 ms/op
+
+WorkloadResult   1: 1 op, 309638800.00 ns, 309.6388 ms/op
+
+
+Mean = 309.639 ms, StdErr = 0.000 ms (0.00%), N = 1, StdDev = 0.000 ms
+Min = 309.639 ms, Q1 = 309.639 ms, Median = 309.639 ms, Q3 = 309.639 ms, Max = 309.639 ms
+IQR = 0.000 ms, LowerFence = 309.639 ms, UpperFence = 309.639 ms
+ConfidenceInterval = [NaN ms; NaN ms] (CI 99.9%), Margin = NaN ms (NaN% of Mean)
+Skewness = NaN, Kurtosis = NaN, MValue = 2
+
+// ***** BenchmarkRunner: Finish  *****
+
+// * Export *
+
+// * Detailed results *
+SyntaxTreeGenerationBenchmark.'Razor Design Time Syntax Tree Generation of MSN.com': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+Runtime = ; GC = 
+Mean = 363.227 ms, StdErr = 0.000 ms (0.00%), N = 1, StdDev = 0.000 ms
+Min = 363.227 ms, Q1 = 363.227 ms, Median = 363.227 ms, Q3 = 363.227 ms, Max = 363.227 ms
+IQR = 0.000 ms, LowerFence = 363.227 ms, UpperFence = 363.227 ms
+ConfidenceInterval = [NaN ms; NaN ms] (CI 99.9%), Margin = NaN ms (NaN% of Mean)
+Skewness = NaN, Kurtosis = NaN, MValue = 2
+-------------------- Histogram --------------------
+[363.227 ms ; 363.227 ms) | @
+---------------------------------------------------
+
+SyntaxTreeGenerationBenchmark.'Razor Runtime Syntax Tree Generation of MSN.com': Dry(Toolchain=InProcessNoEmitToolchain, IterationCount=1, LaunchCount=1, RunStrategy=ColdStart, UnrollFactor=1, WarmupCount=1)
+Runtime = ; GC = 
+Mean = 309.639 ms, StdErr = 0.000 ms (0.00%), N = 1, StdDev = 0.000 ms
+Min = 309.639 ms, Q1 = 309.639 ms, Median = 309.639 ms, Q3 = 309.639 ms, Max = 309.639 ms
+IQR = 0.000 ms, LowerFence = 309.639 ms, UpperFence = 309.639 ms
+ConfidenceInterval = [NaN ms; NaN ms] (CI 99.9%), Margin = NaN ms (NaN% of Mean)
+Skewness = NaN, Kurtosis = NaN, MValue = 2
+-------------------- Histogram --------------------
+[309.639 ms ; 309.639 ms) | @
+---------------------------------------------------
+
+// * Summary *
+
+BenchmarkDotNet=v0.13.0, OS=Windows 10.0.19043.1165 (21H1/May2021Update)
+Intel Core i7-8700 CPU 3.20GHz (Coffee Lake), 1 CPU, 12 logical and 6 physical cores
+.NET SDK=6.0.100-rc.1.21415.3
+  [Host] : .NET Core 2.1.27 (CoreCLR 4.6.29916.01, CoreFX 4.6.29916.03), X64 RyuJIT DEBUG
+
+
+|
+|
+|
+|
+
+// * Legends *
+  1 ms : 1 Millisecond (0.001 sec)
+
+// ***** BenchmarkRunner: End *****
+// ** Remained 0 benchmark(s) to run **
+Run time: 00:00:00 (0.74 sec), executed benchmarks: 2
+
+Global total time: 00:00:04 (4.19 sec), executed benchmarks: 6
+// * Artifacts cleanup *

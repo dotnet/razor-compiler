@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "154516ca-d64c-4e16-ab8c-61464f3c473a": {
+      "ProjectGuid": "154516ca-d64c-4e16-ab8c-61464f3c473a",
+      "DisplayName": "Microsoft.AspNetCore.Razor.Language",
+      "ColorIndex": 0
+    },
+    "37a66977-1bb2-4c4f-88e4-0b43a714919b": {
+      "ProjectGuid": "37a66977-1bb2-4c4f-88e4-0b43a714919b",
+      "DisplayName": "Microsoft.AspNetCore.Razor.Language",
+      "ColorIndex": 1
+    },
+    "03cfe1ab-eb6f-4b0d-9a92-1aae7e6a82ce": {
+      "ProjectGuid": "03cfe1ab-eb6f-4b0d-9a92-1aae7e6a82ce",
+      "DisplayName": "Microsoft.AspNetCore.Razor.Language",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}

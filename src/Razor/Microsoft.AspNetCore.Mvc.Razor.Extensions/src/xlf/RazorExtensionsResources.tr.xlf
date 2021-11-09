@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en" target-language="tr" original="../RazorExtensionsResources.resx">
+    <body>
+      <trans-unit id="ArgumentCannotBeNullOrEmpty">
+        <source>Value cannot be null or empty.</source>
+        <target state="new">Value cannot be null or empty.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="InjectDirective_Description">
+        <source>Inject a service from the application's service container into a property.</source>
+        <target state="new">Inject a service from the application's service container into a property.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="InjectDirective_MemberToken_Description">
+        <source>The name of the property.</source>
+        <target state="new">The name of the property.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="InjectDirective_MemberToken_Name">
+        <source>PropertyName</source>
+        <target state="new">PropertyName</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="InjectDirective_TypeToken_Description">
+        <source>The type of the service to inject.</source>
+        <target state="new">The type of the service to inject.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="InjectDirective_TypeToken_Name">
+        <source>TypeName</source>
+        <target state="new">TypeName</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ModelDirective_Description">
+        <source>Specify the view or page model for the page.</source>
+        <target state="new">Specify the view or page model for the page.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ModelDirective_TypeToken_Description">
+        <source>The model type.</source>
+        <target state="new">The model type.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ModelDirective_TypeToken_Name">
+        <source>TypeName</source>
+        <target state="new">TypeName</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="MvcRazorCodeParser_CannotHaveModelAndInheritsKeyword">
+        <source>The 'inherits' keyword is not allowed when a '{0}' keyword is used.</source>
+        <target state="new">The 'inherits' keyword is not allowed when a '{0}' keyword is used.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="MvcRazorCodeParser_InjectDirectivePropertyNameRequired">
+        <source>A property name must be specified when using the '{0}' statement. Format for a '{0}' statement is '@{0} &lt;Type Name&gt; &lt;Property Name&gt;'.</source>
+        <target state="new">A property name must be specified when using the '{0}' statement. Format for a '{0}' statement is '@{0} &lt;Type Name&gt; &lt;Property Name&gt;'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="MvcRazorCodeParser_KeywordMustBeFollowedByTypeName">
+        <source>The '{0}' keyword must be followed by a type name on the same line.</source>
+        <target state="new">The '{0}' keyword must be followed by a type name on the same line.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="MvcRazorCodeParser_OnlyOneModelStatementIsAllowed">
+        <source>Only one '{0}' statement is allowed in a file.</source>
+        <target state="new">Only one '{0}' statement is allowed in a file.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="MvcRazorParser_InvalidPropertyType">
+        <source>Invalid tag helper property '{0}.{1}'. Dictionary values must not be of type '{2}'.</source>
+        <target state="new">Invalid tag helper property '{0}.{1}'. Dictionary values must not be of type '{2}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PageDirectiveCannotBeImported">
+        <source>The '@{0}' directive specified in {1} file will not be imported. The directive must appear at the top of each Razor cshtml file.</source>
+        <target state="new">The '@{0}' directive specified in {1} file will not be imported. The directive must appear at the top of each Razor cshtml file.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PageDirectiveMustExistAtTheTopOfFile">
+        <source>The '@{0}' directive must precede all other elements defined in a Razor file.</source>
+        <target state="new">The '@{0}' directive must precede all other elements defined in a Razor file.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PageDirective_Description">
+        <source>Mark the page as a Razor Page.</source>
+        <target state="new">Mark the page as a Razor Page.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PageDirective_RouteToken_Description">
+        <source>An optional route template for the page.</source>
+        <target state="new">An optional route template for the page.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="PageDirective_RouteToken_Name">
+        <source>RouteTemplate</source>
+        <target state="new">RouteTemplate</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ViewComponent_AmbiguousMethods">
+        <source>View component '{0}' must have exactly one public method named '{1}' or '{2}'.</source>
+        <target state="new">View component '{0}' must have exactly one public method named '{1}' or '{2}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ViewComponent_AsyncMethod_ShouldReturnTask">
+        <source>Method '{0}' of view component '{1}' should be declared to return {2}&amp;lt;T&amp;gt;.</source>
+        <target state="new">Method '{0}' of view component '{1}' should be declared to return {2}&amp;lt;T&amp;gt;.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ViewComponent_CannotFindMethod">
+        <source>Could not find an '{0}' or '{1}' method for the view component '{2}'.</source>
+        <target state="new">Could not find an '{0}' or '{1}' method for the view component '{2}'.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ViewComponent_SyncMethod_CannotReturnTask">
+        <source>Method '{0}' of view component '{1}' cannot return a {2}.</source>
+        <target state="new">Method '{0}' of view component '{1}' cannot return a {2}.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ViewComponent_SyncMethod_ShouldReturnValue">
+        <source>Method '{0}' of view component '{1}' should be declared to return a value.</source>
+        <target state="new">Method '{0}' of view component '{1}' should be declared to return a value.</target>
+        <note />
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
