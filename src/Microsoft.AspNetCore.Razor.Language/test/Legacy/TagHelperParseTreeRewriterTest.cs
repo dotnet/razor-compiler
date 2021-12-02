@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Razor.Language.Components;
 using Microsoft.AspNetCore.Razor.Language.Syntax;
 using Xunit;
 
@@ -149,6 +150,27 @@ public class TagHelperParseTreeRewriterTest : TagHelperRewritingTestBase
                 .TagMatchingRuleDescriptor(rule => rule.RequireTagName("p"))
                 .Build(),
     };
+
+    public static TagHelperDescriptor[] CatchAllAttribute_Descriptors = new TagHelperDescriptor[]
+    {
+        TagHelperDescriptorBuilder.Create("InputTagHelper1", "SomeAssembly")
+            .TagMatchingRuleDescriptor(rule => rule
+                .RequireTagName("*")
+                .RequireAttributeDescriptor(b =>
+                {
+                    b.Name = "onclick";
+                    b.Metadata.Add(ComponentMetadata.Common.DirectiveAttribute, bool.TrueString);
+                }))
+            .AddMetadata(ComponentMetadata.SpecialKindKey, ComponentMetadata.EventHandler.EventArgsType)
+            .Build(),
+    };
+
+    [Fact]
+    public void UnderstandsInvalidHtml()
+    {
+        var document = @"<a onclick=""() => {}""><a/></a><dingo>Miscolored!</dingo>";
+        EvaluateData(CatchAllAttribute_Descriptors, document);
+    }
 
     [Fact]
     public void UnderstandsNestedVoidSelfClosingRequiredParent1()
