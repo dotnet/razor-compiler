@@ -1,1 +1,0 @@
-(0,0): Error RZ3016: Invalid tag helper required directive attribute 'onclick'. The directive attribute 'onclick' should start with a '@' character.

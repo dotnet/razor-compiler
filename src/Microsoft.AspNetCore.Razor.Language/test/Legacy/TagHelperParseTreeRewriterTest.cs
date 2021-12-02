@@ -159,7 +159,6 @@ public class TagHelperParseTreeRewriterTest : TagHelperRewritingTestBase
                 .RequireAttributeDescriptor(b =>
                 {
                     b.Name = "onclick";
-                    b.Metadata.Add(ComponentMetadata.Common.DirectiveAttribute, bool.TrueString);
                 }))
             .AddMetadata(ComponentMetadata.SpecialKindKey, ComponentMetadata.EventHandler.EventArgsType)
             .Build(),
