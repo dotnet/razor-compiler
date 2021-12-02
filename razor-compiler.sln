@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.AspNetCore.Mvc.Ra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.Test", "src\Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X\test\Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.Test.csproj", "{C3E9A185-F336-4E59-B147-D30ABB88B1B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = " Microsoft.AspNetCore.Razor.SourceGenerator.Tooling.Internal", "src\Microsoft.AspNetCore.Razor.SourceGenerator.Tooling.Internal\Microsoft.AspNetCore.Razor.SourceGenerator.Tooling.Internal.csproj", "{AFAD0D17-C255-4520-95DA-57CEAC8524DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.AspNetCore.Razor.SourceGenerator.Tooling.Internal", "src\Microsoft.AspNetCore.Razor.SourceGenerator.Tooling.Internal\Microsoft.AspNetCore.Razor.SourceGenerator.Tooling.Internal.csproj", "{AFAD0D17-C255-4520-95DA-57CEAC8524DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microsoft.AspNetCore.Razor.Language", "Microsoft.AspNetCore.Razor.Language", "{4F2412FD-645F-4AA0-B6AE-4F2E792124F5}"
 EndProject
