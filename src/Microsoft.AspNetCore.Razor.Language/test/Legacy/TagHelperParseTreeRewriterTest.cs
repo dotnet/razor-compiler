@@ -167,7 +167,7 @@ public class TagHelperParseTreeRewriterTest : TagHelperRewritingTestBase
     [Fact]
     public void UnderstandsInvalidHtml()
     {
-        var document = @"<a onclick=""() => {}""><a/></a><dingo>Miscolored!</dingo>";
+        var document = @"<a onclick=""() => {}""><a/></a><strong>Miscolored!</strong>";
         EvaluateData(CatchAllAttribute_Descriptors, document);
     }
 

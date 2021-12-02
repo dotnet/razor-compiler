@@ -1,5 +1,5 @@
-RazorDocument - [0..56)::56 - [<a onclick="() => {}"><a/></a><dingo>Miscolored!</dingo>]
-    MarkupBlock - [0..56)::56
+RazorDocument - [0..58)::58 - [<a onclick="() => {}"><a/></a><strong>Miscolored!</strong>]
+    MarkupBlock - [0..58)::58
         MarkupTagHelperElement - [0..30)::30 - a[StartTagAndEndTag] - InputTagHelper1
             MarkupTagHelperStartTag - [0..22)::22 - [<a onclick="() => {}">] - Gen<Markup> - SpanEditHandler;Accepts:Any
                 OpenAngle;[<];
@@ -41,16 +41,16 @@ RazorDocument - [0..56)::56 - [<a onclick="() => {}"><a/></a><dingo>Miscolored!<
                 ForwardSlash;[/];
                 Text;[a];
                 CloseAngle;[>];
-        MarkupElement - [30..56)::26
-            MarkupStartTag - [30..37)::7 - [<dingo>] - Gen<Markup> - SpanEditHandler;Accepts:Any
+        MarkupElement - [30..58)::28
+            MarkupStartTag - [30..38)::8 - [<strong>] - Gen<Markup> - SpanEditHandler;Accepts:Any
                 OpenAngle;[<];
-                Text;[dingo];
+                Text;[strong];
                 CloseAngle;[>];
-            MarkupTextLiteral - [37..48)::11 - [Miscolored!] - Gen<Markup> - SpanEditHandler;Accepts:Any
+            MarkupTextLiteral - [38..49)::11 - [Miscolored!] - Gen<Markup> - SpanEditHandler;Accepts:Any
                 Text;[Miscolored];
                 Bang;[!];
-            MarkupEndTag - [48..56)::8 - [</dingo>] - Gen<Markup> - SpanEditHandler;Accepts:Any
+            MarkupEndTag - [49..58)::9 - [</strong>] - Gen<Markup> - SpanEditHandler;Accepts:Any
                 OpenAngle;[<];
                 ForwardSlash;[/];
-                Text;[dingo];
+                Text;[strong];
                 CloseAngle;[>];
