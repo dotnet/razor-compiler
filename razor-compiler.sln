@@ -61,6 +61,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.AspNetCore.Razor.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorSyntaxGenerator", "src\tools\RazorSyntaxGenerator\RazorSyntaxGenerator.csproj", "{0E92C770-1FC3-4A6D-8871-15795AADA7BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.AspNetCore.Mvc.Razor.Extensions.Tooling.Internal", "src\tools\Microsoft.AspNetCore.Mvc.Razor.Extensions.Tooling.Internal\Microsoft.AspNetCore.Mvc.Razor.Extensions.Tooling.Internal.csproj", "{57B492BA-2F4F-4C44-BC68-DDBA79B91B7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.CodeAnalysis.Razor.Tooling.Internal", "src\tools\Microsoft.CodeAnalysis.Razor.Tooling.Internal\Microsoft.CodeAnalysis.Razor.Tooling.Internal.csproj", "{436DE223-E4A9-45C1-A8AA-8D1237A29ED9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -150,6 +154,14 @@ Global
 		{0E92C770-1FC3-4A6D-8871-15795AADA7BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E92C770-1FC3-4A6D-8871-15795AADA7BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E92C770-1FC3-4A6D-8871-15795AADA7BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57B492BA-2F4F-4C44-BC68-DDBA79B91B7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57B492BA-2F4F-4C44-BC68-DDBA79B91B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57B492BA-2F4F-4C44-BC68-DDBA79B91B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57B492BA-2F4F-4C44-BC68-DDBA79B91B7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{436DE223-E4A9-45C1-A8AA-8D1237A29ED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{436DE223-E4A9-45C1-A8AA-8D1237A29ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{436DE223-E4A9-45C1-A8AA-8D1237A29ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{436DE223-E4A9-45C1-A8AA-8D1237A29ED9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F5AA6C10-5A66-47BE-898D-F3F75A69EEAE} = {CD387C1D-67B3-4F16-97B2-91DF101E3648}
@@ -180,5 +192,7 @@ Global
 		{82951915-80D6-4F7B-A1DE-A5EE7D828C76} = {CD387C1D-67B3-4F16-97B2-91DF101E3648}
 		{231E592E-58A6-4E98-85ED-EB86AEC44061} = {82951915-80D6-4F7B-A1DE-A5EE7D828C76}
 		{0E92C770-1FC3-4A6D-8871-15795AADA7BC} = {82951915-80D6-4F7B-A1DE-A5EE7D828C76}
+		{57B492BA-2F4F-4C44-BC68-DDBA79B91B7B} = {82951915-80D6-4F7B-A1DE-A5EE7D828C76}
+		{436DE223-E4A9-45C1-A8AA-8D1237A29ED9} = {82951915-80D6-4F7B-A1DE-A5EE7D828C76}
 	EndGlobalSection
 EndGlobal
