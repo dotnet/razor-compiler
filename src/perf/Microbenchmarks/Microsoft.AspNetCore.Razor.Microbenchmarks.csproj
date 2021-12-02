@@ -6,7 +6,6 @@
     <ServerGarbageCollection>true</ServerGarbageCollection>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ExcludeFromSourceBuild>true</ExcludeFromSourceBuild>
-    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
