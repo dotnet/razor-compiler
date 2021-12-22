@@ -7,4 +7,8 @@
     <ExcludeFromSourceBuild>false</ExcludeFromSourceBuild>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MessagePack.Annotations" />
+  </ItemGroup>
+
 </Project>

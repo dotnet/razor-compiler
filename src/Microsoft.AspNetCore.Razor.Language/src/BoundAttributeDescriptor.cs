@@ -4,12 +4,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MessagePack;
 
 namespace Microsoft.AspNetCore.Razor.Language;
 
 /// <summary>
 /// A metadata class describing a tag helper attribute.
 /// </summary>
+[MessagePackObject]
+[Union(0, typeof(DefaultBoundAttributeDescriptor))]
 public abstract class BoundAttributeDescriptor : IEquatable<BoundAttributeDescriptor>
 {
     protected BoundAttributeDescriptor(string kind)
@@ -17,42 +20,61 @@ public abstract class BoundAttributeDescriptor : IEquatable<BoundAttributeDescri
         Kind = kind;
     }
 
+    [Key(0)]
     public string Kind { get; }
 
-    public bool IsIndexerStringProperty { get; protected set; }
-
-    public bool IsIndexerBooleanProperty { get; protected set; }
-
-    public bool IsEnum { get; protected set; }
-
-    public bool IsStringProperty { get; protected set; }
-
-    public bool IsBooleanProperty { get; protected set; }
-
-    internal bool IsEditorRequired { get; set; }
-
+    [Key(1)]
     public string Name { get; protected set; }
 
-    public string IndexerNamePrefix { get; protected set; }
-
+    [Key(2)]
     public string TypeName { get; protected set; }
 
-    public string IndexerTypeName { get; protected set; }
+    [Key(3)]
+    public bool IsEnum { get; protected set; }
 
+    [Key(4)]
     public bool HasIndexer { get; protected set; }
 
+    [Key(5)]
+    public string IndexerNamePrefix { get; protected set; }
+
+    [Key(6)]
+    public string IndexerTypeName { get; protected set; }
+
+    [Key(7)]
     public string Documentation { get; protected set; }
 
+    [Key(8)]
     public string DisplayName { get; protected set; }
 
+    [Key(9)]
     public bool CaseSensitive { get; protected set; }
 
-    public IReadOnlyList<RazorDiagnostic> Diagnostics { get; protected set; }
-
-    public IReadOnlyDictionary<string, string> Metadata { get; protected set; }
-
+    [Key(10)]
     public virtual IReadOnlyList<BoundAttributeParameterDescriptor> BoundAttributeParameters { get; protected set; }
 
+    [Key(11)]
+    public IReadOnlyDictionary<string, string> Metadata { get; protected set; }
+
+    [Key(12)]
+    public IReadOnlyList<RazorDiagnostic> Diagnostics { get; protected set; }
+
+    [IgnoreMember]
+    public bool IsIndexerStringProperty { get; protected set; }
+
+    [IgnoreMember]
+    public bool IsIndexerBooleanProperty { get; protected set; }
+
+    [IgnoreMember]
+    public bool IsStringProperty { get; protected set; }
+
+    [IgnoreMember]
+    public bool IsBooleanProperty { get; protected set; }
+
+    [IgnoreMember]
+    internal bool IsEditorRequired { get; set; }
+
+    [IgnoreMember]
     public bool HasErrors
     {
         get

@@ -1,12 +1,15 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
+using MessagePack;
 
 namespace Microsoft.AspNetCore.Razor.Language;
 
-internal class DefaultRequiredAttributeDescriptor : RequiredAttributeDescriptor
+[MessagePackObject]
+public class DefaultRequiredAttributeDescriptor : RequiredAttributeDescriptor
 {
+    [SerializationConstructor]
     public DefaultRequiredAttributeDescriptor(
         string name,
         NameComparisonMode nameComparison,
@@ -14,8 +17,8 @@ internal class DefaultRequiredAttributeDescriptor : RequiredAttributeDescriptor
         string value,
         ValueComparisonMode valueComparison,
         string displayName,
-        RazorDiagnostic[] diagnostics,
-        Dictionary<string, string> metadata)
+        IReadOnlyDictionary<string, string> metadata,
+        IReadOnlyList<RazorDiagnostic> diagnostics)
     {
         Name = name;
         NameComparison = nameComparison;

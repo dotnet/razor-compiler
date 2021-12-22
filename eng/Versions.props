@@ -36,6 +36,7 @@
   -->
   <PropertyGroup Label="Manual">
     <BenchmarkDotNetVersion>0.13.0</BenchmarkDotNetVersion>
+    <MessagePackAnnotationsVersion>2.3.85</MessagePackAnnotationsVersion>
     <MicrosoftCodeAnalysisCSharpVersion>4.0.0-4.final</MicrosoftCodeAnalysisCSharpVersion>
     <MicrosoftExtensionsDependencyModelVersion>6.0.0</MicrosoftExtensionsDependencyModelVersion>
     <SystemDiagnosticsDiagnosticSourceVersion>6.0.0</SystemDiagnosticsDiagnosticSourceVersion>

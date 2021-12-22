@@ -1,12 +1,15 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MessagePack;
 
 namespace Microsoft.AspNetCore.Razor.Language;
 
+[MessagePackObject]
+[Union(0, typeof(DefaultBoundAttributeParameterDescriptor))]
 public abstract class BoundAttributeParameterDescriptor : IEquatable<BoundAttributeParameterDescriptor>
 {
     protected BoundAttributeParameterDescriptor(string kind)
@@ -14,28 +17,40 @@ public abstract class BoundAttributeParameterDescriptor : IEquatable<BoundAttrib
         Kind = kind;
     }
 
+    [Key(0)]
     public string Kind { get; }
 
-    public bool IsEnum { get; protected set; }
-
-    public bool IsStringProperty { get; protected set; }
-
-    public bool IsBooleanProperty { get; protected set; }
-
+    [Key(1)]
     public string Name { get; protected set; }
 
+    [Key(2)]
     public string TypeName { get; protected set; }
 
+    [Key(3)]
+    public bool IsEnum { get; protected set; }
+
+    [Key(4)]
     public string Documentation { get; protected set; }
 
+    [Key(5)]
     public string DisplayName { get; protected set; }
 
+    [Key(6)]
     public bool CaseSensitive { get; protected set; }
 
-    public IReadOnlyList<RazorDiagnostic> Diagnostics { get; protected set; }
-
+    [Key(7)]
     public IReadOnlyDictionary<string, string> Metadata { get; protected set; }
 
+    [Key(8)]
+    public IReadOnlyList<RazorDiagnostic> Diagnostics { get; protected set; }
+
+    [IgnoreMember]
+    public bool IsStringProperty { get; protected set; }
+
+    [IgnoreMember]
+    public bool IsBooleanProperty { get; protected set; }
+
+    [IgnoreMember]
     public bool HasErrors
     {
         get

@@ -6,7 +6,6 @@ using MessagePack;
 
 namespace Microsoft.AspNetCore.Razor.Language;
 
-[MessagePackObject]
 public class DefaultTagHelperDescriptor : TagHelperDescriptor
 {
     [SerializationConstructor]
@@ -18,11 +17,11 @@ public class DefaultTagHelperDescriptor : TagHelperDescriptor
         string documentation,
         string tagOutputHint,
         bool caseSensitive,
-        IReadOnlyList<TagMatchingRuleDescriptor> tagMatchingRules,
-        IReadOnlyList<BoundAttributeDescriptor> attributeDescriptors,
-        IReadOnlyList<AllowedChildTagDescriptor> allowedChildTags,
-        IReadOnlyDictionary<string, string> metadata,
-        IReadOnlyList<RazorDiagnostic> diagnostics)
+        TagMatchingRuleDescriptor[] tagMatchingRules,
+        BoundAttributeDescriptor[] attributeDescriptors,
+        AllowedChildTagDescriptor[] allowedChildTags,
+        Dictionary<string, string> metadata,
+        RazorDiagnostic[] diagnostics)
         : base(kind)
     {
         Name = name;

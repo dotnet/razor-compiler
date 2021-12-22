@@ -1,19 +1,25 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
+using MessagePack;
 
 namespace Microsoft.AspNetCore.Razor.Language;
 
+[MessagePackObject]
+[Union(0, typeof(DefaultRazorDiagnostic))]
 public abstract class RazorDiagnostic : IEquatable<RazorDiagnostic>, IFormattable
 {
     internal static readonly RazorDiagnostic[] EmptyArray = Array.Empty<RazorDiagnostic>();
     internal static readonly object[] EmptyArgs = Array.Empty<object>();
 
+    [Key(0)]
     public abstract string Id { get; }
 
+    [Key(1)]
     public abstract RazorDiagnosticSeverity Severity { get; }
 
+    [Key(2)]
     public abstract SourceSpan Span { get; }
 
     public abstract string GetMessage(IFormatProvider formatProvider);

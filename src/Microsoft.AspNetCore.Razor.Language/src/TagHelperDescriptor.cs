@@ -4,9 +4,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MessagePack;
 
 namespace Microsoft.AspNetCore.Razor.Language;
 
+[MessagePackObject]
+[Union(0, typeof(DefaultTagHelperDescriptor))]
 public abstract class TagHelperDescriptor : IEquatable<TagHelperDescriptor>
 {
     private IEnumerable<RazorDiagnostic> _allDiagnostics;
@@ -17,29 +20,41 @@ public abstract class TagHelperDescriptor : IEquatable<TagHelperDescriptor>
         Kind = kind;
     }
 
+    [Key(0)]
     public string Kind { get; }
 
+    [Key(1)]
     public string Name { get; protected set; }
 
-    public IReadOnlyList<TagMatchingRuleDescriptor> TagMatchingRules { get; protected set; }
-
+    [Key(2)]
     public string AssemblyName { get; protected set; }
 
-    public IReadOnlyList<BoundAttributeDescriptor> BoundAttributes { get; protected set; }
-
-    public IReadOnlyList<AllowedChildTagDescriptor> AllowedChildTags { get; protected set; }
-
-    public string Documentation { get; protected set; }
-
+    [Key(3)]
     public string DisplayName { get; protected set; }
 
+    [Key(4)]
+    public string Documentation { get; protected set; }
+
+    [Key(5)]
     public string TagOutputHint { get; protected set; }
 
+    [Key(6)]
     public bool CaseSensitive { get; protected set; }
 
-    public IReadOnlyList<RazorDiagnostic> Diagnostics { get; protected set; }
+    [Key(7)]
+    public IReadOnlyList<TagMatchingRuleDescriptor> TagMatchingRules { get; protected set; }
 
+    [Key(8)]
+    public IReadOnlyList<BoundAttributeDescriptor> BoundAttributes { get; protected set; }
+
+    [Key(9)]
+    public IReadOnlyList<AllowedChildTagDescriptor> AllowedChildTags { get; protected set; }
+
+    [Key(10)]
     public IReadOnlyDictionary<string, string> Metadata { get; protected set; }
+
+    [Key(11)]
+    public IReadOnlyList<RazorDiagnostic> Diagnostics { get; protected set; }
 
     // Hoisted / cached metadata
     private int? _hashCode;
@@ -55,6 +70,7 @@ public abstract class TagHelperDescriptor : IEquatable<TagHelperDescriptor>
         }
     }
 
+    [IgnoreMember]
     public bool HasErrors
     {
         get

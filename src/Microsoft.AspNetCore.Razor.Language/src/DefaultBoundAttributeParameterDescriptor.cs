@@ -1,12 +1,15 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections.Generic;
+using MessagePack;
 
 namespace Microsoft.AspNetCore.Razor.Language;
 
-internal class DefaultBoundAttributeParameterDescriptor : BoundAttributeParameterDescriptor
+[MessagePackObject]
+public class DefaultBoundAttributeParameterDescriptor : BoundAttributeParameterDescriptor
 {
+    [SerializationConstructor]
     public DefaultBoundAttributeParameterDescriptor(
         string kind,
         string name,
@@ -15,8 +18,8 @@ internal class DefaultBoundAttributeParameterDescriptor : BoundAttributeParamete
         string documentation,
         string displayName,
         bool caseSensitive,
-        Dictionary<string, string> metadata,
-        RazorDiagnostic[] diagnostics)
+        IReadOnlyDictionary<string, string> metadata,
+        IReadOnlyList<RazorDiagnostic> diagnostics)
         : base(kind)
     {
         Name = name;

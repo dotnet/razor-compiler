@@ -60,8 +60,8 @@ internal class DefaultRequiredAttributeDescriptorBuilder : RequiredAttributeDesc
             Value,
             ValueComparisonMode,
             displayName,
-            diagnostics?.ToArray() ?? Array.Empty<RazorDiagnostic>(),
-            new Dictionary<string, string>(Metadata));
+            new Dictionary<string, string>(Metadata),
+            diagnostics?.ToArray() ?? Array.Empty<RazorDiagnostic>());
 
         return rule;
     }

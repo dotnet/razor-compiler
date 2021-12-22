@@ -1,30 +1,42 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MessagePack;
 
 namespace Microsoft.AspNetCore.Razor.Language;
 
+[MessagePackObject]
+[Union(0, typeof(DefaultRequiredAttributeDescriptor))]
 public abstract class RequiredAttributeDescriptor : IEquatable<RequiredAttributeDescriptor>
 {
+    [Key(0)]
     public string Name { get; protected set; }
 
+    [Key(1)]
     public NameComparisonMode NameComparison { get; protected set; }
 
+    [Key(2)]
     public bool CaseSensitive { get; protected set; }
 
+    [Key(3)]
     public string Value { get; protected set; }
 
+    [Key(4)]
     public ValueComparisonMode ValueComparison { get; protected set; }
 
+    [Key(5)]
     public string DisplayName { get; protected set; }
 
-    public IReadOnlyList<RazorDiagnostic> Diagnostics { get; protected set; }
-
+    [Key(6)]
     public IReadOnlyDictionary<string, string> Metadata { get; protected set; }
 
+    [Key(7)]
+    public IReadOnlyList<RazorDiagnostic> Diagnostics { get; protected set; }
+
+    [IgnoreMember]
     public bool HasErrors
     {
         get

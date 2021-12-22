@@ -1,17 +1,22 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
+
+using System.Collections.Generic;
+using MessagePack;
 
 namespace Microsoft.AspNetCore.Razor.Language;
 
-internal class DefaultTagMatchingRuleDescriptor : TagMatchingRuleDescriptor
+[MessagePackObject]
+public class DefaultTagMatchingRuleDescriptor : TagMatchingRuleDescriptor
 {
+    [SerializationConstructor]
     public DefaultTagMatchingRuleDescriptor(
         string tagName,
         string parentTag,
         TagStructure tagStructure,
         bool caseSensitive,
-        RequiredAttributeDescriptor[] attributes,
-        RazorDiagnostic[] diagnostics)
+        IReadOnlyList<RequiredAttributeDescriptor> attributes,
+        IReadOnlyList<RazorDiagnostic> diagnostics)
     {
         TagName = tagName;
         ParentTag = parentTag;
