@@ -1,0 +1,51 @@
+RazorDocument - [0..64)::64 - [@typeparam TItem;LFLF<ul>LF</ul>LFLF@code {LF    // somethingLF}]
+    MarkupBlock - [0..64)::64
+        MarkupTextLiteral - [0..0)::0 - [] - Gen<Markup> - SpanEditHandler;Accepts:Any
+            Marker;[];
+        CSharpCodeBlock - [0..10)::10
+            CSharpImplicitExpression - [0..10)::10
+                CSharpTransition - [0..1)::1 - Gen<None> - SpanEditHandler;Accepts:None
+                    Transition;[@];
+                CSharpImplicitExpressionBody - [1..10)::9
+                    CSharpCodeBlock - [1..10)::9
+                        CSharpExpressionLiteral - [1..10)::9 - [typeparam] - Gen<Expr> - ImplicitExpressionEditHandler;Accepts:NonWhitespace;ImplicitExpression[RTD];K14
+                            Identifier;[typeparam];
+        MarkupTextLiteral - [10..21)::11 - [ TItem;LFLF] - Gen<Markup> - SpanEditHandler;Accepts:Any
+            Whitespace;[ ];
+            Text;[TItem;];
+            NewLine;[LF];
+            NewLine;[LF];
+        MarkupElement - [21..32)::11
+            MarkupStartTag - [21..25)::4 - [<ul>] - Gen<Markup> - SpanEditHandler;Accepts:Any
+                OpenAngle;[<];
+                Text;[ul];
+                CloseAngle;[>];
+            MarkupTextLiteral - [25..27)::2 - [LF] - Gen<Markup> - SpanEditHandler;Accepts:Any
+                NewLine;[LF];
+            MarkupEndTag - [27..32)::5 - [</ul>] - Gen<Markup> - SpanEditHandler;Accepts:Any
+                OpenAngle;[<];
+                ForwardSlash;[/];
+                Text;[ul];
+                CloseAngle;[>];
+        MarkupTextLiteral - [32..36)::4 - [LFLF] - Gen<Markup> - SpanEditHandler;Accepts:Any
+            NewLine;[LF];
+            NewLine;[LF];
+        CSharpCodeBlock - [36..41)::5
+            CSharpImplicitExpression - [36..41)::5
+                CSharpTransition - [36..37)::1 - Gen<None> - SpanEditHandler;Accepts:None
+                    Transition;[@];
+                CSharpImplicitExpressionBody - [37..41)::4
+                    CSharpCodeBlock - [37..41)::4
+                        CSharpExpressionLiteral - [37..41)::4 - [code] - Gen<Expr> - ImplicitExpressionEditHandler;Accepts:NonWhitespace;ImplicitExpression[RTD];K14
+                            Identifier;[code];
+        MarkupTextLiteral - [41..64)::23 - [ {LF    // somethingLF}] - Gen<Markup> - SpanEditHandler;Accepts:Any
+            Whitespace;[ ];
+            Text;[{];
+            NewLine;[LF];
+            Whitespace;[    ];
+            ForwardSlash;[/];
+            ForwardSlash;[/];
+            Whitespace;[ ];
+            Text;[something];
+            NewLine;[LF];
+            Text;[}];

@@ -2,7 +2,10 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
+
+using Microsoft.AspNetCore.Razor.Language.Components;
 using Microsoft.AspNetCore.Razor.Language.Extensions;
+
 using Xunit;
 
 namespace Microsoft.AspNetCore.Razor.Language.Legacy;
@@ -773,6 +776,20 @@ public class RazorDirectivesTest : ParserTestBase
         ParseDocumentTest(
             "@functions { }",
             new[] { FunctionsDirective.Directive, });
+    }
+
+    [Fact]
+    public void TypeParam()
+    {
+        ParseDocumentTest(@$"@typeparam TItem;
+
+<ul>
+</ul>
+
+@code {{
+    // something
+}}",
+            new[] { ComponentConstrainedTypeParamDirective.Directive });
     }
 
     [Fact]
