@@ -112,7 +112,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 if (type != null)
                 {
                     context.CodeWriter.Write("(");
-                    context.CodeWriter.Write(type);
+                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(type));
                     context.CodeWriter.Write(")");
                 }
 
@@ -402,7 +402,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 // for any code that the user types.
                 context.RenderNode(new ComponentChildContentIntermediateNode()
                 {
-                    TypeName = ComponentsApi.RenderFragment.FullTypeName,
+                    TypeName = $"global::{ComponentsApi.RenderFragment.FullTypeName}",
                 });
             }
 
@@ -428,6 +428,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
             if (node.Component.SuppliesCascadingGenericParameters())
             {
                 typeInferenceCaptureScope = context.CodeWriter.BuildScope();
+                context.CodeWriter.Write("global::");
                 context.CodeWriter.Write(node.TypeInferenceNode.FullTypeName);
                 context.CodeWriter.Write(".");
                 context.CodeWriter.Write(node.TypeInferenceNode.MethodName);
@@ -461,6 +462,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
             //
             // __Blazor.MyComponent.TypeInference.CreateMyComponent_0(__builder, 0, 1, ..., 2, ..., 3, ....);
 
+            context.CodeWriter.Write("global::");
             context.CodeWriter.Write(node.TypeInferenceNode.FullTypeName);
             context.CodeWriter.Write(".");
             context.CodeWriter.Write(node.TypeInferenceNode.MethodName);
@@ -502,9 +504,20 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
             context.CodeWriter.Write(DesignTimeVariable);
             context.CodeWriter.Write(" = ");
             context.CodeWriter.Write("typeof(");
-            context.CodeWriter.Write(node.TagName);
-            if (node.Component.IsGenericTypedComponent())
+            context.CodeWriter.Write("global::");
+            if (!node.Component.IsGenericTypedComponent())
             {
+                context.CodeWriter.Write(node.Component.Name);
+            }
+            else
+            {
+                if (!node.TagName.Contains("."))
+                {
+                    // The tag is not fully qualified
+                    context.CodeWriter.Write(node.Component.ParsedTypeInfo.Value.Namespace);
+                    context.CodeWriter.Write(".");
+                }
+                context.CodeWriter.Write(node.TagName);
                 context.CodeWriter.Write("<");
                 var typeArgumentCount = node.Component.GetTypeParameters().Count();
                 for (var i = 1; i < typeArgumentCount; i++)
@@ -621,6 +634,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 if (canTypeCheck)
                 {
                     context.CodeWriter.Write("new ");
+                    context.CodeWriter.Write("global::");
                     context.CodeWriter.Write(node.TypeName);
                     context.CodeWriter.Write("(");
                 }
@@ -656,6 +670,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 // Microsoft.AspNetCore.Components.EventCallback.Factory.Create(this, ...) OR
                 // Microsoft.AspNetCore.Components.EventCallback.Factory.Create<T>(this, ...)
 
+                context.CodeWriter.Write("global::");
                 context.CodeWriter.Write(ComponentsApi.EventCallback.FactoryAccessor);
                 context.CodeWriter.Write(".");
                 context.CodeWriter.Write(ComponentsApi.EventCallbackFactory.CreateMethod);
@@ -936,7 +951,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
             // just want sufficiently similar code that any unknown-identifier or type
             // errors will be equivalent
             var captureTypeName = node.IsComponentCapture
-                ? node.ComponentCaptureTypeName
+                ? TypeNameHelper.GloballyQualifiedTypeName(node.ComponentCaptureTypeName)
                 : ComponentsApi.ElementReference.FullTypeName;
             WriteCSharpCode(context, new CSharpCodeIntermediateNode
             {

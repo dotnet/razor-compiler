@@ -21,6 +21,7 @@ internal class TypeNameHelper
         "sbyte",
         "float",
         "object",
+        "string",
         "ushort",
         "double",
         "decimal"
