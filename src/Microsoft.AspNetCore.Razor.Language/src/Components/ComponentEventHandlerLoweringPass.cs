@@ -174,7 +174,7 @@ internal class ComponentEventHandlerLoweringPass : ComponentIntermediateNodePass
             {
                 new IntermediateToken()
                 {
-                    Content = $"{ComponentsApi.EventCallback.FactoryAccessor}.{ComponentsApi.EventCallbackFactory.CreateMethod}<{eventArgsType}>(this, ",
+                    Content = $"{ComponentsApi.EventCallback.FactoryAccessor}.{ComponentsApi.EventCallbackFactory.CreateMethod}<{TypeNameHelper.GloballyQualifiedTypeName(eventArgsType)}>(this, ",
                     Kind = TokenKind.CSharp
                 },
                 new IntermediateToken()

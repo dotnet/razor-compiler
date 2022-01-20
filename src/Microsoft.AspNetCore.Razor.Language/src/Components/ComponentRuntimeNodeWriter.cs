@@ -364,7 +364,7 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
             context.CodeWriter.Write(".");
             context.CodeWriter.Write(ComponentsApi.RenderTreeBuilder.OpenComponent);
             context.CodeWriter.Write("<");
-            context.CodeWriter.Write(node.TypeName);
+            context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeName));
             context.CodeWriter.Write(">(");
             context.CodeWriter.Write((_sourceSequence++).ToString(CultureInfo.InvariantCulture));
             context.CodeWriter.Write(");");
@@ -420,7 +420,7 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
             if (node.Component.SuppliesCascadingGenericParameters())
             {
                 typeInferenceCaptureScope = context.CodeWriter.BuildScope();
-                context.CodeWriter.Write(node.TypeInferenceNode.FullTypeName);
+                context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeInferenceNode.FullTypeName));
                 context.CodeWriter.Write(".");
                 context.CodeWriter.Write(node.TypeInferenceNode.MethodName);
                 context.CodeWriter.Write("_CaptureParameters(");
@@ -453,7 +453,7 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
             //
             // __Blazor.MyComponent.TypeInference.CreateMyComponent_0(builder, 0, 1, ..., 2, ..., 3, ...);
 
-            context.CodeWriter.Write(node.TypeInferenceNode.FullTypeName);
+            context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeInferenceNode.FullTypeName));
             context.CodeWriter.Write(".");
             context.CodeWriter.Write(node.TypeInferenceNode.MethodName);
             context.CodeWriter.Write("(");
@@ -608,7 +608,7 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
                 {
                     context.CodeWriter.Write(ComponentsApi.RuntimeHelpers.TypeCheck);
                     context.CodeWriter.Write("<");
-                    context.CodeWriter.Write(node.TypeName);
+                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeName));
                     context.CodeWriter.Write(">");
                     context.CodeWriter.Write("(");
                 }
@@ -616,6 +616,7 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
                 // Microsoft.AspNetCore.Components.EventCallback.Factory.Create(this, ...) OR
                 // Microsoft.AspNetCore.Components.EventCallback.Factory.Create<T>(this, ...)
 
+                context.CodeWriter.Write("global::");
                 context.CodeWriter.Write(ComponentsApi.EventCallback.FactoryAccessor);
                 context.CodeWriter.Write(".");
                 context.CodeWriter.Write(ComponentsApi.EventCallbackFactory.CreateMethod);
