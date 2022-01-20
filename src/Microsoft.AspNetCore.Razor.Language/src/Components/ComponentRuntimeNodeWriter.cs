@@ -624,7 +624,7 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
                 if (node.TryParseEventCallbackTypeArgument(out StringSegment argument))
                 {
                     context.CodeWriter.Write("<");
-                    context.CodeWriter.Write(argument);
+                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(argument));
                     context.CodeWriter.Write(">");
                 }
 

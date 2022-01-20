@@ -27,13 +27,18 @@ internal class TypeNameHelper
         "decimal"
     };
 
-    public static string GloballyQualifiedTypeName(string typeName)
+    public static StringSegment GloballyQualifiedTypeName(string typeName)
     {
         if (typeName == null)
         {
             throw new ArgumentNullException(nameof(typeName));
         }
 
+        return GloballyQualifiedTypeName(new StringSegment(typeName));
+    }
+
+    internal static StringSegment GloballyQualifiedTypeName(StringSegment typeName)
+    {
         // Fast path, if the length doesn't fall within that of the
         // builtin c# types, then we can add global without further checks.
         if (typeName.Length < 3 || typeName.Length > 7)
@@ -43,7 +48,7 @@ internal class TypeNameHelper
 
         for (var i = 0; i < PredefinedTypeNames.Length; i++)
         {
-            if (string.Equals(typeName, PredefinedTypeNames[i], StringComparison.Ordinal))
+            if (typeName.Equals(PredefinedTypeNames[i], StringComparison.Ordinal))
             {
                 return typeName;
             }
