@@ -28,7 +28,7 @@ using Test;
 #line default
 #line hidden
 #nullable disable
-            , 2, global::Microsoft.AspNetCore.Components.EventCallback.Factory.Create<Test.MyEventArgs>(this, 
+            , 2, global::Microsoft.AspNetCore.Components.EventCallback.Factory.Create<global::Test.MyEventArgs>(this, 
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
                                x => {}
