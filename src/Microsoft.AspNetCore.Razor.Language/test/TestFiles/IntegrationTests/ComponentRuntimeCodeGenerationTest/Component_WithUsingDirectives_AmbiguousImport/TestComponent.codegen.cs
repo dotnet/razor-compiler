@@ -30,8 +30,6 @@ using Test3;
             __builder.OpenComponent<global::Test.MyComponent>(0);
             __builder.CloseComponent();
             __builder.AddMarkupContent(1, "\r\n");
-            __builder.OpenComponent<global::Test2.SomeComponent>(2);
-            __builder.CloseComponent();
         }
         #pragma warning restore 1998
     }

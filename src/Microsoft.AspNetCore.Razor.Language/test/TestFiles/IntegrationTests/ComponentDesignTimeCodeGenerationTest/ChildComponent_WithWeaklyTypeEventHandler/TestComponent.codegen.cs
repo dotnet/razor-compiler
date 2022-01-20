@@ -36,12 +36,12 @@ using Microsoft.AspNetCore.Components.Web;
 #line hidden
 #nullable disable
             );
-            __builder.AddAttribute(-1, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
+            __builder.AddAttribute(-1, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
             }
             ));
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(DynamicElement);
+__o = typeof(global::Test.DynamicElement);
 
 #line default
 #line hidden

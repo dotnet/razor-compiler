@@ -39,7 +39,7 @@ namespace Test
             ));
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(SomeOtherComponent);
+__o = typeof(global::Test.SomeOtherComponent);
 
 #line default
 #line hidden

@@ -43,7 +43,7 @@ namespace Test
 #line default
 #line hidden
 #nullable disable
-            __o = new Microsoft.AspNetCore.Components.RenderFragment<Test.Person>(
+            __o = new global::Microsoft.AspNetCore.Components.RenderFragment<Test.Person>(
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
                               template
@@ -52,12 +52,12 @@ namespace Test
 #line hidden
 #nullable disable
             );
-            __builder.AddAttribute(-1, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
+            __builder.AddAttribute(-1, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
             }
             ));
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(MyComponent);
+__o = typeof(global::Test.MyComponent);
 
 #line default
 #line hidden

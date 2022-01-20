@@ -48,14 +48,14 @@ using Microsoft.AspNetCore.Components.Rendering;
             ));
 #nullable restore
 #line 7 "x:\dir\subdir\Test\TestComponent.cshtml"
-                              myComponentReference = default(Test.TemplatedComponent);
+                              myComponentReference = default(global::Test.TemplatedComponent);
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 7 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(TemplatedComponent);
+__o = typeof(global::Test.TemplatedComponent);
 
 #line default
 #line hidden

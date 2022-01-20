@@ -20,7 +20,7 @@ namespace Test
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
-            __Blazor.Test.TestComponent.TypeInference.CreateMyComponent_0(__builder, -1, -1, 
+            global::__Blazor.Test.TestComponent.TypeInference.CreateMyComponent_0(__builder, -1, -1, 
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
                         Value
@@ -32,12 +32,12 @@ namespace Test
             __value => Value = __value);
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(MyComponent<>);
+__o = typeof(global::Test.MyComponent<>);
 
 #line default
 #line hidden
 #nullable disable
-            __Blazor.Test.TestComponent.TypeInference.CreateMyComponent_1(__builder, -1, -1, 
+            global::__Blazor.Test.TestComponent.TypeInference.CreateMyComponent_1(__builder, -1, -1, 
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
                         Value
@@ -49,7 +49,7 @@ __o = typeof(MyComponent<>);
             __value => Value = __value);
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(MyComponent<>);
+__o = typeof(global::Test.MyComponent<>);
 
 #line default
 #line hidden

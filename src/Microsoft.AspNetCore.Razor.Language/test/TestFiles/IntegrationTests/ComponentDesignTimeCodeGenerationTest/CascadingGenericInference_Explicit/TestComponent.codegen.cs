@@ -39,18 +39,18 @@ namespace Test
 #nullable disable
             );
             __builder.AddAttribute(-1, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
-                __Blazor.Test.TestComponent.TypeInference.CreateColumn_0(__builder2, -1, default(DateTime));
+                global::__Blazor.Test.TestComponent.TypeInference.CreateColumn_0(__builder2, -1, default(DateTime));
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(Column<>);
+__o = typeof(global::Test.Column<>);
 
 #line default
 #line hidden
 #nullable disable
-                __Blazor.Test.TestComponent.TypeInference.CreateColumn_1(__builder2, -1, default(DateTime));
+                global::__Blazor.Test.TestComponent.TypeInference.CreateColumn_1(__builder2, -1, default(DateTime));
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(Column<>);
+__o = typeof(global::Test.Column<>);
 
 #line default
 #line hidden
@@ -59,7 +59,7 @@ __o = typeof(Column<>);
             ));
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(Grid<>);
+__o = typeof(global::Test.Grid<>);
 
 #line default
 #line hidden

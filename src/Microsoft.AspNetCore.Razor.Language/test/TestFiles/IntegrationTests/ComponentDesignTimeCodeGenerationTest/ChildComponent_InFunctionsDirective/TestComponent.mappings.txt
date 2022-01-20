@@ -23,7 +23,7 @@ Source Location: (193:7,23 [9] x:\dir\subdir\Test\TestComponent.cshtml)
 |
     }
 |
-Generated Location: (1749:60,23 [9] )
+Generated Location: (1770:60,23 [9] )
 |
     }
 |

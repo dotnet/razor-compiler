@@ -32,12 +32,12 @@ global::System.Object __typeHelper = "/";
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
             __o = "";
-            __builder.AddAttribute(-1, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
+            __builder.AddAttribute(-1, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
             }
             ));
 #nullable restore
 #line 7 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(SurveyPrompt);
+__o = typeof(global::Test.SurveyPrompt);
 
 #line default
 #line hidden

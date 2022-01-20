@@ -25,7 +25,7 @@ namespace Test
             ));
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(ComponentWithEditorRequiredChildContent);
+__o = typeof(global::Test.ComponentWithEditorRequiredChildContent);
 
 #line default
 #line hidden

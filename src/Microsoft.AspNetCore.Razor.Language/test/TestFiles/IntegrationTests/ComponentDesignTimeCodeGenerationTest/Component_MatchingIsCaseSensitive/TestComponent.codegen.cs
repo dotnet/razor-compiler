@@ -20,12 +20,12 @@ namespace Test
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
-            __builder.AddAttribute(-1, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
+            __builder.AddAttribute(-1, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
             }
             ));
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(MyComponent);
+__o = typeof(global::Test.MyComponent);
 
 #line default
 #line hidden
@@ -40,12 +40,12 @@ __o = typeof(MyComponent);
 #line hidden
 #nullable disable
             );
-            __builder.AddAttribute(-1, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
+            __builder.AddAttribute(-1, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
             }
             ));
 #nullable restore
 #line 3 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(MyComponent);
+__o = typeof(global::Test.MyComponent);
 
 #line default
 #line hidden

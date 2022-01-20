@@ -69,7 +69,7 @@ __o = System.Math.Max(0, item.Item);
             ));
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(MyComponent<,>);
+__o = typeof(global::Test.MyComponent<,>);
 
 #line default
 #line hidden

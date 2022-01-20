@@ -32,7 +32,7 @@ using AnotherTest;
             ));
 #nullable restore
 #line 3 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(HeaderComponent);
+__o = typeof(global::Test.HeaderComponent);
 
 #line default
 #line hidden
@@ -49,7 +49,7 @@ __o = typeof(HeaderComponent);
             ));
 #nullable restore
 #line 6 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(FooterComponent);
+__o = typeof(global::AnotherTest.FooterComponent);
 
 #line default
 #line hidden
@@ -59,7 +59,7 @@ __o = typeof(FooterComponent);
             ));
 #nullable restore
 #line 9 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(Test.HeaderComponent);
+__o = typeof(global::Test.HeaderComponent);
 
 #line default
 #line hidden
@@ -76,7 +76,7 @@ __o = typeof(Test.HeaderComponent);
             ));
 #nullable restore
 #line 12 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(AnotherTest.FooterComponent);
+__o = typeof(global::AnotherTest.FooterComponent);
 
 #line default
 #line hidden

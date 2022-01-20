@@ -21,7 +21,7 @@ namespace Test
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
             {
-                __Blazor.Test.TestComponent.TypeInference.CreateGrid_0_CaptureParameters(
+                global::__Blazor.Test.TestComponent.TypeInference.CreateGrid_0_CaptureParameters(
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
                Array.Empty<DateTime>()
@@ -30,7 +30,7 @@ namespace Test
 #line hidden
 #nullable disable
                 , out var __typeInferenceArg_0___arg0);
-                __Blazor.Test.TestComponent.TypeInference.CreateGrid_0(__builder, -1, -1, __typeInferenceArg_0___arg0, -1, (__builder2) => {
+                global::__Blazor.Test.TestComponent.TypeInference.CreateGrid_0(__builder, -1, -1, __typeInferenceArg_0___arg0, -1, (__builder2) => {
                     __o = typeof(
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
@@ -40,12 +40,12 @@ namespace Test
 #line hidden
 #nullable disable
                     );
-                    __builder2.AddAttribute(-1, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder3) => {
+                    __builder2.AddAttribute(-1, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder3) => {
                     }
                     ));
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(Column<,>);
+__o = typeof(global::Test.Column<,>);
 
 #line default
 #line hidden
@@ -55,7 +55,7 @@ __o = typeof(Column<,>);
             }
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(Grid<>);
+__o = typeof(global::Test.Grid<>);
 
 #line default
 #line hidden

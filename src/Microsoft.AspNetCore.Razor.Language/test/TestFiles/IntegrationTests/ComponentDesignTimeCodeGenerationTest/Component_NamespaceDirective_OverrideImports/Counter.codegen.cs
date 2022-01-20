@@ -44,12 +44,12 @@ global::System.Object __typeHelper = nameof(New.Test);
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
-            __builder.AddAttribute(-1, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
+            __builder.AddAttribute(-1, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
             }
             ));
 #nullable restore
 #line 2 "x:\dir\subdir\Test\Pages/Counter.razor"
-__o = typeof(Counter2);
+__o = typeof(global::New.Test.Counter2);
 
 #line default
 #line hidden

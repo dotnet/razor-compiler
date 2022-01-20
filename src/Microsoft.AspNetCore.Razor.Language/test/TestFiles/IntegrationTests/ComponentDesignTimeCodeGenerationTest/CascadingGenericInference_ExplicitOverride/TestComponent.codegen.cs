@@ -48,12 +48,12 @@ namespace Test
 #line hidden
 #nullable disable
                 );
-                __builder2.AddAttribute(-1, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder3) => {
+                __builder2.AddAttribute(-1, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder3) => {
                 }
                 ));
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(Column<>);
+__o = typeof(global::Test.Column<>);
 
 #line default
 #line hidden
@@ -62,7 +62,7 @@ __o = typeof(Column<>);
             ));
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(Grid<>);
+__o = typeof(global::Test.Grid<>);
 
 #line default
 #line hidden

@@ -38,12 +38,12 @@ namespace Test
 #line hidden
 #nullable disable
                 );
-                __builder2.AddAttribute(-1, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder3) => {
+                __builder2.AddAttribute(-1, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder3) => {
                 }
                 ));
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(MyComponent);
+__o = typeof(global::Test.MyComponent);
 
 #line default
 #line hidden

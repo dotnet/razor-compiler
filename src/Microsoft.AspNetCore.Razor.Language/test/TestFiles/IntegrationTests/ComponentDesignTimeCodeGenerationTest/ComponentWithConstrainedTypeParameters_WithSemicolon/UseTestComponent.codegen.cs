@@ -27,7 +27,7 @@ using Test;
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
-            __Blazor.Test.UseTestComponent.TypeInference.CreateTestComponent_0(__builder, -1, -1, 
+            global::__Blazor.Test.UseTestComponent.TypeInference.CreateTestComponent_0(__builder, -1, -1, 
 #nullable restore
 #line 2 "x:\dir\subdir\Test\UseTestComponent.cshtml"
                       item1
@@ -63,7 +63,7 @@ using Test;
             );
 #nullable restore
 #line 2 "x:\dir\subdir\Test\UseTestComponent.cshtml"
-__o = typeof(TestComponent<,,>);
+__o = typeof(global::Test.TestComponent<,,>);
 
 #line default
 #line hidden

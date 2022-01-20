@@ -28,7 +28,7 @@ namespace Test
             ));
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(MyComponent);
+__o = typeof(global::Test.MyComponent);
 
 #line default
 #line hidden
@@ -38,7 +38,7 @@ __o = typeof(MyComponent);
             ));
 #nullable restore
 #line 5 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(Header);
+__o = typeof(global::Test.Header);
 
 #line default
 #line hidden

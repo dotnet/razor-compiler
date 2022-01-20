@@ -46,12 +46,12 @@ using Microsoft.AspNetCore.Components.Rendering;
 #line default
 #line hidden
 #nullable disable
-        __builder.AddAttribute(-1, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
+        __builder.AddAttribute(-1, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
         }
         ));
 #nullable restore
 #line 8 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(MyComponent);
+__o = typeof(global::Test.MyComponent);
 
 #line default
 #line hidden

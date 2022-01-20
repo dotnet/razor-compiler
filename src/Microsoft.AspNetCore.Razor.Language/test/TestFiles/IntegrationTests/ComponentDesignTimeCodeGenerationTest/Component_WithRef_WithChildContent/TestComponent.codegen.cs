@@ -26,14 +26,14 @@ namespace Test
             ));
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-                   myInstance = default(Test.MyComponent);
+                   myInstance = default(global::Test.MyComponent);
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-__o = typeof(MyComponent);
+__o = typeof(global::Test.MyComponent);
 
 #line default
 #line hidden
