@@ -23,7 +23,7 @@ Document -
                     MarkupElement - (53:2,2 [26] x:\dir\subdir\Test\TestComponent.cshtml) - input
                         HtmlAttribute - (70:2,19 [7] x:\dir\subdir\Test\TestComponent.cshtml) - onclick=" - "
                             CSharpExpressionAttributeValue -  - 
-                                IntermediateToken -  - CSharp - Microsoft.AspNetCore.Components.EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, 
+                                IntermediateToken -  - CSharp - Microsoft.AspNetCore.Components.EventCallback.Factory.Create<global::Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, 
                                 LazyIntermediateToken - (70:2,19 [7] x:\dir\subdir\Test\TestComponent.cshtml) - CSharp - OnClick
                                 IntermediateToken -  - CSharp - )
                     HtmlContent - (79:2,28 [2] x:\dir\subdir\Test\TestComponent.cshtml)

@@ -14,7 +14,7 @@ namespace Test
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
             {
-                __Blazor.Test.TestComponent.TypeInference.CreateAncestor_0_CaptureParameters(
+                global::__Blazor.Test.TestComponent.TypeInference.CreateAncestor_0_CaptureParameters(
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
                    Array.Empty<DateTime>()
@@ -23,10 +23,10 @@ namespace Test
 #line hidden
 #nullable disable
                 , out var __typeInferenceArg_0___arg0);
-                __Blazor.Test.TestComponent.TypeInference.CreateAncestor_0(__builder, 0, 1, __typeInferenceArg_0___arg0, 2, (__builder2) => {
-                    __builder2.OpenComponent<Test.Passthrough>(3);
+                global::__Blazor.Test.TestComponent.TypeInference.CreateAncestor_0(__builder, 0, 1, __typeInferenceArg_0___arg0, 2, (__builder2) => {
+                    __builder2.OpenComponent<global::Test.Passthrough>(3);
                     __builder2.AddAttribute(4, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder3) => {
-                        __Blazor.Test.TestComponent.TypeInference.CreateChild_1(__builder3, 5, __typeInferenceArg_0___arg0);
+                        global::__Blazor.Test.TestComponent.TypeInference.CreateChild_1(__builder3, 5, __typeInferenceArg_0___arg0);
                     }
                     ));
                     __builder2.CloseComponent();

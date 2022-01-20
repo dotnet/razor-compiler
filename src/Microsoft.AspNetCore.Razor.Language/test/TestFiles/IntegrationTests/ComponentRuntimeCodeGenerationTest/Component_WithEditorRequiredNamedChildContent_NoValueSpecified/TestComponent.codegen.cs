@@ -13,7 +13,7 @@ namespace Test
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
-            __builder.OpenComponent<Test.ComponentWithEditorRequiredChildContent>(0);
+            __builder.OpenComponent<global::Test.ComponentWithEditorRequiredChildContent>(0);
             __builder.CloseComponent();
         }
         #pragma warning restore 1998

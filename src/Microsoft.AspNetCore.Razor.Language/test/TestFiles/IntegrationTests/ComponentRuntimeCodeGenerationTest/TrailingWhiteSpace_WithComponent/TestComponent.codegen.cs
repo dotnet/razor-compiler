@@ -14,7 +14,7 @@ namespace Test
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
             __builder.AddMarkupContent(0, "<h1>Hello</h1>\r\n\r\n");
-            __builder.OpenComponent<Test.SomeOtherComponent>(1);
+            __builder.OpenComponent<global::Test.SomeOtherComponent>(1);
             __builder.CloseComponent();
         }
         #pragma warning restore 1998

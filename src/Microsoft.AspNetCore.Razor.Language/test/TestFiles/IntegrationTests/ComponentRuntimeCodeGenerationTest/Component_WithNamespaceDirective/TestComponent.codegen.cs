@@ -20,11 +20,11 @@ using Test;
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
-            __builder.OpenComponent<Test.HeaderComponent>(0);
+            __builder.OpenComponent<global::Test.HeaderComponent>(0);
             __builder.AddAttribute(1, "Header", "head");
             __builder.CloseComponent();
             __builder.AddMarkupContent(2, "\r\n");
-            __builder.OpenComponent<AnotherTest.FooterComponent>(3);
+            __builder.OpenComponent<global::AnotherTest.FooterComponent>(3);
             __builder.AddAttribute(4, "Footer", "feet");
             __builder.CloseComponent();
         }

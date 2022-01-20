@@ -38,7 +38,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 #line default
 #line hidden
 #nullable disable
-        __builder.OpenComponent<Test.MyComponent>(0);
+        __builder.OpenComponent<global::Test.MyComponent>(0);
         __builder.CloseComponent();
 #nullable restore
 #line 9 "x:\dir\subdir\Test\TestComponent.cshtml"

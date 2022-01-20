@@ -15,8 +15,8 @@ using Test2;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/MyPage")]
-    [Microsoft.AspNetCore.Components.RouteAttribute("/AnotherRoute/{id}")]
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/MyPage")]
+    [global::Microsoft.AspNetCore.Components.RouteAttribute("/AnotherRoute/{id}")]
     public partial class TestComponent : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 219

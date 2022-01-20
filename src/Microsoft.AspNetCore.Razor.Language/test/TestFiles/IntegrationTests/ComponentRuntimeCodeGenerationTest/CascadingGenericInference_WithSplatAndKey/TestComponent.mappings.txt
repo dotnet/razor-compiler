@@ -5,11 +5,11 @@ Generated Location: (586:17,2 [60] )
 
 Source Location: (145:2,19 [8] x:\dir\subdir\Test\TestComponent.cshtml)
 |childKey|
-Generated Location: (1624:44,19 [8] )
+Generated Location: (1648:44,19 [8] )
 |childKey|
 
 Source Location: (78:1,13 [9] x:\dir\subdir\Test\TestComponent.cshtml)
 |parentKey|
-Generated Location: (1833:54,13 [9] )
+Generated Location: (1857:54,13 [9] )
 |parentKey|
 

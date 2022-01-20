@@ -13,7 +13,7 @@ namespace Test
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
-            __builder.OpenComponent<Test.Counter>(0);
+            __builder.OpenComponent<global::Test.Counter>(0);
             __builder.CloseComponent();
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"

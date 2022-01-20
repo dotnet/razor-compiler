@@ -14,7 +14,7 @@ namespace Test
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
             {
-                __Blazor.Test.TestComponent.TypeInference.CreateParentOne_0_CaptureParameters(
+                global::__Blazor.Test.TestComponent.TypeInference.CreateParentOne_0_CaptureParameters(
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
                    int.MaxValue
@@ -23,9 +23,9 @@ namespace Test
 #line hidden
 #nullable disable
                 , out var __typeInferenceArg_0___arg0);
-                __Blazor.Test.TestComponent.TypeInference.CreateParentOne_0(__builder, 0, 1, __typeInferenceArg_0___arg0, 2, (__builder2) => {
+                global::__Blazor.Test.TestComponent.TypeInference.CreateParentOne_0(__builder, 0, 1, __typeInferenceArg_0___arg0, 2, (__builder2) => {
                     {
-                        __Blazor.Test.TestComponent.TypeInference.CreateParentTwo_1_CaptureParameters(
+                        global::__Blazor.Test.TestComponent.TypeInference.CreateParentTwo_1_CaptureParameters(
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
                         "Hello"
@@ -34,8 +34,8 @@ namespace Test
 #line hidden
 #nullable disable
                         , out var __typeInferenceArg_1___arg0);
-                        __Blazor.Test.TestComponent.TypeInference.CreateParentTwo_1(__builder2, 3, 4, __typeInferenceArg_1___arg0, 5, (__builder3) => {
-                            __Blazor.Test.TestComponent.TypeInference.CreateChild_2(__builder3, 6, __typeInferenceArg_0___arg0, __typeInferenceArg_1___arg0);
+                        global::__Blazor.Test.TestComponent.TypeInference.CreateParentTwo_1(__builder2, 3, 4, __typeInferenceArg_1___arg0, 5, (__builder3) => {
+                            global::__Blazor.Test.TestComponent.TypeInference.CreateChild_2(__builder3, 6, __typeInferenceArg_0___arg0, __typeInferenceArg_1___arg0);
                         }
                         );
                         __typeInferenceArg_1___arg0 = default;

@@ -14,7 +14,7 @@ namespace Test
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
             {
-                __Blazor.Test.TestComponent.TypeInference.CreateParent_0_CaptureParameters(
+                global::__Blazor.Test.TestComponent.TypeInference.CreateParent_0_CaptureParameters(
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
                 new System.Collections.Generic.Dictionary<int, string>()
@@ -31,8 +31,8 @@ namespace Test
 #line hidden
 #nullable disable
                 , out var __typeInferenceArg_0___arg1);
-                __Blazor.Test.TestComponent.TypeInference.CreateParent_0(__builder, 0, 1, __typeInferenceArg_0___arg0, 2, __typeInferenceArg_0___arg1, 3, (__builder2) => {
-                    __Blazor.Test.TestComponent.TypeInference.CreateChild_1(__builder2, 4, __typeInferenceArg_0___arg1, __typeInferenceArg_0___arg0, __typeInferenceArg_0___arg0, 5, 
+                global::__Blazor.Test.TestComponent.TypeInference.CreateParent_0(__builder, 0, 1, __typeInferenceArg_0___arg0, 2, __typeInferenceArg_0___arg1, 3, (__builder2) => {
+                    global::__Blazor.Test.TestComponent.TypeInference.CreateChild_1(__builder2, 4, __typeInferenceArg_0___arg1, __typeInferenceArg_0___arg0, __typeInferenceArg_0___arg0, 5, 
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
                              new[] { 'a', 'b', 'c' }

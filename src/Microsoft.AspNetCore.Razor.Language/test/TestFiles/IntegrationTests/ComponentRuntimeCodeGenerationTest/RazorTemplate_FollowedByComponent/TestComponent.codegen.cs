@@ -23,7 +23,7 @@ namespace Test
 #nullable disable
             (__builder2) => {
                 __builder2.OpenElement(0, "div");
-                __builder2.OpenComponent<Test.MyComponent>(1);
+                __builder2.OpenComponent<global::Test.MyComponent>(1);
                 __builder2.AddAttribute(2, "Name", global::Microsoft.AspNetCore.Components.CompilerServices.RuntimeHelpers.TypeCheck<System.String>(
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
@@ -43,7 +43,7 @@ namespace Test
 #line default
 #line hidden
 #nullable disable
-            __builder.OpenComponent<Test.MyComponent>(3);
+            __builder.OpenComponent<global::Test.MyComponent>(3);
             __builder.AddAttribute(4, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
 #nullable restore
 #line (5,3)-(5,18) 25 "x:\dir\subdir\Test\TestComponent.cshtml"

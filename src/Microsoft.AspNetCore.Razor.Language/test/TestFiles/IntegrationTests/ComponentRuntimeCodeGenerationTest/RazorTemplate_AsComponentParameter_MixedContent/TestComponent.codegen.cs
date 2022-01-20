@@ -47,7 +47,7 @@ __builder2.AddContent(4, context.Item.ToLower());
 #line default
 #line hidden
 #nullable disable
-            __builder.OpenComponent<Test.MyComponent>(5);
+            __builder.OpenComponent<global::Test.MyComponent>(5);
             __builder.AddAttribute(6, "Template", (Microsoft.AspNetCore.Components.RenderFragment<Test.Context>)(
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"

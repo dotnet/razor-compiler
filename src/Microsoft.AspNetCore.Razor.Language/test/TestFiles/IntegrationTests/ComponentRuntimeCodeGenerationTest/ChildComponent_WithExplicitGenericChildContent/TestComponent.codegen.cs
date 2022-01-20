@@ -13,7 +13,7 @@ namespace Test
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
-            __builder.OpenComponent<Test.MyComponent>(0);
+            __builder.OpenComponent<global::Test.MyComponent>(0);
             __builder.AddAttribute(1, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment<System.String>)((context) => (__builder2) => {
 #nullable restore
 #line (1,29)-(1,36) 25 "x:\dir\subdir\Test\TestComponent.cshtml"

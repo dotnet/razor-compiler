@@ -13,7 +13,7 @@ namespace Test
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
-            __builder.OpenComponent<Test.Grid<DateTime>>(0);
+            __builder.OpenComponent<global::Test.Grid<DateTime>>(0);
             __builder.AddAttribute(1, "Items", global::Microsoft.AspNetCore.Components.CompilerServices.RuntimeHelpers.TypeCheck<System.Collections.Generic.IEnumerable<DateTime>>(
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
@@ -24,7 +24,7 @@ namespace Test
 #nullable disable
             ));
             __builder.AddAttribute(2, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
-                __Blazor.Test.TestComponent.TypeInference.CreateColumn_0(__builder2, 3);
+                global::__Blazor.Test.TestComponent.TypeInference.CreateColumn_0(__builder2, 3);
             }
             ));
             __builder.CloseComponent();

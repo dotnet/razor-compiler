@@ -30,7 +30,7 @@ namespace Test
 #line default
 #line hidden
 #nullable disable
-            __builder.OpenComponent<Test.MyComponent>(1);
+            __builder.OpenComponent<global::Test.MyComponent>(1);
             __builder.AddAttribute(2, "Person", 
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"

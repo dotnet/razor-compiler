@@ -29,7 +29,7 @@ using Microsoft.AspNetCore.Components.RenderTree;
 #line default
 #line hidden
 #nullable disable
-            __builder.OpenComponent<Test.MyComponent>(0);
+            __builder.OpenComponent<global::Test.MyComponent>(0);
             __builder.CloseComponent();
 #nullable restore
 #line 6 "x:\dir\subdir\Test\TestComponent.cshtml"

@@ -27,7 +27,7 @@ using Foo = Test3;
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
-            __builder.OpenComponent<Test.MyComponent>(0);
+            __builder.OpenComponent<global::Test.MyComponent>(0);
             __builder.CloseComponent();
             __builder.AddMarkupContent(1, "\r\n");
             __builder.OpenElement(2, "SomeComponent");
