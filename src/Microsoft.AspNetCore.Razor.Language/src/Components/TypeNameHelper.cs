@@ -8,7 +8,8 @@ using System.Text;
 namespace Microsoft.AspNetCore.Razor.Language;
 internal class TypeNameHelper
 {
-    private static readonly string[] PredefinedTypeNames = new[] {"bool",
+    private static readonly string[] PredefinedTypeNames = new[] {
+        "bool",
         "int",
         "uint",
         "nint",

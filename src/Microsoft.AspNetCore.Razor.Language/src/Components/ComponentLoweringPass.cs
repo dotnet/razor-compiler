@@ -61,7 +61,7 @@ internal class ComponentLoweringPass : ComponentIntermediateNodePassBase, IRazor
             if (count == 1)
             {
                 reference.Replace(RewriteAsComponent(node, node.TagHelpers.Single(n => n.IsComponentTagHelper())));
-            }else if (count > 1)
+            } else if (count > 1)
             {
                 var tagHelper = GetTagHelperOrAddDiagnostic(node, usings);
                 if (tagHelper == null)
@@ -92,7 +92,7 @@ internal class ComponentLoweringPass : ComponentIntermediateNodePassBase, IRazor
                 for (var j = 0; j < usings.Count; j++)
                 {
                     var usingNamespace = usings[j].Content;
-                    if(string.Equals(tagHelper.ParsedTypeInfo.Value.Namespace.Value, usingNamespace, StringComparison.Ordinal))
+                    if (string.Equals(tagHelper.ParsedTypeInfo.Value.Namespace.Value, usingNamespace, StringComparison.Ordinal))
                     {
                         if (candidate == null)
                         {
@@ -106,6 +106,7 @@ internal class ComponentLoweringPass : ComponentIntermediateNodePassBase, IRazor
                     }
                 }
             }
+            
             if (matched != null)
             {
                 matched.Add(candidate);
