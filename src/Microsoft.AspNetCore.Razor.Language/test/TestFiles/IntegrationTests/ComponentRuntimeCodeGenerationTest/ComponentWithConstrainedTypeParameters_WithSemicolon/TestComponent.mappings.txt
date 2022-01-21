@@ -2,15 +2,7 @@ Source Location: (189:6,1 [34] x:\dir\subdir\Test\TestComponent.cshtml)
 |foreach (var item2 in Items2)
 {
 |
-<<<<<<< HEAD
-<<<<<<< HEAD
-Generated Location: (871:27,1 [34] )
-=======
-Generated Location: (892:27,14 [34] )
->>>>>>> 3cf8c1e4 (More global)
-=======
-Generated Location: (900:27,14 [34] )
->>>>>>> 94abbef4 (Apply global:: to RenderTreeBuilder)
+Generated Location: (887:27,1 [34] )
 |foreach (var item2 in Items2)
 {
 |
@@ -18,15 +10,7 @@ Generated Location: (900:27,14 [34] )
 Source Location: (269:11,0 [3] x:\dir\subdir\Test\TestComponent.cshtml)
 |}
 |
-<<<<<<< HEAD
-<<<<<<< HEAD
-Generated Location: (1349:47,0 [3] )
-=======
-Generated Location: (1377:47,7 [3] )
->>>>>>> 3cf8c1e4 (More global)
-=======
-Generated Location: (1385:47,7 [3] )
->>>>>>> 94abbef4 (Apply global:: to RenderTreeBuilder)
+Generated Location: (1365:47,0 [3] )
 |}
 |
 
@@ -35,18 +19,9 @@ Source Location: (297:15,7 [236] x:\dir\subdir\Test\TestComponent.cshtml)
     [Parameter] public TItem1 Item1 { get; set; }
     [Parameter] public List<TItem2> Items2 { get; set; }
     [Parameter] public TItem3 Item3 { get; set; }
-<<<<<<< HEAD
     [Parameter] public RenderFragment<TItem2> ChildContent { get; set; }
 |
-Generated Location: (1589:57,7 [236] )
-=======
-    [Parameter] public RenderFragment<TItem2> ChildContent { get; set; |
-<<<<<<< HEAD
-Generated Location: (1614:57,4 [236] )
->>>>>>> 3cf8c1e4 (More global)
-=======
-Generated Location: (1622:57,4 [236] )
->>>>>>> 94abbef4 (Apply global:: to RenderTreeBuilder)
+Generated Location: (1605:57,7 [236] )
 |
     [Parameter] public TItem1 Item1 { get; set; }
     [Parameter] public List<TItem2> Items2 { get; set; }
