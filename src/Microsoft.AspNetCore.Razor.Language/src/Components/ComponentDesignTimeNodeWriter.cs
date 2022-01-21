@@ -726,7 +726,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
 
             static string QualifyEventCallback(string typeName) => ComponentAttributeIntermediateNode.TryGetEventCallbackArgument(typeName, out var argument) ?
                 "global::" + ComponentsApi.EventCallback.FullTypeName + "<" + TypeNameHelper.GloballyQualifiedTypeName(argument) + ">" :
-                typeName;
+                "global::" + typeName;
         }
 
         static bool NeedsTypeCheck(ComponentAttributeIntermediateNode n)
