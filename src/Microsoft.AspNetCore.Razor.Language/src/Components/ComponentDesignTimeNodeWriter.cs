@@ -511,6 +511,9 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
             }
             else
             {
+                // The tags can be unqualified or fully qualified, the TagName always equals
+                // the class name so we rely on that to compute the globally fully qualified
+                // type name
                 if (!node.TagName.Contains("."))
                 {
                     // The tag is not fully qualified

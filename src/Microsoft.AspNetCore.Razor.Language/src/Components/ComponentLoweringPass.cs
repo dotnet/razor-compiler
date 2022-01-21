@@ -78,6 +78,11 @@ internal class ComponentLoweringPass : ComponentIntermediateNodePassBase, IRazor
             }
         }
 
+        // We have several tag helpers that are candidates for the same tag node. We need to disambiguate which tag helper applies to this tag
+        // since we now fully qualify the tag helper when we emit the code, and we can't rely on the compiler to error out when there are ambiguous
+        // tag helpers.
+        // We look based on the set of usings if there is only a single component for that can be applied to that tag or if we detect more than one
+        // we add a diagnostic and return null
         static TagHelperDescriptor GetTagHelperOrAddDiagnostic(TagHelperIntermediateNode node, IReadOnlyList<UsingDirectiveIntermediateNode> usings)
         {
             TagHelperDescriptor candidate = null;
@@ -112,6 +117,7 @@ internal class ComponentLoweringPass : ComponentIntermediateNodePassBase, IRazor
             {
                 matched.Add(candidate);
                 var diagnostic = ComponentDiagnosticFactory.Create_MultipleComponents(node.Source, candidate.Name, matched);
+                // Iterate over existing diagnostics to avoid adding multiple diagnostics when we find an ambiguous tag.
                 for (var i = 0; i < node.Diagnostics.Count; i++)
                 {
                     var existing = node.Diagnostics[i];
