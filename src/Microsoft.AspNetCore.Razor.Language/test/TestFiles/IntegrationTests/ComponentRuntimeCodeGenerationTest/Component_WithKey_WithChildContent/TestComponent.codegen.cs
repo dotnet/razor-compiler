@@ -15,7 +15,7 @@ namespace Test
         {
             __builder.OpenComponent<global::Test.MyComponent>(0);
             __builder.AddAttribute(1, "SomeProp", "val");
-            __builder.AddAttribute(2, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
+            __builder.AddAttribute(2, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
                 __builder2.AddMarkupContent(3, "\r\n    Some ");
                 __builder2.AddMarkupContent(4, "<el>further</el> content\r\n");
             }

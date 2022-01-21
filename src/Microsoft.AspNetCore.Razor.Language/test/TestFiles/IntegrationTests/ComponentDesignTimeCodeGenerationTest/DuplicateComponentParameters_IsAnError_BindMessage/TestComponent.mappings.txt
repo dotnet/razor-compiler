@@ -12,7 +12,7 @@ Source Location: (73:1,12 [30] x:\dir\subdir\Test\TestComponent.cshtml)
 |
     string message = "hi";
 |
-Generated Location: (2454:57,12 [30] )
+Generated Location: (2462:57,12 [30] )
 |
     string message = "hi";
 |

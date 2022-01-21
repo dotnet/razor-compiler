@@ -15,12 +15,12 @@ Document -
                                 LazyIntermediateToken - (66:2,15 [4] x:\dir\subdir\Test\TestComponent.cshtml) - Html - text
                         HtmlAttribute - (130:2,79 [8] x:\dir\subdir\Test\TestComponent.cshtml) - oninput=" - "
                             CSharpExpressionAttributeValue -  - 
-                                IntermediateToken -  - CSharp - Microsoft.AspNetCore.Components.EventCallback.Factory.Create<global::Microsoft.AspNetCore.Components.ChangeEventArgs>(this, 
+                                IntermediateToken -  - CSharp - global::Microsoft.AspNetCore.Components.EventCallback.Factory.Create<global::Microsoft.AspNetCore.Components.ChangeEventArgs>(this, 
                                 LazyIntermediateToken - (130:2,79 [8] x:\dir\subdir\Test\TestComponent.cshtml) - CSharp - () => {}
                                 IntermediateToken -  - CSharp - )
                         HtmlAttribute - (85:2,34 [5] x:\dir\subdir\Test\TestComponent.cshtml) - value=" - "
                             CSharpExpressionAttributeValue -  - 
-                                IntermediateToken -  - CSharp - Microsoft.AspNetCore.Components.BindConverter.FormatValue(
+                                IntermediateToken -  - CSharp - global::Microsoft.AspNetCore.Components.BindConverter.FormatValue(
                                 LazyIntermediateToken - (86:2,35 [4] x:\dir\subdir\Test\TestComponent.cshtml) - CSharp - text
                                 IntermediateToken -  - CSharp - )
                         HtmlAttribute - (85:2,34 [5] x:\dir\subdir\Test\TestComponent.cshtml) - oninput=" - "

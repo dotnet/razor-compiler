@@ -25,7 +25,7 @@ namespace Test
                 , out var __typeInferenceArg_0___arg0);
                 global::__Blazor.Test.TestComponent.TypeInference.CreateAncestor_0(__builder, 0, 1, __typeInferenceArg_0___arg0, 2, (__builder2) => {
                     __builder2.OpenComponent<global::Test.Passthrough>(3);
-                    __builder2.AddAttribute(4, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder3) => {
+                    __builder2.AddAttribute(4, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder3) => {
                         global::__Blazor.Test.TestComponent.TypeInference.CreateChild_1(__builder3, 5, __typeInferenceArg_0___arg0);
                     }
                     ));

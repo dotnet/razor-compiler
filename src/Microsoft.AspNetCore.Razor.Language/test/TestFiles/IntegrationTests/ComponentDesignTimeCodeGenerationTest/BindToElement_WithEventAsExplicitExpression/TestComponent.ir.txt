@@ -19,7 +19,7 @@ Document -
                 MarkupElement - (30:1,0 [70] x:\dir\subdir\Test\TestComponent.cshtml) - div
                     HtmlAttribute - (48:1,18 [12] x:\dir\subdir\Test\TestComponent.cshtml) - myvalue=" - "
                         CSharpExpressionAttributeValue -  - 
-                            IntermediateToken -  - CSharp - Microsoft.AspNetCore.Components.BindConverter.FormatValue(
+                            IntermediateToken -  - CSharp - global::Microsoft.AspNetCore.Components.BindConverter.FormatValue(
                             LazyIntermediateToken - (49:1,19 [11] x:\dir\subdir\Test\TestComponent.cshtml) - CSharp - ParentValue
                             IntermediateToken -  - CSharp - )
                     HtmlAttribute - (48:1,18 [12] x:\dir\subdir\Test\TestComponent.cshtml) - =" - "

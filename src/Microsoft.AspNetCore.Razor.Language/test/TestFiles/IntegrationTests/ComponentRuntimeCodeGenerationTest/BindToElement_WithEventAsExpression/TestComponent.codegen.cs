@@ -21,7 +21,7 @@ namespace Test
 #line hidden
 #nullable disable
             __builder.OpenElement(0, "div");
-            __builder.AddAttribute(1, "myvalue", Microsoft.AspNetCore.Components.BindConverter.FormatValue(
+            __builder.AddAttribute(1, "myvalue", global::Microsoft.AspNetCore.Components.BindConverter.FormatValue(
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
                    ParentValue

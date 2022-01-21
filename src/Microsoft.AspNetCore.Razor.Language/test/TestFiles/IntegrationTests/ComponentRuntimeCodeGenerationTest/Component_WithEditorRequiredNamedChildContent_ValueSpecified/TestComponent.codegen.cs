@@ -14,7 +14,7 @@ namespace Test
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
             __builder.OpenComponent<global::Test.ComponentWithEditorRequiredChildContent>(0);
-            __builder.AddAttribute(1, "Found", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
+            __builder.AddAttribute(1, "Found", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
                 __builder2.AddMarkupContent(2, "<h1>Here\'s Johnny!</h1>");
             }
             ));

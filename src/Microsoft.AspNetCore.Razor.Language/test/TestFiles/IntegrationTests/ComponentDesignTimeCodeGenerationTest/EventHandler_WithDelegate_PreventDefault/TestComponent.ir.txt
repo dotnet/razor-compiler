@@ -20,7 +20,7 @@ Document -
                 MarkupElement - (44:1,0 [77] x:\dir\subdir\Test\TestComponent.cshtml) - input
                     HtmlAttribute - (61:1,17 [7] x:\dir\subdir\Test\TestComponent.cshtml) - onfocus=" - "
                         CSharpExpressionAttributeValue -  - 
-                            IntermediateToken -  - CSharp - Microsoft.AspNetCore.Components.EventCallback.Factory.Create<global::Microsoft.AspNetCore.Components.Web.FocusEventArgs>(this, 
+                            IntermediateToken -  - CSharp - global::Microsoft.AspNetCore.Components.EventCallback.Factory.Create<global::Microsoft.AspNetCore.Components.Web.FocusEventArgs>(this, 
                             LazyIntermediateToken - (61:1,17 [7] x:\dir\subdir\Test\TestComponent.cshtml) - CSharp - OnFocus
                             IntermediateToken -  - CSharp - )
                     ComponentAttribute - (95:1,51 [22] x:\dir\subdir\Test\TestComponent.cshtml) - onfocus - PreventDefault - AttributeStructure.DoubleQuotes

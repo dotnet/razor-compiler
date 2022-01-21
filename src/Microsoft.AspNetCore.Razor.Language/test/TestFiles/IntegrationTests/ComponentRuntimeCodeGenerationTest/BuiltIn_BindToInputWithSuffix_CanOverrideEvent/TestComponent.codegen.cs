@@ -14,7 +14,7 @@ namespace Test
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
             __builder.OpenElement(0, "input");
-            __builder.AddAttribute(1, "value", Microsoft.AspNetCore.Components.BindConverter.FormatValue(
+            __builder.AddAttribute(1, "value", global::Microsoft.AspNetCore.Components.BindConverter.FormatValue(
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
                      CurrentDate

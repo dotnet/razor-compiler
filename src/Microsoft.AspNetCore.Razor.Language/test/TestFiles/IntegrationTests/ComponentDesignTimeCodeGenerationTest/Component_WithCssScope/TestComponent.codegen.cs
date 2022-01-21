@@ -43,7 +43,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 #line hidden
 #nullable disable
             ;
-            __builder.AddAttribute(-1, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
+            __builder.AddAttribute(-1, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
             }
             ));
 #nullable restore
@@ -78,7 +78,7 @@ __o = typeof(global::Test.TemplatedComponent);
 #nullable disable
                                                                                     
     
-            __o = Microsoft.AspNetCore.Components.BindConverter.FormatValue(
+            __o = global::Microsoft.AspNetCore.Components.BindConverter.FormatValue(
 #nullable restore
 #line 14 "x:\dir\subdir\Test\TestComponent.cshtml"
                               myVariable

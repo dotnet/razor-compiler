@@ -20,7 +20,7 @@ namespace Test
         #pragma warning disable 1998
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
-            __o = Microsoft.AspNetCore.Components.BindConverter.FormatValue(
+            __o = global::Microsoft.AspNetCore.Components.BindConverter.FormatValue(
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
                                  ParentValue

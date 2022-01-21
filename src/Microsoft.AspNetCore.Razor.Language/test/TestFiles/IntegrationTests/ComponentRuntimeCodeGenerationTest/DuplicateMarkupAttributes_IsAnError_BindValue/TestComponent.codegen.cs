@@ -24,7 +24,7 @@ using Microsoft.AspNetCore.Components.Web;
             __builder.OpenElement(1, "input");
             __builder.AddAttribute(2, "type", "text");
             __builder.AddAttribute(3, "value", "17");
-            __builder.AddAttribute(4, "value", Microsoft.AspNetCore.Components.BindConverter.FormatValue(
+            __builder.AddAttribute(4, "value", global::Microsoft.AspNetCore.Components.BindConverter.FormatValue(
 #nullable restore
 #line 3 "x:\dir\subdir\Test\TestComponent.cshtml"
                                         text

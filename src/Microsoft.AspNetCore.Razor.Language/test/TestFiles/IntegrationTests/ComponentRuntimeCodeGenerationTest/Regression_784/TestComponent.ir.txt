@@ -11,7 +11,7 @@ Document -
                 MarkupElement - (44:1,0 [73] x:\dir\subdir\Test\TestComponent.cshtml) - p
                     HtmlAttribute - (61:1,17 [16] x:\dir\subdir\Test\TestComponent.cshtml) - onmouseover=" - "
                         CSharpExpressionAttributeValue -  - 
-                            IntermediateToken -  - CSharp - Microsoft.AspNetCore.Components.EventCallback.Factory.Create<global::Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, 
+                            IntermediateToken -  - CSharp - global::Microsoft.AspNetCore.Components.EventCallback.Factory.Create<global::Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, 
                             LazyIntermediateToken - (61:1,17 [16] x:\dir\subdir\Test\TestComponent.cshtml) - CSharp - OnComponentHover
                             IntermediateToken -  - CSharp - )
                     HtmlAttribute -  - style=" - "

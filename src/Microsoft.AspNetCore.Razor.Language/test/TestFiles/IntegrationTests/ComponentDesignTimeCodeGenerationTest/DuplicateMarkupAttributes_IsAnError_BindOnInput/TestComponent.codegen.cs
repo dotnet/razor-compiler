@@ -27,7 +27,7 @@ using Microsoft.AspNetCore.Components.Web;
         #pragma warning disable 1998
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
-            __o = Microsoft.AspNetCore.Components.EventCallback.Factory.Create<global::Microsoft.AspNetCore.Components.ChangeEventArgs>(this, 
+            __o = global::Microsoft.AspNetCore.Components.EventCallback.Factory.Create<global::Microsoft.AspNetCore.Components.ChangeEventArgs>(this, 
 #nullable restore
 #line 3 "x:\dir\subdir\Test\TestComponent.cshtml"
                                                                                () => {}
@@ -36,7 +36,7 @@ using Microsoft.AspNetCore.Components.Web;
 #line hidden
 #nullable disable
             );
-            __o = Microsoft.AspNetCore.Components.BindConverter.FormatValue(
+            __o = global::Microsoft.AspNetCore.Components.BindConverter.FormatValue(
 #nullable restore
 #line 3 "x:\dir\subdir\Test\TestComponent.cshtml"
                                    text

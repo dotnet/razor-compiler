@@ -44,7 +44,7 @@ namespace Test
 #line hidden
 #nullable disable
             __builder.OpenComponent<global::Test.MyComponent>(3);
-            __builder.AddAttribute(4, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
+            __builder.AddAttribute(4, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
 #nullable restore
 #line (5,3)-(5,18) 25 "x:\dir\subdir\Test\TestComponent.cshtml"
 __builder2.AddContent(5, "hello, world!");

@@ -15,7 +15,7 @@ namespace Test
         {
             __builder.OpenComponent<global::Test.MyComponent>(0);
             __builder.AddAttribute(1, "MyAttr", "abc");
-            __builder.AddAttribute(2, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment<System.String>)((item) => (__builder2) => {
+            __builder.AddAttribute(2, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment<System.String>)((item) => (__builder2) => {
                 __builder2.AddMarkupContent(3, "\r\n    Some text");
                 __builder2.OpenElement(4, "some-child");
                 __builder2.AddAttribute(5, "a", "1");

@@ -22,7 +22,7 @@ using Microsoft.AspNetCore.Components.Web;
         {
             __builder.OpenElement(0, "div");
             __builder.OpenElement(1, "input");
-            __builder.AddAttribute(2, "onclick", Microsoft.AspNetCore.Components.EventCallback.Factory.Create<global::Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, 
+            __builder.AddAttribute(2, "onclick", global::Microsoft.AspNetCore.Components.EventCallback.Factory.Create<global::Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, 
 #nullable restore
 #line 3 "x:\dir\subdir\Test\TestComponent.cshtml"
                    OnClick

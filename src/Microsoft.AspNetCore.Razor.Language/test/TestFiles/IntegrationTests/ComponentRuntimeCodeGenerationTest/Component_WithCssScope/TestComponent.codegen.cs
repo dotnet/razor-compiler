@@ -43,7 +43,7 @@ using Microsoft.AspNetCore.Components.Rendering;
             __builder.AddMarkupContent(5, "<child TestCssScope></child>\r\n    ");
             __builder.AddMarkupContent(6, "<child has multiple attributes=\"some with values\" TestCssScope>With text</child>\r\n    ");
             __builder.OpenComponent<global::Test.TemplatedComponent>(7);
-            __builder.AddAttribute(8, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
+            __builder.AddAttribute(8, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
                 __builder2.AddMarkupContent(9, "<span id=\"hello\" TestCssScope>This is in child content</span>");
             }
             ));
@@ -86,7 +86,7 @@ using Microsoft.AspNetCore.Components.Rendering;
             __builder.OpenElement(17, "input");
             __builder.AddAttribute(18, "id", "myElem");
             __builder.AddAttribute(19, "another-attr", "Another attr value");
-            __builder.AddAttribute(20, "value", Microsoft.AspNetCore.Components.BindConverter.FormatValue(
+            __builder.AddAttribute(20, "value", global::Microsoft.AspNetCore.Components.BindConverter.FormatValue(
 #nullable restore
 #line 14 "x:\dir\subdir\Test\TestComponent.cshtml"
                               myVariable

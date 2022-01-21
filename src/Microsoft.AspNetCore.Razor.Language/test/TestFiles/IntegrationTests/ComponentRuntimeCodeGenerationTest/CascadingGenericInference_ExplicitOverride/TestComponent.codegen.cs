@@ -23,7 +23,7 @@ namespace Test
 #line hidden
 #nullable disable
             ));
-            __builder.AddAttribute(2, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
+            __builder.AddAttribute(2, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
                 __builder2.OpenComponent<global::Test.Column<System.TimeZoneInfo>>(3);
                 __builder2.CloseComponent();
             }

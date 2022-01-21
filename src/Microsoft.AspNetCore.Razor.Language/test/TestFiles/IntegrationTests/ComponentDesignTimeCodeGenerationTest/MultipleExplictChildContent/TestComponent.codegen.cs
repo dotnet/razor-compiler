@@ -20,10 +20,10 @@ namespace Test
         #pragma warning disable 1998
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
-            __builder.AddAttribute(-1, "Header", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
+            __builder.AddAttribute(-1, "Header", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
             }
             ));
-            __builder.AddAttribute(-1, "Footer", (Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
+            __builder.AddAttribute(-1, "Footer", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
 #nullable restore
 #line 3 "x:\dir\subdir\Test\TestComponent.cshtml"
         __o = "bye!";

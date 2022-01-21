@@ -22,7 +22,7 @@ using System.Globalization;
         {
             __builder.OpenElement(0, "input");
             __builder.AddAttribute(1, "type", "custom");
-            __builder.AddAttribute(2, "value", Microsoft.AspNetCore.Components.BindConverter.FormatValue(
+            __builder.AddAttribute(2, "value", global::Microsoft.AspNetCore.Components.BindConverter.FormatValue(
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
                                    ParentValue

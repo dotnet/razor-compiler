@@ -31,7 +31,7 @@ namespace Test
 #nullable disable
                 , out var __typeInferenceArg_0___arg0);
                 global::__Blazor.Test.TestComponent.TypeInference.CreateAncestor_0(__builder, -1, -1, __typeInferenceArg_0___arg0, -1, (__builder2) => {
-                    __builder2.AddAttribute(-1, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((__builder3) => {
+                    __builder2.AddAttribute(-1, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder3) => {
                         global::__Blazor.Test.TestComponent.TypeInference.CreateChild_1(__builder3, -1, __typeInferenceArg_0___arg0);
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"

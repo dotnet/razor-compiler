@@ -21,7 +21,7 @@ using Microsoft.AspNetCore.Components.Web;
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
             __builder.OpenElement(0, "p");
-            __builder.AddAttribute(1, "onmouseover", Microsoft.AspNetCore.Components.EventCallback.Factory.Create<global::Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, 
+            __builder.AddAttribute(1, "onmouseover", global::Microsoft.AspNetCore.Components.EventCallback.Factory.Create<global::Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, 
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
                  OnComponentHover
