@@ -608,7 +608,7 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
                 {
                     context.CodeWriter.Write(ComponentsApi.RuntimeHelpers.TypeCheck);
                     context.CodeWriter.Write("<");
-                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(QualifyEventCallback(node.TypeName)));
+                    context.CodeWriter.Write(QualifyEventCallback(node.TypeName));
                     context.CodeWriter.Write(">");
                     context.CodeWriter.Write("(");
                 }
