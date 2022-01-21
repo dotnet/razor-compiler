@@ -5,6 +5,6 @@ Generated Location: (908:25,13 [8] )
 
 Source Location: (32:0,32 [23] x:\dir\subdir\Test\TestComponent.cshtml)
 |Array.Empty<DateTime>()|
-Generated Location: (1238:34,32 [23] )
+Generated Location: (1246:34,32 [23] )
 |Array.Empty<DateTime>()|
 
