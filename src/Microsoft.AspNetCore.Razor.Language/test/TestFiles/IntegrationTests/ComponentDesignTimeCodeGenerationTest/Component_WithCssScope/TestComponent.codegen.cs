@@ -22,7 +22,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 #line default
 #line hidden
 #nullable disable
-    public partial class TestComponent : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class TestComponent : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 219
         private void __RazorDirectiveTokenHelpers__() {
@@ -87,7 +87,7 @@ __o = typeof(global::Test.TemplatedComponent);
 #line hidden
 #nullable disable
             );
-            __o = Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, __value => myVariable = __value, myVariable);
+            __o = global::Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, __value => myVariable = __value, myVariable);
 #nullable restore
 #line 14 "x:\dir\subdir\Test\TestComponent.cshtml"
                                                                               

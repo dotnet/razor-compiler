@@ -6,7 +6,7 @@ Document -
         UsingDirective - (73:4,1 [30] ) - System.Threading.Tasks
         UsingDirective - (104:5,1 [39] ) - Microsoft.AspNetCore.Components
         UsingDirective - (1:0,1 [43] x:\dir\subdir\Test\TestComponent.cshtml) - Microsoft.AspNetCore.Components.Web
-        ClassDeclaration -  - public partial - TestComponent - Microsoft.AspNetCore.Components.ComponentBase - 
+        ClassDeclaration -  - public partial - TestComponent - global::Microsoft.AspNetCore.Components.ComponentBase - 
             MethodDeclaration -  - protected override - void - BuildRenderTree
                 MarkupElement - (44:1,0 [112] x:\dir\subdir\Test\TestComponent.cshtml) - div
                     MarkupElement - (53:2,2 [95] x:\dir\subdir\Test\TestComponent.cshtml) - input
@@ -25,7 +25,7 @@ Document -
                                 IntermediateToken -  - CSharp - )
                         HtmlAttribute - (85:2,34 [5] x:\dir\subdir\Test\TestComponent.cshtml) - oninput=" - "
                             CSharpExpressionAttributeValue -  - 
-                                IntermediateToken -  - CSharp - Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, __value => text = __value, 
+                                IntermediateToken -  - CSharp - global::Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, __value => text = __value, 
                                 IntermediateToken -  - CSharp - text
                                 IntermediateToken -  - CSharp - )
             CSharpCode - (170:4,12 [35] x:\dir\subdir\Test\TestComponent.cshtml)

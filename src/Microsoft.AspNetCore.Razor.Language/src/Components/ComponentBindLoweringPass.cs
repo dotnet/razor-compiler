@@ -738,7 +738,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         // Note that the linemappings here are applied to the value attribute, not the change attribute.
         changeExpressionTokens.Add(new IntermediateToken()
         {
-            Content = $"{ComponentsApi.EventCallback.FactoryAccessor}.{ComponentsApi.EventCallbackFactory.CreateBinderMethod}(this, __value => {original.Content} = __value, ",
+            Content = $"global::{ComponentsApi.EventCallback.FactoryAccessor}.{ComponentsApi.EventCallbackFactory.CreateBinderMethod}(this, __value => {original.Content} = __value, ",
             Kind = TokenKind.CSharp
         });
 

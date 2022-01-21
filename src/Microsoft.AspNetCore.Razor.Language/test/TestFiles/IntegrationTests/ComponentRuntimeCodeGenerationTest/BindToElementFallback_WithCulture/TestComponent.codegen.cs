@@ -15,7 +15,7 @@ using System.Globalization;
 #line default
 #line hidden
 #nullable disable
-    public partial class TestComponent : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class TestComponent : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -38,7 +38,7 @@ using System.Globalization;
 #line hidden
 #nullable disable
             ));
-            __builder.AddAttribute(2, "onchange", Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, __value => ParentValue = __value, ParentValue, culture: CultureInfo.InvariantCulture));
+            __builder.AddAttribute(2, "onchange", global::Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, __value => ParentValue = __value, ParentValue, culture: CultureInfo.InvariantCulture));
             __builder.SetUpdatesAttributeName("value");
             __builder.CloseElement();
         }

@@ -15,7 +15,7 @@ using Test;
 #line default
 #line hidden
 #nullable disable
-    public partial class UseTestComponent : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class UseTestComponent : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 219
         private void __RazorDirectiveTokenHelpers__() {

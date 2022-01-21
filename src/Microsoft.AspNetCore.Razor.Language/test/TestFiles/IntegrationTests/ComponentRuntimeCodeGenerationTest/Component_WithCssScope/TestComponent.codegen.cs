@@ -22,7 +22,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 #line default
 #line hidden
 #nullable disable
-    public partial class TestComponent : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class TestComponent : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -95,7 +95,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 #line hidden
 #nullable disable
             ));
-            __builder.AddAttribute(21, "onchange", Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, __value => myVariable = __value, myVariable));
+            __builder.AddAttribute(21, "onchange", global::Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, __value => myVariable = __value, myVariable));
             __builder.SetUpdatesAttributeName("value");
             __builder.AddAttribute(22, "TestCssScope");
             __builder.CloseElement();
