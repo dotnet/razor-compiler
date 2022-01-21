@@ -364,7 +364,7 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
             context.CodeWriter.Write(".");
             context.CodeWriter.Write(ComponentsApi.RenderTreeBuilder.OpenComponent);
             context.CodeWriter.Write("<");
-            context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeName));
+            TypeNameHelper.WriteGloballyQualifiedName(context.CodeWriter, node.TypeName);
             context.CodeWriter.Write(">(");
             context.CodeWriter.Write((_sourceSequence++).ToString(CultureInfo.InvariantCulture));
             context.CodeWriter.Write(");");
@@ -420,7 +420,7 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
             if (node.Component.SuppliesCascadingGenericParameters())
             {
                 typeInferenceCaptureScope = context.CodeWriter.BuildScope();
-                context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeInferenceNode.FullTypeName));
+                TypeNameHelper.WriteGloballyQualifiedName(context.CodeWriter, node.TypeInferenceNode.FullTypeName);
                 context.CodeWriter.Write(".");
                 context.CodeWriter.Write(node.TypeInferenceNode.MethodName);
                 context.CodeWriter.Write("_CaptureParameters(");
@@ -453,7 +453,7 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
             //
             // __Blazor.MyComponent.TypeInference.CreateMyComponent_0(builder, 0, 1, ..., 2, ..., 3, ...);
 
-            context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeInferenceNode.FullTypeName));
+            TypeNameHelper.WriteGloballyQualifiedName(context.CodeWriter, node.TypeInferenceNode.FullTypeName);
             context.CodeWriter.Write(".");
             context.CodeWriter.Write(node.TypeInferenceNode.MethodName);
             context.CodeWriter.Write("(");
@@ -587,7 +587,7 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
                 if (canTypeCheck)
                 {
                     context.CodeWriter.Write("(");
-                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeName));
+                    TypeNameHelper.WriteGloballyQualifiedName(context.CodeWriter, node.TypeName);
                     context.CodeWriter.Write(")");
                     context.CodeWriter.Write("(");
                 }
@@ -608,7 +608,8 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
                 {
                     context.CodeWriter.Write(ComponentsApi.RuntimeHelpers.TypeCheck);
                     context.CodeWriter.Write("<");
-                    context.CodeWriter.Write(QualifyEventCallback(node.TypeName));
+                    context.CodeWriter.Write("global::");
+                    QualifyEventCallback(context.CodeWriter, node.TypeName);
                     context.CodeWriter.Write(">");
                     context.CodeWriter.Write("(");
                 }
@@ -624,7 +625,7 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
                 if (node.TryParseEventCallbackTypeArgument(out StringSegment argument))
                 {
                     context.CodeWriter.Write("<");
-                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(argument));
+                    TypeNameHelper.WriteGloballyQualifiedName(context.CodeWriter, argument);
                     context.CodeWriter.Write(">");
                 }
 
@@ -650,7 +651,7 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
                 {
                     context.CodeWriter.Write(ComponentsApi.RuntimeHelpers.TypeCheck);
                     context.CodeWriter.Write("<");
-                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeName));
+                    TypeNameHelper.WriteGloballyQualifiedName(context.CodeWriter, node.TypeName);
                     context.CodeWriter.Write(">");
                     context.CodeWriter.Write("(");
                 }
@@ -667,9 +668,20 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
 
             }
 
-            static string QualifyEventCallback(string typeName) => ComponentAttributeIntermediateNode.TryGetEventCallbackArgument(typeName, out var argument) ?
-                "global::" + ComponentsApi.EventCallback.FullTypeName + "<" + TypeNameHelper.GloballyQualifiedTypeName(argument) + ">" :
-                "global::" + typeName;
+            static void QualifyEventCallback(CodeWriter codeWriter, string typeName)
+            {
+                if (ComponentAttributeIntermediateNode.TryGetEventCallbackArgument(typeName, out var argument))
+                {
+                    codeWriter.Write(ComponentsApi.EventCallback.FullTypeName);
+                    codeWriter.Write("<");
+                    TypeNameHelper.WriteGloballyQualifiedName(codeWriter, argument);
+                    codeWriter.Write(">");
+                }
+                else
+                {
+                    codeWriter.Write(typeName);
+                }
+            }
         }
 
         IReadOnlyList<IntermediateToken> GetHtmlTokens(HtmlContentIntermediateNode html)
@@ -709,7 +721,9 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
         // _builder.AddAttribute(1, "ChildContent", (RenderFragment<Person>)((person) => (__builder73) => { ... }));
         BeginWriteAttribute(context, node.AttributeName);
         context.CodeWriter.WriteParameterSeparator();
-        context.CodeWriter.Write($"({TypeNameHelper.GloballyQualifiedTypeName(node.TypeName)})(");
+        context.CodeWriter.Write("(");
+        TypeNameHelper.WriteGloballyQualifiedName(context.CodeWriter, node.TypeName);
+        context.CodeWriter.Write(")(");
 
         WriteComponentChildContentInnards(context, node);
 

@@ -112,7 +112,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 if (type != null)
                 {
                     context.CodeWriter.Write("(");
-                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(type));
+                    TypeNameHelper.WriteGloballyQualifiedName(context.CodeWriter, type);
                     context.CodeWriter.Write(")");
                 }
 
@@ -634,7 +634,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 if (canTypeCheck)
                 {
                     context.CodeWriter.Write("new ");
-                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeName));
+                    TypeNameHelper.WriteGloballyQualifiedName(context.CodeWriter, node.TypeName);
                     context.CodeWriter.Write("(");
                 }
                 context.CodeWriter.WriteLine();
@@ -661,7 +661,8 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 {
                     context.CodeWriter.Write(ComponentsApi.RuntimeHelpers.TypeCheck);
                     context.CodeWriter.Write("<");
-                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(QualifyEventCallback(node.TypeName)));
+                    context.CodeWriter.Write("global::");
+                    QualifyEventCallback(context.CodeWriter, node.TypeName);
                     context.CodeWriter.Write(">");
                     context.CodeWriter.Write("(");
                 }
@@ -677,7 +678,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 if (node.TryParseEventCallbackTypeArgument(out StringSegment argument))
                 {
                     context.CodeWriter.Write("<");
-                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(argument));
+                    TypeNameHelper.WriteGloballyQualifiedName(context.CodeWriter, argument);
                     context.CodeWriter.Write(">");
                 }
 
@@ -708,7 +709,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 {
                     context.CodeWriter.Write(ComponentsApi.RuntimeHelpers.TypeCheck);
                     context.CodeWriter.Write("<");
-                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeName));
+                    TypeNameHelper.WriteGloballyQualifiedName(context.CodeWriter, node.TypeName);
                     context.CodeWriter.Write(">");
                     context.CodeWriter.Write("(");
                 }
@@ -724,9 +725,20 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 }
             }
 
-            static string QualifyEventCallback(string typeName) => ComponentAttributeIntermediateNode.TryGetEventCallbackArgument(typeName, out var argument) ?
-                "global::" + ComponentsApi.EventCallback.FullTypeName + "<" + TypeNameHelper.GloballyQualifiedTypeName(argument) + ">" :
-                "global::" + typeName;
+            static void QualifyEventCallback(CodeWriter codeWriter, string typeName)
+            {
+                if(ComponentAttributeIntermediateNode.TryGetEventCallbackArgument(typeName, out var argument))
+                {
+                    codeWriter.Write(ComponentsApi.EventCallback.FullTypeName);
+                    codeWriter.Write("<");
+                    TypeNameHelper.WriteGloballyQualifiedName(codeWriter, argument);
+                    codeWriter.Write(">");
+                }
+                else
+                {
+                    codeWriter.Write(typeName);
+                }
+            }
         }
 
         static bool NeedsTypeCheck(ComponentAttributeIntermediateNode n)
@@ -761,7 +773,9 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
         // __builder.AddAttribute(1, "ChildContent", (RenderFragment<Person>)((person) => (__builder73) => { ... }));
         BeginWriteAttribute(context, node.AttributeName);
         context.CodeWriter.WriteParameterSeparator();
-        context.CodeWriter.Write($"({TypeNameHelper.GloballyQualifiedTypeName(node.TypeName)})(");
+        context.CodeWriter.Write("(");
+        TypeNameHelper.WriteGloballyQualifiedName(context.CodeWriter, node.TypeName);
+        context.CodeWriter.Write(")(");
 
         WriteComponentChildContentInnards(context, node);
 
@@ -954,7 +968,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
             // just want sufficiently similar code that any unknown-identifier or type
             // errors will be equivalent
             var captureTypeName = node.IsComponentCapture
-                ? TypeNameHelper.GloballyQualifiedTypeName(node.ComponentCaptureTypeName)
+                ? TypeNameHelper.GetGloballyQualifiedNameIfNeeded(node.ComponentCaptureTypeName)
                 : ComponentsApi.ElementReference.FullTypeName;
             WriteCSharpCode(context, new CSharpCodeIntermediateNode
             {

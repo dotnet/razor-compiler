@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
 
 namespace Microsoft.AspNetCore.Razor.Language;
 internal class TypeNameHelper
@@ -28,17 +29,17 @@ internal class TypeNameHelper
         "decimal"
     };
 
-    public static StringSegment GloballyQualifiedTypeName(string typeName)
+    public static void WriteGloballyQualifiedName(CodeWriter codeWriter, string typeName)
     {
         if (typeName == null)
         {
             throw new ArgumentNullException(nameof(typeName));
         }
 
-        return GloballyQualifiedTypeName(new StringSegment(typeName));
+        WriteGloballyQualifiedName(codeWriter, new StringSegment(typeName));
     }
 
-    internal static StringSegment GloballyQualifiedTypeName(StringSegment typeName)
+    internal static string GetGloballyQualifiedNameIfNeeded(string typeName)
     {
         if (typeName.StartsWith("global::", StringComparison.Ordinal))
         {
@@ -61,5 +62,35 @@ internal class TypeNameHelper
         }
 
         return $"global::{typeName}";
+    }
+
+    internal static void WriteGloballyQualifiedName(CodeWriter codeWriter, StringSegment typeName)
+    {
+        if (typeName.StartsWith("global::", StringComparison.Ordinal))
+        {
+            codeWriter.Write(typeName);
+            return;
+        }
+
+        // Fast path, if the length doesn't fall within that of the
+        // builtin c# types, then we can add global without further checks.
+        if (typeName.Length < 3 || typeName.Length > 7)
+        {
+            codeWriter.Write("global::");
+            codeWriter.Write(typeName);
+            return;
+        }
+
+        for (var i = 0; i < PredefinedTypeNames.Length; i++)
+        {
+            if (typeName.Equals(PredefinedTypeNames[i], StringComparison.Ordinal))
+            {
+                codeWriter.Write(typeName);
+                return;
+            }
+        }
+
+        codeWriter.Write("global::");
+        codeWriter.Write(typeName);
     }
 }
