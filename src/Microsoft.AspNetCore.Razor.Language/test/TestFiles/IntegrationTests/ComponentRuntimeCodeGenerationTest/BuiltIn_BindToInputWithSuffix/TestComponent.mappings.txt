@@ -2,7 +2,7 @@ Source Location: (116:2,7 [77] x:\dir\subdir\Test\TestComponent.cshtml)
 |
     public DateTime CurrentDate { get; set; } = new DateTime(2018, 1, 1);
 |
-Generated Location: (1449:39,7 [77] )
+Generated Location: (1457:39,7 [77] )
 |
     public DateTime CurrentDate { get; set; } = new DateTime(2018, 1, 1);
 |

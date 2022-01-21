@@ -28,7 +28,7 @@ global::System.Boolean __typeHelper = false;
         private static System.Object __o = null;
         #pragma warning restore 0414
         #pragma warning disable 1998
-        protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
+        protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
 #nullable restore
 #line 4 "x:\dir\subdir\Test\TestComponent.cshtml"

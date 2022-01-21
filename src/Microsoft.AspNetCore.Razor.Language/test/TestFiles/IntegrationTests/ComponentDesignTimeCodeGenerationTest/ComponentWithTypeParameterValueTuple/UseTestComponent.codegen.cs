@@ -25,7 +25,7 @@ using Test;
         private static System.Object __o = null;
         #pragma warning restore 0414
         #pragma warning disable 1998
-        protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
+        protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
             global::__Blazor.Test.UseTestComponent.TypeInference.CreateTestComponent_0(__builder, -1, -1, 
 #nullable restore

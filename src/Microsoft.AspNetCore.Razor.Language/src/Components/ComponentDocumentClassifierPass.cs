@@ -131,7 +131,7 @@ internal class ComponentDocumentClassifierPass : DocumentClassifierPassBase
             method.Parameters.Add(new MethodParameter()
             {
                 ParameterName = ComponentsApi.RenderTreeBuilder.BuilderParameter,
-                TypeName = ComponentsApi.RenderTreeBuilder.FullTypeName,
+                TypeName = $"global::{ComponentsApi.RenderTreeBuilder.FullTypeName}",
             });
         }
     }
