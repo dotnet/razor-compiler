@@ -661,7 +661,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 {
                     context.CodeWriter.Write(ComponentsApi.RuntimeHelpers.TypeCheck);
                     context.CodeWriter.Write("<");
-                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeName));
+                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(QualifyEventCallback(node.TypeName)));
                     context.CodeWriter.Write(">");
                     context.CodeWriter.Write("(");
                 }
@@ -708,7 +708,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 {
                     context.CodeWriter.Write(ComponentsApi.RuntimeHelpers.TypeCheck);
                     context.CodeWriter.Write("<");
-                    context.CodeWriter.Write(node.TypeName);
+                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeName));
                     context.CodeWriter.Write(">");
                     context.CodeWriter.Write("(");
                 }
@@ -723,6 +723,10 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                     context.CodeWriter.Write(")");
                 }
             }
+
+            static string QualifyEventCallback(string typeName) => ComponentAttributeIntermediateNode.TryGetEventCallbackArgument(typeName, out var argument) ?
+                "global::" + ComponentsApi.EventCallback.FullTypeName + "<" + TypeNameHelper.GloballyQualifiedTypeName(argument) + ">" :
+                typeName;
         }
 
         static bool NeedsTypeCheck(ComponentAttributeIntermediateNode n)

@@ -61,7 +61,8 @@ internal class ComponentLoweringPass : ComponentIntermediateNodePassBase, IRazor
             if (count == 1)
             {
                 reference.Replace(RewriteAsComponent(node, node.TagHelpers.Single(n => n.IsComponentTagHelper())));
-            } else if (count > 1)
+            }
+            else if (count > 1)
             {
                 var tagHelper = GetTagHelperOrAddDiagnostic(node, usings);
                 if (tagHelper == null)
@@ -106,7 +107,7 @@ internal class ComponentLoweringPass : ComponentIntermediateNodePassBase, IRazor
                     }
                 }
             }
-            
+
             if (matched != null)
             {
                 matched.Add(candidate);
