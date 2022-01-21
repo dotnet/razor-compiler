@@ -40,6 +40,11 @@ internal class TypeNameHelper
 
     internal static StringSegment GloballyQualifiedTypeName(StringSegment typeName)
     {
+        if (typeName.StartsWith("global::", StringComparison.Ordinal))
+        {
+            return typeName;
+        }
+
         // Fast path, if the length doesn't fall within that of the
         // builtin c# types, then we can add global without further checks.
         if (typeName.Length < 3 || typeName.Length > 7)

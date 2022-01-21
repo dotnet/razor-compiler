@@ -587,7 +587,7 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
                 if (canTypeCheck)
                 {
                     context.CodeWriter.Write("(");
-                    context.CodeWriter.Write(node.TypeName);
+                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeName));
                     context.CodeWriter.Write(")");
                     context.CodeWriter.Write("(");
                 }
@@ -704,7 +704,7 @@ internal class ComponentRuntimeNodeWriter : ComponentNodeWriter
         // _builder.AddAttribute(1, "ChildContent", (RenderFragment<Person>)((person) => (__builder73) => { ... }));
         BeginWriteAttribute(context, node.AttributeName);
         context.CodeWriter.WriteParameterSeparator();
-        context.CodeWriter.Write($"({node.TypeName})(");
+        context.CodeWriter.Write($"({TypeNameHelper.GloballyQualifiedTypeName(node.TypeName)})(");
 
         WriteComponentChildContentInnards(context, node);
 

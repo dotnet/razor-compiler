@@ -688,7 +688,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         // BindConverter.FormatValue(<code>, format: <format>, culture: <culture>)
         valueExpressionTokens.Add(new IntermediateToken()
         {
-            Content = $"{ComponentsApi.BindConverter.FormatValue}(",
+            Content = $"global::{ComponentsApi.BindConverter.FormatValue}(",
             Kind = TokenKind.CSharp
         });
         valueExpressionTokens.Add(original);

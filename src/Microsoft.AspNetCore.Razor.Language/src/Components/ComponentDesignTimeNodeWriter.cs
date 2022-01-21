@@ -402,7 +402,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 // for any code that the user types.
                 context.RenderNode(new ComponentChildContentIntermediateNode()
                 {
-                    TypeName = $"global::{ComponentsApi.RenderFragment.FullTypeName}",
+                    TypeName = ComponentsApi.RenderFragment.FullTypeName,
                 });
             }
 
@@ -634,8 +634,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 if (canTypeCheck)
                 {
                     context.CodeWriter.Write("new ");
-                    context.CodeWriter.Write("global::");
-                    context.CodeWriter.Write(node.TypeName);
+                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeName));
                     context.CodeWriter.Write("(");
                 }
                 context.CodeWriter.WriteLine();
@@ -662,7 +661,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 {
                     context.CodeWriter.Write(ComponentsApi.RuntimeHelpers.TypeCheck);
                     context.CodeWriter.Write("<");
-                    context.CodeWriter.Write(node.TypeName);
+                    context.CodeWriter.Write(TypeNameHelper.GloballyQualifiedTypeName(node.TypeName));
                     context.CodeWriter.Write(">");
                     context.CodeWriter.Write("(");
                 }
@@ -758,7 +757,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
         // __builder.AddAttribute(1, "ChildContent", (RenderFragment<Person>)((person) => (__builder73) => { ... }));
         BeginWriteAttribute(context, node.AttributeName);
         context.CodeWriter.WriteParameterSeparator();
-        context.CodeWriter.Write($"({node.TypeName})(");
+        context.CodeWriter.Write($"({TypeNameHelper.GloballyQualifiedTypeName(node.TypeName)})(");
 
         WriteComponentChildContentInnards(context, node);
 
