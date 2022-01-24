@@ -22,8 +22,8 @@ namespace Test
         {
             __o = typeof(
 #nullable restore
-#line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
-       WeatherForecast
+#line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
+             WeatherForecast
 
 #line default
 #line hidden
@@ -31,8 +31,8 @@ namespace Test
             );
             __o = 
 #nullable restore
-#line 3 "x:\dir\subdir\Test\TestComponent.cshtml"
-         Array.Empty<WeatherForecast>()
+#line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
+                                       Array.Empty<WeatherForecast>()
 
 #line default
 #line hidden
@@ -41,7 +41,7 @@ namespace Test
             __builder.AddAttribute(-1, "ColumnsTemplate", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
                 global::__Blazor.Test.TestComponent.TypeInference.CreateColumn_0(__builder2, -1, default(WeatherForecast), -1, "", -1, "", -1, "", -1, "");
 #nullable restore
-#line 5 "x:\dir\subdir\Test\TestComponent.cshtml"
+#line 3 "x:\dir\subdir\Test\TestComponent.cshtml"
 __o = typeof(global::Test.Column<>);
 
 #line default

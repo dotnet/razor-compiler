@@ -18,6 +18,11 @@ internal class ComponentTagHelperDescriptorProvider : RazorEngineFeatureBase, IT
             .WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted)
             .WithMiscellaneousOptions(SymbolDisplayFormat.FullyQualifiedFormat.MiscellaneousOptions & (~SymbolDisplayMiscellaneousOptions.UseSpecialTypes));
 
+    private static readonly SymbolDisplayFormat GloballyQualifiedFullNameTypeDisplayFormat =
+        SymbolDisplayFormat.FullyQualifiedFormat
+            .WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Included)
+            .WithMiscellaneousOptions(SymbolDisplayFormat.FullyQualifiedFormat.MiscellaneousOptions & (~SymbolDisplayMiscellaneousOptions.UseSpecialTypes));
+
     public bool IncludeDocumentation { get; set; }
 
     public int Order { get; set; }
@@ -273,27 +278,28 @@ internal class ComponentTagHelperDescriptorProvider : RazorEngineFeatureBase, IT
             var list = new List<string>();
             for (var i = 0; i < typeParameter.ConstraintTypes.Length; i++)
             {
-                list.Add(typeParameter.ConstraintTypes[i].Name);
-            }
-            if (typeParameter.HasConstructorConstraint)
-            {
-                list.Add("new()");
-            }
-            if (typeParameter.HasNotNullConstraint)
-            {
-                list.Add("notnull");
+                var constraintType = typeParameter.ConstraintTypes[i];
+                list.Add(constraintType.ToDisplayString(GloballyQualifiedFullNameTypeDisplayFormat));
             }
             if (typeParameter.HasReferenceTypeConstraint)
             {
                 list.Add("class");
             }
+            if (typeParameter.HasValueTypeConstraint)
+            {
+                list.Add("struct");
+            }
+            if (typeParameter.HasNotNullConstraint)
+            {
+                list.Add("notnull");
+            }
             if (typeParameter.HasUnmanagedTypeConstraint)
             {
                 list.Add("unmanaged");
             }
-            if (typeParameter.HasValueTypeConstraint)
+            if (typeParameter.HasConstructorConstraint)
             {
-                list.Add("struct");
+                list.Add("new()");
             }
 
             if (list.Count > 0)
