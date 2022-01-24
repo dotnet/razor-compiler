@@ -1,0 +1,10 @@
+Source Location: (14:1,7 [15] x:\dir\subdir\Test\TestComponent.cshtml)
+|WeatherForecast|
+Generated Location: (902:25,7 [15] )
+|WeatherForecast|
+
+Source Location: (41:2,9 [30] x:\dir\subdir\Test\TestComponent.cshtml)
+|Array.Empty<WeatherForecast>()|
+Generated Location: (1084:34,9 [30] )
+|Array.Empty<WeatherForecast>()|
+

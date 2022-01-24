@@ -3894,6 +3894,58 @@ namespace Test
     }
 
     [Fact]
+    public void CascadingGenericInference_Inferred_WithConstraints()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    [CascadingTypeParameter(nameof(TItem))]
+    public class Grid<TItem> : ComponentBase
+    {
+        [Parameter] public RenderFragment ColumnsTemplate { get; set; }
+    }
+
+    public abstract partial class BaseColumn<TItem> : ComponentBase where TItem : class
+    {
+        [CascadingParameter]
+        internal Grid<TItem> Grid { get; set; }
+    }
+
+    public class Column<TItem> : BaseColumn<TItem>, IGridFieldColumn<TItem> where TItem : class
+    {
+        [Parameter]
+        public string FieldName { get; set; }
+    }
+
+    internal interface IGridFieldColumn<TItem> where TItem : class
+    {
+    }
+
+    public class WeatherForecast { }
+}
+"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<Grid
+TItem=""WeatherForecast""
+Items=""@(Array.Empty<WeatherForecast>())"">
+    <ColumnsTemplate>
+        <Column Title=""Date"" FieldName=""Date"" Format=""d"" Width=""10rem"" />
+    </ColumnsTemplate>
+</Grid>
+");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
     public void CascadingGenericInference_Partial_CreatesError()
     {
         // Arrange

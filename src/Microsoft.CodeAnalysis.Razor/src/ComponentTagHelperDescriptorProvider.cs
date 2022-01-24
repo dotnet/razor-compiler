@@ -270,36 +270,35 @@ internal class ComponentTagHelperDescriptorProvider : RazorEngineFeatureBase, IT
             // things like constructor constraints and not null constraints in the
             // type parameter so we create a single string representation of all the constraints
             // here.
-            var constraintString = new StringBuilder();
-            if (typeParameter.ConstraintTypes.Any())
+            var list = new List<string>();
+            for (var i = 0; i < typeParameter.ConstraintTypes.Length; i++)
             {
-                constraintString.Append(string.Join(", ", typeParameter.ConstraintTypes.Select(t => t.Name)));
+                list.Add(typeParameter.ConstraintTypes[i].Name);
             }
             if (typeParameter.HasConstructorConstraint)
             {
-                constraintString.Append(", new()");
+                list.Add("new()");
             }
             if (typeParameter.HasNotNullConstraint)
             {
-                constraintString.Append(", notnull");
+                list.Add("notnull");
             }
             if (typeParameter.HasReferenceTypeConstraint)
             {
-                constraintString.Append(", class");
+                list.Add("class");
             }
             if (typeParameter.HasUnmanagedTypeConstraint)
             {
-                constraintString.Append(", unmanaged");
+                list.Add("unmanaged");
             }
             if (typeParameter.HasValueTypeConstraint)
             {
-                constraintString.Append(", struct");
+                list.Add("struct");
             }
 
-            if (constraintString.Length > 0)
+            if (list.Count > 0)
             {
-                constraintString.Insert(0, "where " + typeParameter.Name + " : ");
-                pb.Metadata[ComponentMetadata.Component.TypeParameterConstraintsKey] = constraintString.ToString();
+                pb.Metadata[ComponentMetadata.Component.TypeParameterConstraintsKey] = $"where {typeParameter.Name} : {string.Join(", ", list)}";
             }
 
             pb.Documentation = string.Format(CultureInfo.InvariantCulture, ComponentResources.ComponentTypeParameter_Documentation, typeParameter.Name, builder.Name);
