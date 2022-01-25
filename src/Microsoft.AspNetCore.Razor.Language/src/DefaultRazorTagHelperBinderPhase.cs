@@ -33,6 +33,8 @@ internal class DefaultRazorTagHelperBinderPhase : RazorEnginePhaseBase, IRazorTa
 
         var parserOptions = codeDocument.GetParserOptions();
 
+        var typeNameFeature = Engine.GetFeature<TypeNameFeature>();
+
         // We need to find directives in all of the *imports* as well as in the main razor file
         //
         // The imports come logically before the main razor file and are in the order they
@@ -42,7 +44,7 @@ internal class DefaultRazorTagHelperBinderPhase : RazorEnginePhaseBase, IRazorTa
             (parserOptions == null || parserOptions.FeatureFlags.AllowComponentFileKind))
         {
             codeDocument.TryComputeNamespace(fallbackToRootNamespace: true, out var currentNamespace);
-            visitor = new ComponentDirectiveVisitor(codeDocument.Source.FilePath, descriptors, currentNamespace);
+            visitor = new ComponentDirectiveVisitor(codeDocument.Source.FilePath, descriptors, currentNamespace, typeNameFeature);
         }
         else
         {
@@ -229,11 +231,19 @@ internal class DefaultRazorTagHelperBinderPhase : RazorEnginePhaseBase, IRazorTa
     {
         private readonly List<TagHelperDescriptor> _notFullyQualifiedComponents;
         private readonly string _filePath;
+        private readonly TypeNameFeature _typeNameFeature;
         private RazorSourceDocument _source;
 
-        public ComponentDirectiveVisitor(string filePath, IReadOnlyList<TagHelperDescriptor> tagHelpers, string currentNamespace)
+        // For testing purposes only
+        internal ComponentDirectiveVisitor(TypeNameFeature typeNameFeature)
+        {
+            _typeNameFeature = typeNameFeature;
+        }
+
+        public ComponentDirectiveVisitor(string filePath, IReadOnlyList<TagHelperDescriptor> tagHelpers, string currentNamespace, TypeNameFeature typeNameFeature)
         {
             _filePath = filePath;
+            _typeNameFeature = typeNameFeature;
 
             for (var i = 0; i < tagHelpers.Count; i++)
             {
@@ -366,7 +376,7 @@ internal class DefaultRazorTagHelperBinderPhase : RazorEnginePhaseBase, IRazorTa
             }
         }
 
-        internal static bool IsTypeInNamespace(StringSegment typeName, string @namespace)
+        internal bool IsTypeInNamespace(StringSegment typeName, string @namespace)
         {
             if (!TrySplitNamespaceAndType(typeName, out var typeNamespace, out var _) || typeNamespace.IsEmpty)
             {
@@ -377,7 +387,7 @@ internal class DefaultRazorTagHelperBinderPhase : RazorEnginePhaseBase, IRazorTa
             return typeNamespace.Equals(@namespace, StringComparison.Ordinal);
         }
 
-        internal static bool IsTypeInNamespace(TagHelperDescriptor tagHelper, string @namespace)
+        internal bool IsTypeInNamespace(TagHelperDescriptor tagHelper, string @namespace)
         {
             if (!TrySplitNamespaceAndType(tagHelper, out var typeNamespace) || typeNamespace.IsEmpty)
             {
@@ -393,7 +403,7 @@ internal class DefaultRazorTagHelperBinderPhase : RazorEnginePhaseBase, IRazorTa
         // If the namespace of the document is `MyComponents.Components.Shared`,
         // then the types `MyComponents.FooComponent`, `MyComponents.Components.BarComponent`, `MyComponents.Components.Shared.BazComponent` are all in scope.
         // Whereas `MyComponents.SomethingElse.OtherComponent` is not in scope.
-        internal static bool IsTypeInScope(TagHelperDescriptor descriptor, string currentNamespace)
+        internal bool IsTypeInScope(TagHelperDescriptor descriptor, string currentNamespace)
         {
             if (!TrySplitNamespaceAndType(descriptor, out var typeNamespace, out _) || typeNamespace.IsEmpty)
             {
@@ -409,7 +419,7 @@ internal class DefaultRazorTagHelperBinderPhase : RazorEnginePhaseBase, IRazorTa
         // If the namespace of the document is `MyComponents.Components.Shared`,
         // then the types `MyComponents.FooComponent`, `MyComponents.Components.BarComponent`, `MyComponents.Components.Shared.BazComponent` are all in scope.
         // Whereas `MyComponents.SomethingElse.OtherComponent` is not in scope.
-        internal static bool IsTypeInScope(StringSegment typeName, string currentNamespace)
+        internal bool IsTypeInScope(StringSegment typeName, string currentNamespace)
         {
             if (!TrySplitNamespaceAndType(typeName, out var typeNamespace, out _) || typeNamespace.IsEmpty)
             {
@@ -420,7 +430,7 @@ internal class DefaultRazorTagHelperBinderPhase : RazorEnginePhaseBase, IRazorTa
             return IsTypeInScopeCore(currentNamespace, typeNamespace);
         }
 
-        private static bool IsTypeInScopeCore(string currentNamespace, StringSegment typeNamespace)
+        private bool IsTypeInScopeCore(string currentNamespace, StringSegment typeNamespace)
         {
             if (!new StringSegment(currentNamespace).StartsWith(typeNamespace, StringComparison.Ordinal))
             {
@@ -441,7 +451,7 @@ internal class DefaultRazorTagHelperBinderPhase : RazorEnginePhaseBase, IRazorTa
 
         // We need to filter out the duplicate tag helper descriptors that come from the
         // open file in the editor. We mangle the class name for its generated code, so using that here to filter these out.
-        internal static bool IsTagHelperFromMangledClass(TagHelperDescriptor tagHelper)
+        internal bool IsTagHelperFromMangledClass(TagHelperDescriptor tagHelper)
         {
             StringSegment className;
             if (tagHelper.IsChildContentTagHelper())
@@ -457,10 +467,10 @@ internal class DefaultRazorTagHelperBinderPhase : RazorEnginePhaseBase, IRazorTa
                 ComponentMetadata.IsMangledClass(className);
         }
 
-        internal static bool TrySplitNamespaceAndType(TagHelperDescriptor tagHelperDescriptor, out StringSegment @namespace)
+        internal bool TrySplitNamespaceAndType(TagHelperDescriptor tagHelperDescriptor, out StringSegment @namespace)
             => TrySplitNamespaceAndType(tagHelperDescriptor, out @namespace, out _);
 
-        internal static bool TrySplitNamespaceAndType(TagHelperDescriptor tagHelperDescriptor, out StringSegment @namespace, out StringSegment typeName)
+        internal bool TrySplitNamespaceAndType(TagHelperDescriptor tagHelperDescriptor, out StringSegment @namespace, out StringSegment typeName)
         {
             if (tagHelperDescriptor.ParsedTypeInfo is { } value)
             {
@@ -475,7 +485,7 @@ internal class DefaultRazorTagHelperBinderPhase : RazorEnginePhaseBase, IRazorTa
         }
 
         // Internal for testing.
-        internal static bool TrySplitNamespaceAndType(StringSegment fullTypeName, out StringSegment @namespace, out StringSegment typeName)
+        internal bool TrySplitNamespaceAndType(StringSegment fullTypeName, out StringSegment @namespace, out StringSegment typeName)
         {
             @namespace = StringSegment.Empty;
             typeName = StringSegment.Empty;
@@ -485,41 +495,14 @@ internal class DefaultRazorTagHelperBinderPhase : RazorEnginePhaseBase, IRazorTa
                 return false;
             }
 
-            var nestingLevel = 0;
-            var splitLocation = -1;
-            for (var i = fullTypeName.Length - 1; i >= 0; i--)
+            if(_typeNameFeature.TryParseTypeName(fullTypeName.ToString(), out var parsedNamespace, out var parsedTypeName))
             {
-                var c = fullTypeName[i];
-                if (c == Type.Delimiter && nestingLevel == 0)
-                {
-                    splitLocation = i;
-                    break;
-                }
-                else if (c == '>')
-                {
-                    nestingLevel++;
-                }
-                else if (c == '<')
-                {
-                    nestingLevel--;
-                }
-            }
-
-            if (splitLocation == -1)
-            {
-                typeName = fullTypeName;
+                @namespace = parsedNamespace;
+                typeName = parsedTypeName;
                 return true;
             }
 
-            @namespace = fullTypeName.Subsegment(0, splitLocation);
-
-            var typeNameStartLocation = splitLocation + 1;
-            if (typeNameStartLocation < fullTypeName.Length)
-            {
-                typeName = fullTypeName.Subsegment(typeNameStartLocation, fullTypeName.Length - typeNameStartLocation);
-            }
-
-            return true;
+            return false;
         }
     }
 }

@@ -11,6 +11,8 @@ internal abstract class TypeNameFeature : RazorEngineFeatureBase
 {
     public abstract IReadOnlyList<string> ParseTypeParameters(string typeName);
 
+    public abstract bool TryParseTypeName(string type, out string typeNamespace, out string typeName);
+
     public abstract TypeNameRewriter CreateGenericTypeRewriter(Dictionary<string, string> bindings);
 
     public abstract TypeNameRewriter CreateGlobalQualifiedTypeNameRewriter(ICollection<string> ignore);

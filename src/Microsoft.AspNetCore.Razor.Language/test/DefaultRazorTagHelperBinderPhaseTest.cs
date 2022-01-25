@@ -7,6 +7,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Razor.Language.Components;
 using Microsoft.AspNetCore.Razor.Language.Legacy;
 using Microsoft.AspNetCore.Razor.Language.Syntax;
+using Microsoft.CodeAnalysis.Razor;
 using Xunit;
 
 namespace Microsoft.AspNetCore.Razor.Language;
@@ -1081,7 +1082,7 @@ public class DefaultRazorTagHelperBinderPhaseTest : RazorProjectEngineTestBase
             };
         var sourceDocument = CreateComponentTestSourceDocument(@"<Counter />", "C:\\SomeFolder\\SomeProject\\Counter.cshtml");
         var tree = RazorSyntaxTree.Parse(sourceDocument);
-        var visitor = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(sourceDocument.FilePath, descriptors, currentNamespace);
+        var visitor = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(sourceDocument.FilePath, descriptors, currentNamespace, new DefaultTypeNameFeature());
 
         // Act
         visitor.Visit(tree);
@@ -1112,7 +1113,7 @@ public class DefaultRazorTagHelperBinderPhaseTest : RazorProjectEngineTestBase
 ";
         var sourceDocument = CreateComponentTestSourceDocument(content, filePath);
         var tree = RazorSyntaxTree.Parse(sourceDocument);
-        var visitor = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(sourceDocument.FilePath, descriptors, currentNamespace);
+        var visitor = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(sourceDocument.FilePath, descriptors, currentNamespace, new DefaultTypeNameFeature());
 
         // Act
         visitor.Visit(tree);
@@ -1145,7 +1146,7 @@ public class DefaultRazorTagHelperBinderPhaseTest : RazorProjectEngineTestBase
 ";
         var sourceDocument = CreateComponentTestSourceDocument(content, filePath);
         var tree = RazorSyntaxTree.Parse(sourceDocument);
-        var visitor = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(sourceDocument.FilePath, descriptors, currentNamespace);
+        var visitor = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(sourceDocument.FilePath, descriptors, currentNamespace, new DefaultTypeNameFeature());
 
         // Act
         visitor.Visit(tree);
@@ -1179,7 +1180,7 @@ public class DefaultRazorTagHelperBinderPhaseTest : RazorProjectEngineTestBase
 ";
         var sourceDocument = CreateComponentTestSourceDocument(content, filePath);
         var tree = RazorSyntaxTree.Parse(sourceDocument);
-        var visitor = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(sourceDocument.FilePath, descriptors, currentNamespace);
+        var visitor = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(sourceDocument.FilePath, descriptors, currentNamespace, new DefaultTypeNameFeature());
 
         // Act
         visitor.Visit(tree);
@@ -1212,7 +1213,7 @@ public class DefaultRazorTagHelperBinderPhaseTest : RazorProjectEngineTestBase
 ";
         var sourceDocument = CreateComponentTestSourceDocument(content, filePath);
         var tree = RazorSyntaxTree.Parse(sourceDocument);
-        var visitor = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(sourceDocument.FilePath, descriptors, currentNamespace);
+        var visitor = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(sourceDocument.FilePath, descriptors, currentNamespace, new DefaultTypeNameFeature());
 
         // Act
         visitor.Visit(tree);
@@ -1246,7 +1247,7 @@ public class DefaultRazorTagHelperBinderPhaseTest : RazorProjectEngineTestBase
 ";
         var sourceDocument = CreateComponentTestSourceDocument(content, filePath);
         var tree = RazorSyntaxTree.Parse(sourceDocument);
-        var visitor = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(sourceDocument.FilePath, descriptors, currentNamespace);
+        var visitor = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(sourceDocument.FilePath, descriptors, currentNamespace, new DefaultTypeNameFeature());
 
         // Act
         visitor.Visit(tree);
@@ -1280,7 +1281,7 @@ public class DefaultRazorTagHelperBinderPhaseTest : RazorProjectEngineTestBase
 ";
         var sourceDocument = CreateComponentTestSourceDocument(content, filePath);
         var tree = RazorSyntaxTree.Parse(sourceDocument);
-        var visitor = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(sourceDocument.FilePath, descriptors, currentNamespace);
+        var visitor = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(sourceDocument.FilePath, descriptors, currentNamespace, new DefaultTypeNameFeature());
 
         // Act
         visitor.Visit(tree);
@@ -1301,7 +1302,7 @@ public class DefaultRazorTagHelperBinderPhaseTest : RazorProjectEngineTestBase
     public void IsTypeInNamespace_WorksAsExpected(string typeName, string @namespace, bool expected)
     {
         // Arrange & Act
-        var result = DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor.IsTypeInNamespace(typeName, @namespace);
+        var result = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(new DefaultTypeNameFeature()).IsTypeInNamespace(typeName, @namespace);
 
         // Assert
         Assert.Equal(expected, result);
@@ -1318,7 +1319,7 @@ public class DefaultRazorTagHelperBinderPhaseTest : RazorProjectEngineTestBase
     public void IsTypeInScope_WorksAsExpected(string typeName, string currentNamespace, bool expected)
     {
         // Arrange & Act
-        var result = DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor.IsTypeInScope(typeName, currentNamespace);
+        var result = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(new DefaultTypeNameFeature()).IsTypeInScope(typeName, currentNamespace);
 
         // Assert
         Assert.Equal(expected, result);
@@ -1336,7 +1337,7 @@ public class DefaultRazorTagHelperBinderPhaseTest : RazorProjectEngineTestBase
             assemblyName: AssemblyA);
 
         // Act
-        var result = DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor.IsTagHelperFromMangledClass(descriptor);
+        var result = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(new DefaultTypeNameFeature()).IsTagHelperFromMangledClass(descriptor);
 
         // Assert
         Assert.True(result);
@@ -1346,12 +1347,12 @@ public class DefaultRazorTagHelperBinderPhaseTest : RazorProjectEngineTestBase
         new TheoryData<string, bool, string, string>
         {
                 { "", false, "", ""},
-                { ".", true, "", ""},
+                { ".", true, "", "."},
                 { "Foo", true, "", "Foo"},
                 { "SomeProject.Foo", true, "SomeProject", "Foo"},
                 { "SomeProject.Foo<Bar>", true, "SomeProject", "Foo<Bar>"},
                 { "SomeProject.Foo<Bar.Baz>", true, "SomeProject", "Foo<Bar.Baz>"},
-                { "SomeProject.Foo<Bar.Baz>>", true, "", "SomeProject.Foo<Bar.Baz>>"},
+                { "SomeProject.Foo<Bar.Baz>>", true, "SomeProject", "Foo<Bar.Baz>>"},
                 { "SomeProject..Foo<Bar>", true, "SomeProject.", "Foo<Bar>"},
         };
 
@@ -1360,13 +1361,13 @@ public class DefaultRazorTagHelperBinderPhaseTest : RazorProjectEngineTestBase
     public void TrySplitNamespaceAndType_WorksAsExpected(string fullTypeName, bool expectedResult, string expectedNamespace, string expectedTypeName)
     {
         // Arrange & Act
-        var result = DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor.TrySplitNamespaceAndType(
+        var result = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(new DefaultTypeNameFeature()).TrySplitNamespaceAndType(
             fullTypeName, out var @namespace, out var typeName);
 
         // Assert
         Assert.Equal(expectedResult, result);
-        Assert.True(new StringSegment(expectedNamespace).Equals(@namespace, StringComparison.Ordinal));
-        Assert.True(new StringSegment(expectedTypeName).Equals(typeName, StringComparison.Ordinal));
+        Assert.Equal(new StringSegment(expectedNamespace), @namespace);
+        Assert.Equal(new StringSegment(expectedTypeName), typeName);
     }
 
     [Theory]
@@ -1376,7 +1377,7 @@ public class DefaultRazorTagHelperBinderPhaseTest : RazorProjectEngineTestBase
         // Arrange & Act
         var tagHelperDescriptor = CreateTagHelperDescriptor("CoolTag", fullTypeName, AssemblyA);
 
-        var result = DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor.TrySplitNamespaceAndType(
+        var result = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(new DefaultTypeNameFeature()).TrySplitNamespaceAndType(
             tagHelperDescriptor, out var @namespace, out var typeName);
 
         // Assert
@@ -1385,7 +1386,7 @@ public class DefaultRazorTagHelperBinderPhaseTest : RazorProjectEngineTestBase
         Assert.True(new StringSegment(expectedTypeName).Equals(typeName, StringComparison.Ordinal));
 
         // Try again to make sure caching works
-        result = DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor.TrySplitNamespaceAndType(
+        result = new DefaultRazorTagHelperBinderPhase.ComponentDirectiveVisitor(new DefaultTypeNameFeature()).TrySplitNamespaceAndType(
             tagHelperDescriptor, out @namespace, out typeName);
 
         Assert.Equal(expectedResult, result);

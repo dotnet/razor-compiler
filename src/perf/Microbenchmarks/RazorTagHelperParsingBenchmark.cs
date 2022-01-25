@@ -8,6 +8,7 @@ using BenchmarkDotNet.Attributes;
 using Microsoft.AspNetCore.Mvc.Razor.Extensions;
 using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.CodeAnalysis.Razor.Serialization;
+using Microsoft.CodeAnalysis.Razor;
 using Newtonsoft.Json;
 using static Microsoft.AspNetCore.Razor.Language.DefaultRazorTagHelperBinderPhase;
 
@@ -39,7 +40,7 @@ public class RazorTagHelperParsingBenchmark
             });
         BlazorServerTagHelpersDemoFile = fileSystem.GetItem(Path.Combine(blazorServerTagHelpersFilePath), FileKinds.Component);
 
-        ComponentDirectiveVisitor = new ComponentDirectiveVisitor(blazorServerTagHelpersFilePath, tagHelpers, currentNamespace: null);
+        ComponentDirectiveVisitor = new ComponentDirectiveVisitor(blazorServerTagHelpersFilePath, tagHelpers, currentNamespace: null, new DefaultTypeNameFeature());
         var codeDocument = ProjectEngine.ProcessDesignTime(BlazorServerTagHelpersDemoFile);
         SyntaxTree = codeDocument.GetSyntaxTree();
     }

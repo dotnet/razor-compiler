@@ -66,4 +66,37 @@ internal class DefaultTypeNameFeature : TypeNameFeature
         var parsed = SyntaxFactory.ParseExpression(expression);
         return parsed is LambdaExpressionSyntax;
     }
+
+    public override bool TryParseTypeName(string type, out string typeNamespace, out string typeName)
+    {
+        typeNamespace = null;
+        typeName = null;
+        try
+        {
+            var parsed = SyntaxFactory.ParseTypeName(type);
+            switch (parsed)
+            {
+                case GenericNameSyntax genericNameSyntax:
+                    typeName = genericNameSyntax.ToFullString();
+                    typeNamespace = "";
+                    return true;
+                case SimpleNameSyntax simpleNameSyntax:
+                    typeName = simpleNameSyntax.ToFullString();
+                    typeNamespace = "";
+                    return true;
+                case QualifiedNameSyntax qualifiedNameSyntax:
+                    typeName = qualifiedNameSyntax.Right.ToFullString();
+                    typeNamespace = qualifiedNameSyntax.Left.ToFullString();
+                    return true;
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
+        catch (Exception)
+        {
+            typeNamespace = null;
+            typeName = null;
+            return false;
+        }
+    }
 }

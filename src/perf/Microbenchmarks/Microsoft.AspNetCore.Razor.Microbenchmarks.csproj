@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Microsoft.CodeAnalysis.Razor\src\Microsoft.CodeAnalysis.Razor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="MSN.cshtml" CopyToOutputDirectory="PreserveNewest" />
     <None Include="BlazorServerTagHelpers.razor" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>

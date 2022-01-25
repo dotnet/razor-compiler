@@ -158,18 +158,6 @@ public sealed class ComponentAttributeIntermediateNode : IntermediateNode
         formatter.WriteProperty(nameof(GloballyQualifiedTypeName), GloballyQualifiedTypeName);
     }
 
-    public bool TryParseEventCallbackTypeArgument(out string argument)
-    {
-        if (TryParseEventCallbackTypeArgument(out StringSegment stringSegment))
-        {
-            argument = stringSegment.Value;
-            return true;
-        }
-
-        argument = null;
-        return false;
-    }
-
     internal bool TryParseEventCallbackTypeArgument(out StringSegment argument)
     {
         // This is ugly and ad-hoc, but for various layering reasons we can't just use Roslyn APIs
