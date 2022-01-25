@@ -217,5 +217,3 @@ stages:
       publishingInfraVersion: 3
       enableSymbolValidation: false
       enableNugetValidation: false
-      pool:
-        vmImage: windows-latest
