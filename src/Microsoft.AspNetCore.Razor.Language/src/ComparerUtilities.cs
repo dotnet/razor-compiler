@@ -9,6 +9,50 @@ namespace Microsoft.AspNetCore.Razor.Language;
 
 internal static class ComparerUtilities
 {
+    public static bool Equals<T>(IReadOnlyList<T>? first, IReadOnlyList<T>? second, IEqualityComparer<T>? comparer)
+    {
+        if (first == second)
+        {
+            return true;
+        }
+
+        if (first is null)
+        {
+            return second is null;
+        }
+        else if (second is null)
+        {
+            return false;
+        }
+
+        if (first.Count != second.Count)
+        {
+            return false;
+        }
+
+        comparer ??= EqualityComparer<T>.Default;
+
+        for (var i = 0; i < first.Count; i++)
+        {
+            if (!comparer.Equals(first[i], second[i]))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static void AddToHash<T>(ref HashCodeCombiner hash, IReadOnlyList<T> list, IEqualityComparer<T>? comparer)
+    {
+        comparer ??= EqualityComparer<T>.Default;
+
+        for (var i = 0; i < list.Count; i++)
+        {
+            hash.Add(list[i], comparer);
+        }
+    }
+
     public static bool Equals<TKey, TValue>(IReadOnlyDictionary<TKey, TValue>? first, IReadOnlyDictionary<TKey, TValue>? second, IEqualityComparer<TKey>? keyComparer, IEqualityComparer<TValue>? valueComparer)
         where TKey : notnull
     {
