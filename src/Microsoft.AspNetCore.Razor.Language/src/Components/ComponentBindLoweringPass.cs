@@ -109,6 +109,10 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
                 {
                     entry.BindCultureNode = node;
                 }
+                else if(node.BoundAttributeParameter.Name == "after")
+                {
+                    entry.BindAfterNode = node;
+                }
                 else
                 {
                     // Unsupported bind attribute parameter. This can only happen if bound attribute descriptor
@@ -333,6 +337,14 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
             };
         }
 
+        // Look for an after event. If we find one then we need to pass the event into the
+        // CreateBinder call we generate.
+        IntermediateToken after = null;
+        if (bindEntry.BindAfterNode != null)
+        {
+            after = GetAttributeContent(bindEntry.BindAfterNode);
+        }
+
         var valueExpressionTokens = new List<IntermediateToken>();
         var changeExpressionTokens = new List<IntermediateToken>();
 
@@ -360,6 +372,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
                 original,
                 format,
                 culture,
+                after,
                 valueExpressionTokens,
                 changeExpressionTokens);
         }
@@ -679,6 +692,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         IntermediateToken original,
         IntermediateToken format,
         IntermediateToken culture,
+        IntermediateToken after,
         List<IntermediateToken> valueExpressionTokens,
         List<IntermediateToken> changeExpressionTokens)
     {
@@ -768,6 +782,15 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
             });
         }
 
+        if (after != null)
+        {
+            changeExpressionTokens.Add(new IntermediateToken()
+            {
+                Content = $", after: {after.Content}",
+                Kind = TokenKind.CSharp
+            });
+        }
+
         changeExpressionTokens.Add(new IntermediateToken()
         {
             Content = ")",
@@ -838,5 +861,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         public TagHelperDirectiveAttributeParameterIntermediateNode BindFormatNode { get; set; }
 
         public TagHelperDirectiveAttributeParameterIntermediateNode BindCultureNode { get; set; }
+
+        public TagHelperDirectiveAttributeParameterIntermediateNode BindAfterNode { get; set; }
     }
 }

@@ -1614,6 +1614,41 @@ namespace Test
     }
 
     [Fact]
+    public void BindToElement_WithBindAfter()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    [BindElement(""div"", null, ""myvalue"", ""myevent"")]
+    public static class BindAttributes
+    {
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<div @bind=""@ParentValue"" @bind:after=""DoSomething"">
+</div>
+@code {
+    public string ParentValue { get; set; } = ""hi"";
+
+    Task DoSomething()
+    {
+        return Task.CompletedTask;
+    }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
     public void BindToElement_WithStringAttribute_WritesAttributes()
     {
         // Arrange
