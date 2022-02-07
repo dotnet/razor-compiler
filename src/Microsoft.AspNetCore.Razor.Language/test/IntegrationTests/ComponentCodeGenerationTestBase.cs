@@ -1649,6 +1649,41 @@ namespace Test
     }
 
     [Fact]
+    public void BindToElement_WithGetSet()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    [BindElement(""div"", null, ""myvalue"", ""myevent"")]
+    public static class BindAttributes
+    {
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<div @bind:get=""@ParentValue"" @bind:set=""ValueChanged"">
+</div>
+@code {
+    public string ParentValue { get; set; } = ""hi"";
+
+    Task ValueChanged(string value)
+    {
+        return Task.CompletedTask;
+    }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
     public void BindToElement_WithStringAttribute_WritesAttributes()
     {
         // Arrange

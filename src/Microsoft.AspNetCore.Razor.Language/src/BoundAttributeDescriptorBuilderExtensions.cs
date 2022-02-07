@@ -82,6 +82,16 @@ public static class BoundAttributeDescriptorBuilderExtensions
         builder.Metadata[TagHelperMetadata.Common.PropertyName] = propertyName;
     }
 
+    public static void SetBindAttributeAlternative(this BoundAttributeParameterDescriptorBuilder builder)
+    {
+        if (builder == null)
+        {
+            throw new ArgumentNullException(nameof(builder));
+        }
+
+        builder.Metadata[ComponentMetadata.Bind.BindAttributeAlternative] = bool.TrueString;
+    }    
+
     public static string GetPropertyName(this BoundAttributeParameterDescriptorBuilder builder)
     {
         if (builder == null)

@@ -74,6 +74,18 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
             }
         }
 
+        // Do a pass to look for (@bind:get, @bind:set) pairs as this alternative form might have been used
+        // to define the binding.
+        for (var i = 0; i < parameterReferences.Count; i++)
+        {
+            var reference = parameterReferences[i];
+            var node = (TagHelperDirectiveAttributeParameterIntermediateNode)reference.Node;
+            if (node.BoundAttributeParameter.Metadata.ContainsKey(ComponentMetadata.Bind.BindAttributeAlternative))
+            {
+                bindEntries[(reference.Parent, node.AttributeNameWithoutParameter)] = new BindEntry(reference);
+            }
+        }
+
         // Now collect all the parameterized attributes and store them along with their corresponding @bind or @bind-* attributes.
         for (var i = 0; i < parameterReferences.Count; i++)
         {
@@ -112,6 +124,15 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
                 else if(node.BoundAttributeParameter.Name == "after")
                 {
                     entry.BindAfterNode = node;
+                }
+                else if (node.BoundAttributeParameter.Name == "get")
+                {
+                    // Avoid removing the reference since it will be processed later on.
+                    continue;
+                }
+                else if (node.BoundAttributeParameter.Name == "set")
+                {
+                    entry.BindSetNode = node;
                 }
                 else
                 {
@@ -276,6 +297,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         // multiple passes handle 'special' tag helpers. We have another pass that translates
         // a tag helper node back into 'regular' element when it doesn't have an associated component
         var node = bindEntry.BindNode;
+        var getNode = bindEntry.BindGetNode;
         if (!TryComputeAttributeNames(
             parent,
             bindEntry,
@@ -295,7 +317,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
             return new[] { node };
         }
 
-        var original = GetAttributeContent(node);
+        var original = GetAttributeContent((IntermediateNode)node ?? getNode);
         if (string.IsNullOrEmpty(original.Content))
         {
             // This can happen in error cases, the parser will already have flagged this
@@ -310,13 +332,22 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         {
             format = GetAttributeContent(bindEntry.BindFormatNode);
         }
-        else if (node.TagHelper?.GetFormat() != null)
+        else if (node?.TagHelper?.GetFormat() != null)
         {
             // We may have a default format if one is associated with the field type.
             format = new IntermediateToken()
             {
                 Kind = TokenKind.CSharp,
                 Content = "\"" + node.TagHelper.GetFormat() + "\"",
+            };
+        }
+        else if (getNode?.TagHelper?.GetFormat() != null)
+        {
+            // We may have a default format if one is associated with the field type.
+            format = new IntermediateToken()
+            {
+                Kind = TokenKind.CSharp,
+                Content = "\"" + getNode.TagHelper.GetFormat() + "\"",
             };
         }
 
@@ -327,7 +358,16 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         {
             culture = GetAttributeContent(bindEntry.BindCultureNode);
         }
-        else if (node.TagHelper?.IsInvariantCultureBindTagHelper() == true)
+        else if (node?.TagHelper?.IsInvariantCultureBindTagHelper() == true)
+        {
+            // We may have a default invariant culture if one is associated with the field type.
+            culture = new IntermediateToken()
+            {
+                Kind = TokenKind.CSharp,
+                Content = $"global::{typeof(CultureInfo).FullName}.{nameof(CultureInfo.InvariantCulture)}",
+            };
+        }
+        else if (getNode?.TagHelper?.IsInvariantCultureBindTagHelper() == true)
         {
             // We may have a default invariant culture if one is associated with the field type.
             culture = new IntermediateToken()
@@ -343,6 +383,12 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         if (bindEntry.BindAfterNode != null)
         {
             after = GetAttributeContent(bindEntry.BindAfterNode);
+        }
+
+        IntermediateToken setter = null;
+        if (bindEntry.BindSetNode != null)
+        {
+            setter = GetAttributeContent(bindEntry.BindSetNode);
         }
 
         var valueExpressionTokens = new List<IntermediateToken>();
@@ -372,10 +418,13 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
                 original,
                 format,
                 culture,
+                setter,
                 after,
                 valueExpressionTokens,
                 changeExpressionTokens);
         }
+
+        var targetNode = (IntermediateNode)node ?? getNode;
 
         if (parent is MarkupElementIntermediateNode)
         {
@@ -383,18 +432,18 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
             {
                 Annotations =
                     {
-                        [ComponentMetadata.Common.OriginalAttributeName] = node.OriginalAttributeName,
+                        [ComponentMetadata.Common.OriginalAttributeName] = node?.OriginalAttributeName ?? getNode?.OriginalAttributeName,
                     },
                 AttributeName = valueAttributeName,
-                Source = node.Source,
+                Source = targetNode.Source,
 
                 Prefix = valueAttributeName + "=\"",
                 Suffix = "\"",
             };
 
-            for (var i = 0; i < node.Diagnostics.Count; i++)
+            for (var i = 0; i < targetNode.Diagnostics.Count; i++)
             {
-                valueNode.Diagnostics.Add(node.Diagnostics[i]);
+                valueNode.Diagnostics.Add(targetNode.Diagnostics[i]);
             }
 
             valueNode.Children.Add(new CSharpExpressionAttributeValueIntermediateNode());
@@ -407,11 +456,11 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
             {
                 Annotations =
                     {
-                        [ComponentMetadata.Common.OriginalAttributeName] = node.OriginalAttributeName,
+                        [ComponentMetadata.Common.OriginalAttributeName] = node?.OriginalAttributeName ?? getNode?.OriginalAttributeName,
                     },
                 AttributeName = changeAttributeName,
                 AttributeNameExpression = changeAttributeNode,
-                Source = node.Source,
+                Source = targetNode.Source,
 
                 Prefix = changeAttributeName + "=\"",
                 Suffix = "\"",
@@ -504,7 +553,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
 
     private bool TryParseBindAttribute(BindEntry bindEntry, out string valueAttributeName)
     {
-        var attributeName = bindEntry.BindNode.AttributeName;
+        var attributeName = bindEntry.BindNode?.AttributeName ?? bindEntry.BindGetNode?.AttributeNameWithoutParameter;
         valueAttributeName = null;
 
         if (attributeName == "bind")
@@ -547,7 +596,8 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         //
         // We expect 1 bind tag helper per-node.
         var node = bindEntry.BindNode;
-        var attributeName = node.AttributeName;
+        var getNode = bindEntry.BindGetNode;
+        var attributeName = node?.AttributeName ?? getNode?.AttributeNameWithoutParameter;
 
         // Even though some of our 'bind' tag helpers specify the attribute names, they
         // should still satisfy one of the valid syntaxes.
@@ -555,15 +605,15 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         {
             return false;
         }
-
-        valueAttributeName = node.TagHelper.GetValueAttributeName() ?? valueAttributeName;
+        
+        valueAttributeName = node?.TagHelper.GetValueAttributeName() ?? getNode?.TagHelper.GetValueAttributeName() ?? valueAttributeName;
 
         // If there an attribute that specifies the event like @bind:event="oninput",
         // that should be preferred. Otherwise, use the one from the tag helper.
         if (bindEntry.BindEventNode == null)
         {
             // @bind:event not specified
-            changeAttributeName = node.TagHelper.GetChangeAttributeName();
+            changeAttributeName = node?.TagHelper.GetChangeAttributeName() ?? getNode?.TagHelper.GetChangeAttributeName();
         }
         else if (TryExtractEventNodeStaticText(bindEntry.BindEventNode, out var text))
         {
@@ -576,7 +626,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
             changeAttributeNode = ExtractEventNodeExpression(bindEntry.BindEventNode);
         }
 
-        expressionAttributeName = node.TagHelper.GetExpressionAttributeName();
+        expressionAttributeName = node?.TagHelper.GetExpressionAttributeName() ?? getNode?.TagHelper.GetExpressionAttributeName();
 
         // We expect 0-1 components per-node.
         var componentTagHelper = (parent as ComponentIntermediateNode)?.Component;
@@ -692,6 +742,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         IntermediateToken original,
         IntermediateToken format,
         IntermediateToken culture,
+        IntermediateToken setter,
         IntermediateToken after,
         List<IntermediateToken> valueExpressionTokens,
         List<IntermediateToken> changeExpressionTokens)
@@ -782,6 +833,15 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
             });
         }
 
+        if (setter != null)
+        {
+            changeExpressionTokens.Add(new IntermediateToken()
+            {
+                Content = $", setter: {setter.Content}",
+                Kind = TokenKind.CSharp
+            });
+        }
+
         if (after != null)
         {
             changeExpressionTokens.Add(new IntermediateToken()
@@ -849,7 +909,8 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         public BindEntry(IntermediateNodeReference bindNodeReference)
         {
             BindNodeReference = bindNodeReference;
-            BindNode = (TagHelperDirectiveAttributeIntermediateNode)bindNodeReference.Node;
+            BindNode = bindNodeReference.Node as TagHelperDirectiveAttributeIntermediateNode;
+            BindGetNode = BindNodeReference.Node as TagHelperDirectiveAttributeParameterIntermediateNode;
         }
 
         public IntermediateNodeReference BindNodeReference { get; }
@@ -861,6 +922,10 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         public TagHelperDirectiveAttributeParameterIntermediateNode BindFormatNode { get; set; }
 
         public TagHelperDirectiveAttributeParameterIntermediateNode BindCultureNode { get; set; }
+
+        public TagHelperDirectiveAttributeParameterIntermediateNode BindGetNode { get; set; }
+
+        public TagHelperDirectiveAttributeParameterIntermediateNode BindSetNode { get; set; }
 
         public TagHelperDirectiveAttributeParameterIntermediateNode BindAfterNode { get; set; }
     }
