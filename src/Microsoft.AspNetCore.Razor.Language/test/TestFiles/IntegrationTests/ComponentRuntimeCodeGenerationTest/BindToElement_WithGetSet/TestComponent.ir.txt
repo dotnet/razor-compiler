@@ -15,9 +15,10 @@ Document -
                             IntermediateToken -  - CSharp - )
                     HtmlAttribute - (16:0,16 [12] x:\dir\subdir\Test\TestComponent.cshtml) - myevent=" - "
                         CSharpExpressionAttributeValue -  - 
-                            IntermediateToken -  - CSharp - global::Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, __value => ParentValue = __value, 
+                            IntermediateToken -  - CSharp - global::Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, 
+                            IntermediateToken -  - CSharp - global::Microsoft.AspNetCore.Components.CompilerServices.RuntimeHelpers.CreateInferredEventCallback(this, callback: ValueChanged, value: ParentValue)
+                            IntermediateToken -  - CSharp - , 
                             IntermediateToken -  - CSharp - ParentValue
-                            IntermediateToken -  - CSharp - , setter: ValueChanged
                             IntermediateToken -  - CSharp - )
             CSharpCode - (72:2,7 [144] x:\dir\subdir\Test\TestComponent.cshtml)
                 LazyIntermediateToken - (72:2,7 [144] x:\dir\subdir\Test\TestComponent.cshtml) - CSharp - \n    public string ParentValue { get; set; } = "hi";\n\n    Task ValueChanged(string value)\n    {\n        return Task.CompletedTask;\n    }\n

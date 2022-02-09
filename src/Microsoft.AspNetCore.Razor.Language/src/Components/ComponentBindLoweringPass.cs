@@ -121,7 +121,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
                 {
                     entry.BindCultureNode = node;
                 }
-                else if(node.BoundAttributeParameter.Name == "after")
+                else if (node.BoundAttributeParameter.Name == "after")
                 {
                     entry.BindAfterNode = node;
                 }
@@ -605,7 +605,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         {
             return false;
         }
-        
+
         valueAttributeName = node?.TagHelper.GetValueAttributeName() ?? getNode?.TagHelper.GetValueAttributeName() ?? valueAttributeName;
 
         // If there an attribute that specifies the event like @bind:event="oninput",
@@ -805,7 +805,52 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         // Note that the linemappings here are applied to the value attribute, not the change attribute.
         changeExpressionTokens.Add(new IntermediateToken()
         {
-            Content = $"global::{ComponentsApi.EventCallback.FactoryAccessor}.{ComponentsApi.EventCallbackFactory.CreateBinderMethod}(this, __value => {original.Content} = __value, ",
+            Content = $"global::{ComponentsApi.EventCallback.FactoryAccessor}.{ComponentsApi.EventCallbackFactory.CreateBinderMethod}(this, ",
+            Kind = TokenKind.CSharp
+        });
+
+        switch ((setter, after))
+        {
+            case (null, null):
+                // no bind:set nor bind:after, use the same code generation as before
+                changeExpressionTokens.Add(new IntermediateToken()
+                {
+                    Content = $"__value => {original.Content} = __value",
+                    Kind = TokenKind.CSharp
+                });
+                break;
+            case (not null, null):
+                // bind:set only
+                changeExpressionTokens.Add(new IntermediateToken()
+                {
+                    Content = $"{ComponentsApi.RuntimeHelpers.CreateInferredEventCallback}(this, callback: {setter.Content}, value: {original.Content})",
+                    Kind = TokenKind.CSharp
+                });
+                break;
+            case (null, not null):
+                // bind:after only
+                var afterToEventCallback = $"global::{ComponentsApi.EventCallback.FactoryAccessor}.{ComponentsApi.EventCallbackFactory.CreateMethod}(this, callback: {after.Content})";
+                changeExpressionTokens.Add(new IntermediateToken()
+                {
+                    Content = $"{ComponentsApi.RuntimeHelpers.CreateInferredEventCallback}(this, callback: __value => {{ {original.Content} = __value; return {afterToEventCallback}.InvokeAsync(); }}, value: {original.Content})",
+                    Kind = TokenKind.CSharp
+                });
+                break;
+            case (not null, not null):
+                // bind:set and bind:after create the code even though we disallow this combination through a diagnostic
+                var setToEventCallback = $"{ComponentsApi.RuntimeHelpers.CreateInferredEventCallback}(this, callback: {setter.Content}, value: {original.Content})";
+                afterToEventCallback = $"global::{ComponentsApi.EventCallback.FactoryAccessor}.{ComponentsApi.EventCallbackFactory.CreateMethod}(this, callback: {after.Content})";
+                changeExpressionTokens.Add(new IntermediateToken()
+                {
+                    Content = $"{ComponentsApi.RuntimeHelpers.CreateInferredEventCallback}(this, callback: async __value => {{ await {setToEventCallback}.InvokeAsync(); await {afterToEventCallback}.InvokeAsync(); }}, value: {original.Content})",
+                    Kind = TokenKind.CSharp
+                });
+                break;
+        }
+
+        changeExpressionTokens.Add(new IntermediateToken()
+        {
+            Content = $", ",
             Kind = TokenKind.CSharp
         });
 
@@ -829,24 +874,6 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
             changeExpressionTokens.Add(new IntermediateToken()
             {
                 Content = $", culture: {culture.Content}",
-                Kind = TokenKind.CSharp
-            });
-        }
-
-        if (setter != null)
-        {
-            changeExpressionTokens.Add(new IntermediateToken()
-            {
-                Content = $", setter: {setter.Content}",
-                Kind = TokenKind.CSharp
-            });
-        }
-
-        if (after != null)
-        {
-            changeExpressionTokens.Add(new IntermediateToken()
-            {
-                Content = $", after: {after.Content}",
                 Kind = TokenKind.CSharp
             });
         }

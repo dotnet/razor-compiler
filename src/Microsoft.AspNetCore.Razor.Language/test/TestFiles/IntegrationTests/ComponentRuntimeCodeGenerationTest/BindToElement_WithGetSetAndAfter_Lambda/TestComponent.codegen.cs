@@ -14,16 +14,8 @@ namespace Test
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
             __builder.OpenElement(0, "div");
-            __builder.AddAttribute(1, "myvalue", global::Microsoft.AspNetCore.Components.BindConverter.FormatValue(
-#nullable restore
-#line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-                 ParentValue
-
-#line default
-#line hidden
-#nullable disable
-            ));
-            __builder.AddAttribute(2, "myevent", global::Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, global::Microsoft.AspNetCore.Components.CompilerServices.RuntimeHelpers.CreateInferredEventCallback(this, callback: ValueChanged, value: ParentValue), ParentValue));
+            __builder.AddAttribute(1, "myvalue", global::Microsoft.AspNetCore.Components.BindConverter.FormatValue((() => @ParentValue)));
+            __builder.AddAttribute(2, "myevent", global::Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, __value => (() => @ParentValue) = __value, (() => @ParentValue), setter: (value => ValueChanged(value)), after: (() => AfterValueChanged())));
             __builder.SetUpdatesAttributeName("myvalue");
             __builder.CloseElement();
         }
@@ -34,6 +26,11 @@ namespace Test
     public string ParentValue { get; set; } = "hi";
 
     Task ValueChanged(string value)
+    {
+        return Task.CompletedTask;
+    }
+
+    Task AfterValueChanged()
     {
         return Task.CompletedTask;
     }
