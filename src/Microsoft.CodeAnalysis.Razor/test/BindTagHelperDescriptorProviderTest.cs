@@ -540,13 +540,43 @@ namespace Test
         Assert.False(bind.IsInputElementBindTagHelper());
         Assert.False(bind.IsInputElementFallbackBindTagHelper());
 
-        var rule = Assert.Single(bind.TagMatchingRules);
-        Assert.Equal("div", rule.TagName);
-        Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
+        Assert.Collection(bind.TagMatchingRules.OrderBy(o => o.Attributes.Count),
+            rule =>
+            {
+                Assert.Equal("div", rule.TagName);
+                Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
 
-        var requiredAttribute = Assert.Single(rule.Attributes);
-        Assert.Equal("@bind-myprop", requiredAttribute.DisplayName);
-        Assert.Equal("@bind-myprop", requiredAttribute.Name);
+                var requiredAttribute = Assert.Single(rule.Attributes);
+                Assert.Equal("@bind-myprop", requiredAttribute.DisplayName);
+                Assert.Equal("@bind-myprop", requiredAttribute.Name);
+
+                var attribute = Assert.Single(bind.BoundAttributes, a => a.Name.StartsWith("@bind", StringComparison.Ordinal));
+                Assert.Equal("@bind-myprop", attribute.Name);
+                Assert.Equal("Bind_myprop", attribute.GetPropertyName());
+                Assert.Equal("object Test.BindAttributes.Bind_myprop", attribute.DisplayName);
+
+                attribute = Assert.Single(bind.BoundAttributes, a => a.Name.StartsWith("format", StringComparison.Ordinal));
+                Assert.Equal("format-myprop", attribute.Name);
+                Assert.Equal("Format_myprop", attribute.GetPropertyName());
+                Assert.Equal("string Test.BindAttributes.Format_myprop", attribute.DisplayName);
+            },
+            rule =>
+            {
+                Assert.Equal("div", rule.TagName);
+                Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
+
+                Assert.Collection(rule.Attributes.OrderBy(a => a.Name),
+                    requiredAttribute =>
+                    {
+                        Assert.Equal("@bind-myprop:get", requiredAttribute.DisplayName);
+                        Assert.Equal("@bind-myprop:get", requiredAttribute.Name);
+                    },
+                    requiredAttribute =>
+                    {
+                        Assert.Equal("@bind-myprop:set", requiredAttribute.DisplayName);
+                        Assert.Equal("@bind-myprop:set", requiredAttribute.Name);
+                    });
+            });
 
         var attribute = Assert.Single(bind.BoundAttributes, a => a.Name.StartsWith("@bind", StringComparison.Ordinal));
         Assert.Equal("@bind-myprop", attribute.Name);
@@ -596,13 +626,33 @@ namespace Test
         Assert.True(bind.IsInputElementBindTagHelper());
         Assert.True(bind.IsInputElementFallbackBindTagHelper());
 
-        var rule = Assert.Single(bind.TagMatchingRules);
-        Assert.Equal("input", rule.TagName);
-        Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
+        Assert.Collection(bind.TagMatchingRules.OrderBy(r => r.Attributes.Count),
+            rule =>
+            {
+                Assert.Equal("input", rule.TagName);
+                Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
 
-        var requiredAttribute = Assert.Single(rule.Attributes);
-        Assert.Equal("@bind", requiredAttribute.DisplayName);
-        Assert.Equal("@bind", requiredAttribute.Name);
+                var requiredAttribute = Assert.Single(rule.Attributes);
+                Assert.Equal("@bind", requiredAttribute.DisplayName);
+                Assert.Equal("@bind", requiredAttribute.Name);
+            },
+            rule =>
+            {
+                Assert.Equal("input", rule.TagName);
+                Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
+
+                Assert.Collection(rule.Attributes.OrderBy(o => o.Name),
+                    requiredAttribute =>
+                    {
+                        Assert.Equal("@bind:get", requiredAttribute.DisplayName);
+                        Assert.Equal("@bind:get", requiredAttribute.Name);
+                    },
+                    requiredAttribute =>
+                    {
+                        Assert.Equal("@bind:set", requiredAttribute.DisplayName);
+                        Assert.Equal("@bind:set", requiredAttribute.Name);
+                    });
+            });
 
         var attribute = Assert.Single(bind.BoundAttributes, a => a.Name.StartsWith("@bind", StringComparison.Ordinal));
         Assert.Equal("@bind", attribute.Name);
@@ -652,24 +702,53 @@ namespace Test
         Assert.True(bind.IsInputElementBindTagHelper());
         Assert.False(bind.IsInputElementFallbackBindTagHelper());
 
-        var rule = Assert.Single(bind.TagMatchingRules);
-        Assert.Equal("input", rule.TagName);
-        Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
+        Assert.Collection(bind.TagMatchingRules.OrderBy(r => r.Attributes.Count),
+            rule =>
+            {
+                Assert.Equal("input", rule.TagName);
+                Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
 
-        Assert.Collection(
-            rule.Attributes,
-            a =>
-            {
-                Assert.Equal("type", a.DisplayName);
-                Assert.Equal("type", a.Name);
-                Assert.Equal(RequiredAttributeDescriptor.NameComparisonMode.FullMatch, a.NameComparison);
-                Assert.Equal("checkbox", a.Value);
-                Assert.Equal(RequiredAttributeDescriptor.ValueComparisonMode.FullMatch, a.ValueComparison);
+                Assert.Collection(
+                    rule.Attributes,
+                    a =>
+                    {
+                        Assert.Equal("type", a.DisplayName);
+                        Assert.Equal("type", a.Name);
+                        Assert.Equal(RequiredAttributeDescriptor.NameComparisonMode.FullMatch, a.NameComparison);
+                        Assert.Equal("checkbox", a.Value);
+                        Assert.Equal(RequiredAttributeDescriptor.ValueComparisonMode.FullMatch, a.ValueComparison);
+                    },
+                    a =>
+                    {
+                        Assert.Equal("@bind", a.DisplayName);
+                        Assert.Equal("@bind", a.Name);
+                    });
             },
-            a =>
+            rule =>
             {
-                Assert.Equal("@bind", a.DisplayName);
-                Assert.Equal("@bind", a.Name);
+                Assert.Equal("input", rule.TagName);
+                Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
+
+                Assert.Collection(
+                    rule.Attributes,
+                    a =>
+                    {
+                        Assert.Equal("type", a.DisplayName);
+                        Assert.Equal("type", a.Name);
+                        Assert.Equal(RequiredAttributeDescriptor.NameComparisonMode.FullMatch, a.NameComparison);
+                        Assert.Equal("checkbox", a.Value);
+                        Assert.Equal(RequiredAttributeDescriptor.ValueComparisonMode.FullMatch, a.ValueComparison);
+                    },
+                    a =>
+                    {
+                        Assert.Equal("@bind:get", a.DisplayName);
+                        Assert.Equal("@bind:get", a.Name);
+                    },
+                    a =>
+                    {
+                        Assert.Equal("@bind:set", a.DisplayName);
+                        Assert.Equal("@bind:set", a.Name);
+                    });
             });
 
         var attribute = Assert.Single(bind.BoundAttributes, a => a.Name.StartsWith("@bind", StringComparison.Ordinal));
@@ -722,24 +801,53 @@ namespace Test
         Assert.False(bind.IsInvariantCultureBindTagHelper());
         Assert.Null(bind.GetFormat());
 
-        var rule = Assert.Single(bind.TagMatchingRules);
-        Assert.Equal("input", rule.TagName);
-        Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
+        Assert.Collection(bind.TagMatchingRules.OrderBy(o => o.Attributes.Count),
+            rule =>
+            {
+                Assert.Equal("input", rule.TagName);
+                Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
 
-        Assert.Collection(
-            rule.Attributes,
-            a =>
-            {
-                Assert.Equal("type", a.DisplayName);
-                Assert.Equal("type", a.Name);
-                Assert.Equal(RequiredAttributeDescriptor.NameComparisonMode.FullMatch, a.NameComparison);
-                Assert.Equal("checkbox", a.Value);
-                Assert.Equal(RequiredAttributeDescriptor.ValueComparisonMode.FullMatch, a.ValueComparison);
+                Assert.Collection(
+                    rule.Attributes,
+                    a =>
+                    {
+                        Assert.Equal("type", a.DisplayName);
+                        Assert.Equal("type", a.Name);
+                        Assert.Equal(RequiredAttributeDescriptor.NameComparisonMode.FullMatch, a.NameComparison);
+                        Assert.Equal("checkbox", a.Value);
+                        Assert.Equal(RequiredAttributeDescriptor.ValueComparisonMode.FullMatch, a.ValueComparison);
+                    },
+                    a =>
+                    {
+                        Assert.Equal("@bind-somevalue", a.DisplayName);
+                        Assert.Equal("@bind-somevalue", a.Name);
+                    });
             },
-            a =>
+            rule =>
             {
-                Assert.Equal("@bind-somevalue", a.DisplayName);
-                Assert.Equal("@bind-somevalue", a.Name);
+                Assert.Equal("input", rule.TagName);
+                Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
+
+                Assert.Collection(
+                    rule.Attributes,
+                    a =>
+                    {
+                        Assert.Equal("type", a.DisplayName);
+                        Assert.Equal("type", a.Name);
+                        Assert.Equal(RequiredAttributeDescriptor.NameComparisonMode.FullMatch, a.NameComparison);
+                        Assert.Equal("checkbox", a.Value);
+                        Assert.Equal(RequiredAttributeDescriptor.ValueComparisonMode.FullMatch, a.ValueComparison);
+                    },
+                    a =>
+                    {
+                        Assert.Equal("@bind-somevalue:get", a.DisplayName);
+                        Assert.Equal("@bind-somevalue:get", a.Name);
+                    },
+                    a =>
+                    {
+                        Assert.Equal("@bind-somevalue:set", a.DisplayName);
+                        Assert.Equal("@bind-somevalue:set", a.Name);
+                    });
             });
 
         var attribute = Assert.Single(bind.BoundAttributes, a => a.Name.StartsWith("@bind", StringComparison.Ordinal));

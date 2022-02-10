@@ -1,3 +1,1 @@
-x:\dir\subdir\Test\TestComponent.cshtml(3,3): Error RZ9989: The attribute '@bind' was matched by multiple bind attributes. Duplicates:
-Microsoft.AspNetCore.Components.Web.BindAttributes
-Microsoft.AspNetCore.Components.Web.BindAttributes
+x:\dir\subdir\Test\TestComponent.cshtml(3,3): Error RZ10008: The attribute 'value' is used two or more times for this element. Attributes must be unique (case-insensitive). The attribute 'value' is used by the '@bind' directive attribute.

@@ -27,6 +27,16 @@ using Microsoft.AspNetCore.Components.Web;
         #pragma warning disable 1998
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
+            __o = global::Microsoft.AspNetCore.Components.BindConverter.FormatValue(
+#nullable restore
+#line 3 "x:\dir\subdir\Test\TestComponent.cshtml"
+                                        text
+
+#line default
+#line hidden
+#nullable disable
+            );
+            __o = global::Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, __value => text = __value, text);
         }
         #pragma warning restore 1998
 #nullable restore
