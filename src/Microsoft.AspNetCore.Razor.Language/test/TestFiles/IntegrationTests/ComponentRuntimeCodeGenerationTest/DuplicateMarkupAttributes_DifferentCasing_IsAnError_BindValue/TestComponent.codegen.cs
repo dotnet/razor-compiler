@@ -24,17 +24,6 @@ using Microsoft.AspNetCore.Components.Web;
             __builder.OpenElement(1, "input");
             __builder.AddAttribute(2, "type", "text");
             __builder.AddAttribute(3, "Value", "17");
-            __builder.AddAttribute(4, "value", global::Microsoft.AspNetCore.Components.BindConverter.FormatValue(
-#nullable restore
-#line 3 "x:\dir\subdir\Test\TestComponent.cshtml"
-                                        text
-
-#line default
-#line hidden
-#nullable disable
-            ));
-            __builder.AddAttribute(5, "onchange", global::Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, __value => text = __value, text));
-            __builder.SetUpdatesAttributeName("value");
             __builder.CloseElement();
             __builder.CloseElement();
         }

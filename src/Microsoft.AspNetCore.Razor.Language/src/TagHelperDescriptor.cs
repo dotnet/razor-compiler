@@ -142,6 +142,6 @@ public abstract class TagHelperDescriptor : IEquatable<TagHelperDescriptor>
 
     private string GetDebuggerDisplay()
     {
-        return $"{DisplayName} - {Kind} - {Name} - {AssemblyName}";
+        return $"{DisplayName} - {string.Join(" | ", TagMatchingRules.Select(r => r.GetDebuggerDisplay()))}";
     }
 }

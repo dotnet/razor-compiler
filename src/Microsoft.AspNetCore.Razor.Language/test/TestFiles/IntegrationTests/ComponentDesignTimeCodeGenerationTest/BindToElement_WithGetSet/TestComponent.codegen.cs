@@ -23,13 +23,13 @@ namespace Test
             __o = global::Microsoft.AspNetCore.Components.BindConverter.FormatValue(
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-             ParentValue
+                 ParentValue
 
 #line default
 #line hidden
 #nullable disable
             );
-            __o = global::Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, global::Microsoft.AspNetCore.Components.CompilerServices.RuntimeHelpers.CreateInferredEventCallback(this, callback: __value => { ParentValue = __value; return global::Microsoft.AspNetCore.Components.EventCallback.Factory.Create(this, callback: DoSomething).InvokeAsync(); }, value: ParentValue), ParentValue);
+            __o = global::Microsoft.AspNetCore.Components.EventCallback.Factory.CreateBinder(this, global::Microsoft.AspNetCore.Components.CompilerServices.RuntimeHelpers.CreateInferredEventCallback(this, callback: ValueChanged, value: ParentValue), ParentValue);
         }
         #pragma warning restore 1998
 #nullable restore
@@ -37,7 +37,7 @@ namespace Test
        
     public string ParentValue { get; set; } = "hi";
 
-    Task DoSomething()
+    Task ValueChanged(string value)
     {
         return Task.CompletedTask;
     }
