@@ -402,6 +402,9 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         {
             RewriteNodesForComponentDelegateBind(
                 original,
+                setter,
+                after,
+                changeAttribute.IsAwaitableDelegateResult(),
                 valueExpressionTokens,
                 changeExpressionTokens);
         }
@@ -409,6 +412,8 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         {
             RewriteNodesForComponentEventCallbackBind(
                 original,
+                setter,
+                after,
                 valueExpressionTokens,
                 changeExpressionTokens);
         }
@@ -702,6 +707,9 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
 
     private void RewriteNodesForComponentDelegateBind(
         IntermediateToken original,
+        IntermediateToken setter,
+        IntermediateToken after,
+        bool awaitable,
         List<IntermediateToken> valueExpressionTokens,
         List<IntermediateToken> changeExpressionTokens)
     {
@@ -709,20 +717,75 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         //  - use the value as-is
         //  - create a delegate to handle changes
         valueExpressionTokens.Add(original);
+
+        // Since we have to support setters and after, there are a few things to consider:
+        // If we are provided with a setter, we can cast it to the change attribute type, like
+        // (Action<int>)(value => { }) or (Func<int,Task>)(value => Task.CompletedTask) and use that.
+        // If we are provided with an 'after' we'll need to generate a callback where we invoke the 'after' expression
+        // after the regular setter. In this case, unfortunately we can't rely on EventCallbackFactory to normalize things
+        // since the target attribute type is a delegate and not an EventCallback.
+        // For that reason, we at least captured whether the attribute has an awaitable result, and we'll use that information
+        // during code generation.
+        // For example, with a synchronous 'after' method we will generate code as follows:
+        // (TargetAttributeType)(__value => <code> = __value; RuntimeHelpers.InferSynchronousDelegate(after)(); }
+        // With an asynchronous 'after' method we will generate code as follows:
+        // (TargetAttributeType)(__value => <code> = __value; return RuntimeHelpers.InferAsynchronousDelegate(after)(); }
 
         // Now rewrite the content of the change-handler node. Since it's a component attribute,
         // we don't use the 'BindMethods' wrapper. We expect component attributes to always 'match' on type.
         //
         // __value => <code> = __value
-        changeExpressionTokens.Add(new IntermediateToken()
+
+        switch (setter, after, awaitable)
         {
-            Content = $"__value => {original.Content} = __value",
-            Kind = TokenKind.CSharp,
-        });
+            case (null, null, _):
+            changeExpressionTokens.Add(new IntermediateToken()
+            {
+                Content = $"__value => {original.Content} = __value",
+                Kind = TokenKind.CSharp,
+            });
+            break;
+            case (not null, null, _):
+            changeExpressionTokens.Add(new IntermediateToken()
+            {
+                // Figure out the type check
+                Content = setter.Content,
+                Kind = TokenKind.CSharp,
+            });
+            break;
+            case (null, not null, false):
+            var syncAfterExpression = $"{ComponentsApi.RuntimeHelpers.InvokeSynchronousDelegate}({after})()";
+            changeExpressionTokens.Add(new IntermediateToken()
+            {
+                // Figure out the type check
+                Content = $"__value => {original.Content} = __value; {syncAfterExpression}",
+                Kind = TokenKind.CSharp,
+            });
+            break;
+            case (null, not null, true):
+                var asyncAfterExpression = $"{ComponentsApi.RuntimeHelpers.InvokeAsynchronousDelegate}({after})()";
+                changeExpressionTokens.Add(new IntermediateToken()
+                {
+                    // Figure out the type check
+                    Content = $"async __value => {original.Content} = __value; await {asyncAfterExpression}",
+                    Kind = TokenKind.CSharp,
+                });
+            break;
+            default:
+                // Treat this as the original case, since we don't support bind:set and bind:after simultaneously, we will produce an error.
+                changeExpressionTokens.Add(new IntermediateToken()
+                {
+                    Content = $"__value => {original.Content} = __value",
+                    Kind = TokenKind.CSharp,
+                });
+                break;
+        }
     }
 
     private void RewriteNodesForComponentEventCallbackBind(
         IntermediateToken original,
+        IntermediateToken setter,
+        IntermediateToken after,
         List<IntermediateToken> valueExpressionTokens,
         List<IntermediateToken> changeExpressionTokens)
     {
@@ -731,9 +794,55 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         //  - create a delegate to handle changes
         valueExpressionTokens.Add(original);
 
+        // This is largely the same as the one for elements as we can invoke CreateInferredCallback all the way to victory
         changeExpressionTokens.Add(new IntermediateToken()
         {
-            Content = $"{ComponentsApi.RuntimeHelpers.CreateInferredEventCallback}(this, __value => {original.Content} = __value, {original.Content})",
+            Content = $"{ComponentsApi.RuntimeHelpers.CreateInferredEventCallback}(this, ",
+            Kind = TokenKind.CSharp
+        });
+
+        switch ((setter, after))
+        {
+            case (null, null):
+                // no bind:set nor bind:after, use the same code generation as before
+                changeExpressionTokens.Add(new IntermediateToken()
+                {
+                    Content = $"__value => {original.Content} = __value",
+                    Kind = TokenKind.CSharp
+                });
+                break;
+            case (not null, null):
+                // bind:set only
+                changeExpressionTokens.Add(new IntermediateToken()
+                {
+                    Content = setter.Content,
+                    Kind = TokenKind.CSharp
+                });
+                break;
+            case (null, not null):
+                // bind:after only
+                var afterToEventCallback = $"global::{ComponentsApi.EventCallback.FactoryAccessor}.{ComponentsApi.EventCallbackFactory.CreateMethod}(this, callback: {after.Content})";
+                changeExpressionTokens.Add(new IntermediateToken()
+                {
+                    Content = $"{ComponentsApi.RuntimeHelpers.CreateInferredEventCallback}(this, callback: __value => {{ {original.Content} = __value; return {afterToEventCallback}.InvokeAsync(); }}, value: {original.Content})",
+                    Kind = TokenKind.CSharp
+                });
+                break;
+            case (not null, not null):
+                // bind:set and bind:after create the code even though we disallow this combination through a diagnostic
+                var setToEventCallback = $"{ComponentsApi.RuntimeHelpers.CreateInferredEventCallback}(this, callback: {setter.Content}, value: {original.Content})";
+                afterToEventCallback = $"global::{ComponentsApi.EventCallback.FactoryAccessor}.{ComponentsApi.EventCallbackFactory.CreateMethod}(this, callback: {after.Content})";
+                changeExpressionTokens.Add(new IntermediateToken()
+                {
+                    Content = $"{ComponentsApi.RuntimeHelpers.CreateInferredEventCallback}(this, callback: async __value => {{ await {setToEventCallback}.InvokeAsync(); await {afterToEventCallback}.InvokeAsync(); }}, value: {original.Content})",
+                    Kind = TokenKind.CSharp
+                });
+                break;
+        }
+
+        changeExpressionTokens.Add(new IntermediateToken()
+        {
+            Content = $", {original.Content})",
             Kind = TokenKind.CSharp
         });
     }

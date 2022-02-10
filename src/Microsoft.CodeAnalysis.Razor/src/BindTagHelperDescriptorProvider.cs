@@ -613,6 +613,23 @@ internal class BindTagHelperDescriptorProvider : ITagHelperDescriptorProvider
                     });
                 });
 
+                builder.TagMatchingRule(rule =>
+                {
+                    rule.TagName = tagHelper.TagMatchingRules.Single().TagName;
+                    rule.Attribute(attribute =>
+                    {
+                        attribute.Name = "@bind-" + valueAttribute.Name + ":get";
+                        attribute.NameComparisonMode = RequiredAttributeDescriptor.NameComparisonMode.FullMatch;
+                        attribute.Metadata[ComponentMetadata.Common.DirectiveAttribute] = bool.TrueString;
+                    });
+                    rule.Attribute(attribute =>
+                    {
+                        attribute.Name = "@bind-" + valueAttribute.Name + ":set";
+                        attribute.NameComparisonMode = RequiredAttributeDescriptor.NameComparisonMode.FullMatch;
+                        attribute.Metadata[ComponentMetadata.Common.DirectiveAttribute] = bool.TrueString;
+                    });
+                });
+
                 builder.BindAttribute(attribute =>
                 {
                     attribute.Metadata[ComponentMetadata.Common.DirectiveAttribute] = bool.TrueString;

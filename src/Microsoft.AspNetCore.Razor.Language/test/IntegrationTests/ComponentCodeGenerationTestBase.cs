@@ -1684,6 +1684,41 @@ namespace Test
     }
 
     [Fact]
+    public void BindToComponent_SpecifiesValue_WithGetSet()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public Func<int, System.Threading.Tasks.Task> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""UpdateValue"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+
+    public Task UpdateValue(int value) { ParentValue = value; return Task.CompletedTask; }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
     public void BindToElement_WithStringAttribute_WritesAttributes()
     {
         // Arrange
