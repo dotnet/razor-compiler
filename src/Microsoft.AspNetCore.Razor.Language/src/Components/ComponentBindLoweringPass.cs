@@ -55,7 +55,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         // The dict key is a tuple of (parent, attributeName) to differentiate attributes with the same name in two different elements.
         // We don't have to worry about duplicate bound attributes in the same element
         // like, <Foo @bind="bar" @bind="bar" />, because IR lowering takes care of that.
-        var bindEntries = new Dictionary<(IntermediateNode, IntermediateNode), BindEntry>();
+        var bindEntries = new Dictionary<(IntermediateNode, string), BindEntry>();
         for (var i = 0; i < references.Count; i++)
         {
             var reference = references[i];
@@ -70,7 +70,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
 
             if (node.TagHelper.IsBindTagHelper())
             {
-                bindEntries[(parent, node)] = new BindEntry(reference);
+                bindEntries[(parent, node.AttributeName)] = new BindEntry(reference);
             }
         }
 
@@ -79,10 +79,18 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         for (var i = 0; i < parameterReferences.Count; i++)
         {
             var reference = parameterReferences[i];
+            var parent = reference.Parent;
             var node = (TagHelperDirectiveAttributeParameterIntermediateNode)reference.Node;
+
+            if (!parent.Children.Contains(node))
+            {
+                // This node was removed as a duplicate, skip it.
+                continue;
+            }
+
             if (node.BoundAttributeParameter.Metadata.ContainsKey(ComponentMetadata.Bind.BindAttributeAlternative))
             {
-                bindEntries[(reference.Parent, node)] = new BindEntry(reference);
+                bindEntries[(reference.Parent, node.AttributeNameWithoutParameter)] = new BindEntry(reference);
             }
         }
 
@@ -96,14 +104,13 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
             if (!parent.Children.Contains(node))
             {
                 // This node was removed as a duplicate, skip it.
-                bindEntries.Remove((parent, node));
                 continue;
             }
 
             if (node.TagHelper.IsBindTagHelper())
             {
                 // Check if this tag contains a corresponding non-parameterized bind node.
-                if (!bindEntries.TryGetValue((parent, node), out var entry))
+                if (!bindEntries.TryGetValue((parent, node.AttributeNameWithoutParameter), out var entry))
                 {
                     // There is no corresponding bind node. Add a diagnostic and move on.
                     parameterReference.Parent.Diagnostics.Add(ComponentDiagnosticFactory.CreateBindAttributeParameter_MissingBind(
