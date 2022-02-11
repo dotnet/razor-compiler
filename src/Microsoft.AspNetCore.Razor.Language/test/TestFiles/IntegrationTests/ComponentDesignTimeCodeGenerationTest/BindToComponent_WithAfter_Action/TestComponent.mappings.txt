@@ -9,7 +9,7 @@ Source Location: (81:1,7 [82] x:\dir\subdir\Test\TestComponent.cshtml)
 
     public void Update() { }
 |
-Generated Location: (1773:47,7 [82] )
+Generated Location: (1771:47,7 [82] )
 |
     public int ParentValue { get; set; } = 42;
 

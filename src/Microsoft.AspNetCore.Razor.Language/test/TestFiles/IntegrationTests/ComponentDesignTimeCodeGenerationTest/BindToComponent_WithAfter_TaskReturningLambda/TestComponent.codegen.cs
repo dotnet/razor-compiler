@@ -30,7 +30,7 @@ namespace Test
 #nullable disable
             );
             __o = new global::System.Func<System.Int32, System.Threading.Tasks.Task>(
-            async __value => { ParentValue = __value; await global::Microsoft.AspNetCore.Components.CompilerServices.RuntimeHelpers.InvokeAsynchronousDelegate(() => { return Task.CompletedTask; })(); });
+            async __value => { ParentValue = __value; await global::Microsoft.AspNetCore.Components.CompilerServices.RuntimeHelpers.InvokeAsynchronousDelegate(() => { return Task.CompletedTask; }); });
             __builder.AddAttribute(-1, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
             }
             ));

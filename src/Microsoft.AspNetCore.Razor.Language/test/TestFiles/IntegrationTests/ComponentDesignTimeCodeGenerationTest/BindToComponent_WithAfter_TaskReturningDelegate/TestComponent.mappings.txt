@@ -9,7 +9,7 @@ Source Location: (81:1,7 [101] x:\dir\subdir\Test\TestComponent.cshtml)
 
     public Task Update() => Task.CompletedTask;
 |
-Generated Location: (1813:47,7 [101] )
+Generated Location: (1811:47,7 [101] )
 |
     public int ParentValue { get; set; } = 42;
 

@@ -30,7 +30,7 @@ namespace Test
 #nullable disable
             );
             __o = new global::System.Action<System.Int32>(
-            __value => { ParentValue = __value; global::Microsoft.AspNetCore.Components.CompilerServices.RuntimeHelpers.InvokeSynchronousDelegate(() => { })(); });
+            __value => { ParentValue = __value; global::Microsoft.AspNetCore.Components.CompilerServices.RuntimeHelpers.InvokeSynchronousDelegate(() => { }); });
             __builder.AddAttribute(-1, "ChildContent", (global::Microsoft.AspNetCore.Components.RenderFragment)((__builder2) => {
             }
             ));
