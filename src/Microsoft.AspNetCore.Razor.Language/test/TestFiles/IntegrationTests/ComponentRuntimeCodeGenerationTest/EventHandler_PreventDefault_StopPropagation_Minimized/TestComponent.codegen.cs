@@ -21,8 +21,8 @@ using Microsoft.AspNetCore.Components.Web;
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
             __builder.OpenElement(0, "button");
-            __builder.AddEventPreventDefaultAttribute(1, "onclick", true);
-            __builder.AddEventStopPropagationAttribute(2, "onclick", true);
+            __builder.AddEventPreventDefaultAttribute(1, "onclick:preventDefault", true);
+            __builder.AddEventStopPropagationAttribute(2, "onclick:stopPropagation", true);
             __builder.AddContent(3, "Click Me");
             __builder.CloseElement();
         }

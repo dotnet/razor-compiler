@@ -99,7 +99,7 @@ public abstract class IntegrationTestBase
 #if GENERATE_BASELINES
         protected bool GenerateBaselines { get; } = true;
 #else
-    protected bool GenerateBaselines { get; } = true;
+    protected bool GenerateBaselines { get; } = false;
 #endif
 
     protected string TestProjectRoot { get; }

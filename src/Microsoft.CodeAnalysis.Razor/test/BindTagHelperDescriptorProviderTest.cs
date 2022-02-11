@@ -97,20 +97,51 @@ namespace Test
         Assert.Equal("Test.MyComponent", bind.DisplayName);
         Assert.Equal("Test.MyComponent", bind.GetTypeName());
 
-        var rule = Assert.Single(bind.TagMatchingRules);
-        Assert.Empty(rule.Diagnostics);
-        Assert.False(rule.HasErrors);
-        Assert.Null(rule.ParentTag);
-        Assert.Equal("MyComponent", rule.TagName);
-        Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
+        Assert.Collection(bind.TagMatchingRules.OrderBy(r => r.Attributes.Count),
+            rule =>
+            {
+                Assert.Empty(rule.Diagnostics);
+                Assert.False(rule.HasErrors);
+                Assert.Null(rule.ParentTag);
+                Assert.Equal("MyComponent", rule.TagName);
+                Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
 
-        var requiredAttribute = Assert.Single(rule.Attributes);
-        Assert.Empty(requiredAttribute.Diagnostics);
-        Assert.Equal("@bind-MyProperty", requiredAttribute.DisplayName);
-        Assert.Equal("@bind-MyProperty", requiredAttribute.Name);
-        Assert.Equal(RequiredAttributeDescriptor.NameComparisonMode.FullMatch, requiredAttribute.NameComparison);
-        Assert.Null(requiredAttribute.Value);
-        Assert.Equal(RequiredAttributeDescriptor.ValueComparisonMode.None, requiredAttribute.ValueComparison);
+                var requiredAttribute = Assert.Single(rule.Attributes);
+                Assert.Empty(requiredAttribute.Diagnostics);
+                Assert.Equal("@bind-MyProperty", requiredAttribute.DisplayName);
+                Assert.Equal("@bind-MyProperty", requiredAttribute.Name);
+                Assert.Equal(RequiredAttributeDescriptor.NameComparisonMode.FullMatch, requiredAttribute.NameComparison);
+                Assert.Null(requiredAttribute.Value);
+                Assert.Equal(RequiredAttributeDescriptor.ValueComparisonMode.None, requiredAttribute.ValueComparison);
+            },
+            rule =>
+            {
+                Assert.Empty(rule.Diagnostics);
+                Assert.False(rule.HasErrors);
+                Assert.Null(rule.ParentTag);
+                Assert.Equal("MyComponent", rule.TagName);
+                Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
+
+                Assert.Collection(rule.Attributes.OrderBy(a => a.Name),
+                    requiredAttribute =>
+                    {
+                        Assert.Empty(requiredAttribute.Diagnostics);
+                        Assert.Equal("@bind-MyProperty:get", requiredAttribute.DisplayName);
+                        Assert.Equal("@bind-MyProperty:get", requiredAttribute.Name);
+                        Assert.Equal(RequiredAttributeDescriptor.NameComparisonMode.FullMatch, requiredAttribute.NameComparison);
+                        Assert.Null(requiredAttribute.Value);
+                        Assert.Equal(RequiredAttributeDescriptor.ValueComparisonMode.None, requiredAttribute.ValueComparison);
+                    },
+                    requiredAttribute =>
+                    {
+                        Assert.Empty(requiredAttribute.Diagnostics);
+                        Assert.Equal("@bind-MyProperty:set", requiredAttribute.DisplayName);
+                        Assert.Equal("@bind-MyProperty:set", requiredAttribute.Name);
+                        Assert.Equal(RequiredAttributeDescriptor.NameComparisonMode.FullMatch, requiredAttribute.NameComparison);
+                        Assert.Null(requiredAttribute.Value);
+                        Assert.Equal(RequiredAttributeDescriptor.ValueComparisonMode.None, requiredAttribute.ValueComparison);
+                    });
+            });
 
         var attribute = Assert.Single(bind.BoundAttributes);
 
@@ -218,20 +249,51 @@ namespace Test
         Assert.Equal("Test.MyComponent", bind.DisplayName);
         Assert.Equal("Test.MyComponent", bind.GetTypeName());
 
-        var rule = Assert.Single(bind.TagMatchingRules);
-        Assert.Empty(rule.Diagnostics);
-        Assert.False(rule.HasErrors);
-        Assert.Null(rule.ParentTag);
-        Assert.Equal("MyComponent", rule.TagName);
-        Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
+        Assert.Collection(bind.TagMatchingRules.OrderBy(o => o.Attributes.Count),
+            rule =>
+            {
+                Assert.Empty(rule.Diagnostics);
+                Assert.False(rule.HasErrors);
+                Assert.Null(rule.ParentTag);
+                Assert.Equal("MyComponent", rule.TagName);
+                Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
 
-        var requiredAttribute = Assert.Single(rule.Attributes);
-        Assert.Empty(requiredAttribute.Diagnostics);
-        Assert.Equal("@bind-MyProperty", requiredAttribute.DisplayName);
-        Assert.Equal("@bind-MyProperty", requiredAttribute.Name);
-        Assert.Equal(RequiredAttributeDescriptor.NameComparisonMode.FullMatch, requiredAttribute.NameComparison);
-        Assert.Null(requiredAttribute.Value);
-        Assert.Equal(RequiredAttributeDescriptor.ValueComparisonMode.None, requiredAttribute.ValueComparison);
+                var requiredAttribute = Assert.Single(rule.Attributes);
+                Assert.Empty(requiredAttribute.Diagnostics);
+                Assert.Equal("@bind-MyProperty", requiredAttribute.DisplayName);
+                Assert.Equal("@bind-MyProperty", requiredAttribute.Name);
+                Assert.Equal(RequiredAttributeDescriptor.NameComparisonMode.FullMatch, requiredAttribute.NameComparison);
+                Assert.Null(requiredAttribute.Value);
+                Assert.Equal(RequiredAttributeDescriptor.ValueComparisonMode.None, requiredAttribute.ValueComparison);
+            },
+            rule =>
+            {
+                Assert.Empty(rule.Diagnostics);
+                Assert.False(rule.HasErrors);
+                Assert.Null(rule.ParentTag);
+                Assert.Equal("MyComponent", rule.TagName);
+                Assert.Equal(TagStructure.Unspecified, rule.TagStructure);
+
+                Assert.Collection(rule.Attributes.OrderBy(a => a.Name),
+                    requiredAttribute =>
+                    {
+                        Assert.Empty(requiredAttribute.Diagnostics);
+                        Assert.Equal("@bind-MyProperty:get", requiredAttribute.DisplayName);
+                        Assert.Equal("@bind-MyProperty:get", requiredAttribute.Name);
+                        Assert.Equal(RequiredAttributeDescriptor.NameComparisonMode.FullMatch, requiredAttribute.NameComparison);
+                        Assert.Null(requiredAttribute.Value);
+                        Assert.Equal(RequiredAttributeDescriptor.ValueComparisonMode.None, requiredAttribute.ValueComparison);
+                    },
+                    requiredAttribute =>
+                    {
+                        Assert.Empty(requiredAttribute.Diagnostics);
+                        Assert.Equal("@bind-MyProperty:set", requiredAttribute.DisplayName);
+                        Assert.Equal("@bind-MyProperty:set", requiredAttribute.Name);
+                        Assert.Equal(RequiredAttributeDescriptor.NameComparisonMode.FullMatch, requiredAttribute.NameComparison);
+                        Assert.Null(requiredAttribute.Value);
+                        Assert.Equal(RequiredAttributeDescriptor.ValueComparisonMode.None, requiredAttribute.ValueComparison);
+                    });
+            });
 
         var attribute = Assert.Single(bind.BoundAttributes);
 
