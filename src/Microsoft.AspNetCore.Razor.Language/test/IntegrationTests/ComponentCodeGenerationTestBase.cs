@@ -2127,8 +2127,79 @@ namespace Test
         CompileToAssembly(generated);
     }
 
-    [Fact(Skip = "tmp")]
+    [Fact]
     public void BindToComponent_WithAfter_AsyncLambdaProducesError()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public Action<int> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value=""ParentValue"" @bind-Value:after=""() => { return Task.CompletedTask; }"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        var compilationResult = CompileToAssembly(generated, throwOnFailure: false);
+        Assert.Collection(compilationResult.Diagnostics,
+            diagnostic => Assert.Equal("CS8030", diagnostic.Id)); // Anonymous function converted to a void returning delegate cannot return a value
+    }
+
+    [Fact]
+    public void BindToComponent_WithAfter_AsyncMethodGroupProducesError()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public Action<int> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value=""ParentValue"" @bind-Value:after=""Update"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+    public Task Update() { return Task.CompletedTask; }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        var compilationResult = CompileToAssembly(generated, throwOnFailure: false);
+        Assert.Collection(compilationResult.Diagnostics,
+            diagnostic => Assert.Equal("CS0407", diagnostic.Id)); // Task TestComponent.UpdateValue()' has the wrong return type
+    }
+
+    [Fact]
+    public void BindToComponent_WithGetSet_AsyncLambdaProducesError()
     {
         // Arrange
         AdditionalSyntaxTrees.Add(Parse(@"
@@ -2157,9 +2228,47 @@ namespace Test
         // Assert
         AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
         AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
-        CompileToAssembly(generated);
+        var compilationResult = CompileToAssembly(generated, throwOnFailure: false);
+        Assert.Collection(compilationResult.Diagnostics,
+            diagnostic => Assert.Equal("CS8030", diagnostic.Id));
     }
-    
+
+    [Fact]
+    public void BindToComponent_WithGetSet_AsyncMethodGroupProducesError()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public Action<int> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""UpdateValue"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+    public Task UpdateValue(int value) { ParentValue = value; return Task.CompletedTask; }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        var compilationResult = CompileToAssembly(generated, throwOnFailure: false);
+        Assert.Collection(compilationResult.Diagnostics,
+            diagnostic => Assert.Equal("CS0407", diagnostic.Id)); // Task TestComponent.UpdateValue(int)' has the wrong return type
+    }
+
     [Fact]
     public void BindToElement_WithStringAttribute_WritesAttributes()
     {
