@@ -97,13 +97,13 @@ public sealed class ComponentAttributeIntermediateNode : IntermediateNode
             throw new ArgumentNullException(nameof(directiveAttributeParameterNode));
         }
 
-        AttributeName = directiveAttributeParameterNode.AttributeNameWithoutParameter;
+        AttributeName = directiveAttributeParameterNode.AttributeName;
         AttributeStructure = directiveAttributeParameterNode.AttributeStructure;
         BoundAttribute = directiveAttributeParameterNode.BoundAttribute;
-        PropertyName = directiveAttributeParameterNode.BoundAttributeParameter.GetPropertyName();
+        PropertyName = directiveAttributeParameterNode.BoundAttribute.GetPropertyName();
         Source = directiveAttributeParameterNode.Source;
         TagHelper = directiveAttributeParameterNode.TagHelper;
-        TypeName = directiveAttributeParameterNode.BoundAttributeParameter.TypeName;
+        TypeName = directiveAttributeParameterNode.BoundAttribute.IsWeaklyTyped() ? null : directiveAttributeParameterNode.BoundAttribute.TypeName;
 
         for (var i = 0; i < directiveAttributeParameterNode.Children.Count; i++)
         {
