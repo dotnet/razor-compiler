@@ -412,7 +412,10 @@ namespace Microsoft.AspNetCore.Components.CompilerServices
 {
     public static partial class RuntimeHelpers
     {
-        public static System.Action<T> CreateInferredEventCallback<T>(System.Action<T> callback, T value) { throw null; }
+
+        public static System.Func<System.Threading.Tasks.Task> InvokeSynchronousDelegate(System.Action callback) { throw null; }        
+        public static System.Func<System.Threading.Tasks.Task> InvokeAsynchronousDelegate(System.Action callback) { throw null; }
+        public static System.Func<System.Threading.Tasks.Task> InvokeAsynchronousDelegate(System.Func<System.Threading.Tasks.Task> callback) { throw null; }
 
         public static Microsoft.AspNetCore.Components.EventCallback<T> CreateInferredEventCallback<T>(object receiver, System.Action<T> callback, T value) { throw null; }
 

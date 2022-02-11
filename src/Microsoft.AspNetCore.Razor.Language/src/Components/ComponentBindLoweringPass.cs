@@ -817,20 +817,20 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
                 });
                 break;
             case (null, not null, false):
-                var syncAfterExpression = $"{ComponentsApi.RuntimeHelpers.InvokeSynchronousDelegate}({after})()";
+                var syncAfterExpression = $"{ComponentsApi.RuntimeHelpers.InvokeSynchronousDelegate}({after.Content})();";
                 changeExpressionTokens.Add(new IntermediateToken()
                 {
                     // Figure out the type check
-                    Content = $"__value => {original.Content} = __value; {syncAfterExpression}",
+                    Content = $"__value => {{ {original.Content} = __value; {syncAfterExpression} }}",
                     Kind = TokenKind.CSharp,
                 });
                 break;
             case (null, not null, true):
-                var asyncAfterExpression = $"{ComponentsApi.RuntimeHelpers.InvokeAsynchronousDelegate}({after})()";
+                var asyncAfterExpression = $"{ComponentsApi.RuntimeHelpers.InvokeAsynchronousDelegate}({after.Content})();";
                 changeExpressionTokens.Add(new IntermediateToken()
                 {
                     // Figure out the type check
-                    Content = $"async __value => {original.Content} = __value; await {asyncAfterExpression}",
+                    Content = $"async __value => {{ {original.Content} = __value; await {asyncAfterExpression} }}",
                     Kind = TokenKind.CSharp,
                 });
                 break;
