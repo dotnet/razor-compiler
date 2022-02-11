@@ -55,7 +55,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         // The dict key is a tuple of (parent, attributeName) to differentiate attributes with the same name in two different elements.
         // We don't have to worry about duplicate bound attributes in the same element
         // like, <Foo @bind="bar" @bind="bar" />, because IR lowering takes care of that.
-        var bindEntries = new Dictionary<(IntermediateNode, string), BindEntry>();
+        var bindEntries = new Dictionary<(IntermediateNode, IntermediateNode), BindEntry>();
         for (var i = 0; i < references.Count; i++)
         {
             var reference = references[i];
@@ -70,7 +70,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
 
             if (node.TagHelper.IsBindTagHelper())
             {
-                bindEntries[(parent, node.AttributeName)] = new BindEntry(reference);
+                bindEntries[(parent, node)] = new BindEntry(reference);
             }
         }
 
@@ -82,7 +82,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
             var node = (TagHelperDirectiveAttributeParameterIntermediateNode)reference.Node;
             if (node.BoundAttributeParameter.Metadata.ContainsKey(ComponentMetadata.Bind.BindAttributeAlternative))
             {
-                bindEntries[(reference.Parent, node.AttributeNameWithoutParameter)] = new BindEntry(reference);
+                bindEntries[(reference.Parent, node)] = new BindEntry(reference);
             }
         }
 
@@ -96,13 +96,14 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
             if (!parent.Children.Contains(node))
             {
                 // This node was removed as a duplicate, skip it.
+                bindEntries.Remove((parent, node));
                 continue;
             }
 
             if (node.TagHelper.IsBindTagHelper())
             {
                 // Check if this tag contains a corresponding non-parameterized bind node.
-                if (!bindEntries.TryGetValue((parent, node.AttributeNameWithoutParameter), out var entry))
+                if (!bindEntries.TryGetValue((parent, node), out var entry))
                 {
                     // There is no corresponding bind node. Add a diagnostic and move on.
                     parameterReference.Parent.Diagnostics.Add(ComponentDiagnosticFactory.CreateBindAttributeParameter_MissingBind(
@@ -483,18 +484,37 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         }
         else
         {
-            var valueNode = new ComponentAttributeIntermediateNode(node)
+            ComponentAttributeIntermediateNode valueNode;
+            if (node != null)
             {
-                Annotations =
-                    {
-                        [ComponentMetadata.Common.OriginalAttributeName] = node.OriginalAttributeName,
-                    },
-                AttributeName = valueAttributeName,
-                BoundAttribute = valueAttribute, // Might be null if it doesn't match a component attribute
-                PropertyName = valueAttribute?.GetPropertyName(),
-                TagHelper = valueAttribute == null ? null : node.TagHelper,
-                TypeName = valueAttribute?.IsWeaklyTyped() == false ? valueAttribute.TypeName : null,
-            };
+                valueNode = new ComponentAttributeIntermediateNode(node)
+                {
+                    Annotations =
+                        {
+                            [ComponentMetadata.Common.OriginalAttributeName] = node.OriginalAttributeName,
+                        },
+                    AttributeName = valueAttributeName,
+                    BoundAttribute = valueAttribute, // Might be null if it doesn't match a component attribute
+                    PropertyName = valueAttribute?.GetPropertyName(),
+                    TagHelper = valueAttribute == null ? null : node.TagHelper,
+                    TypeName = valueAttribute?.IsWeaklyTyped() == false ? valueAttribute.TypeName : null,
+                };
+            }
+            else
+            {
+                valueNode = new ComponentAttributeIntermediateNode(getNode)
+                {
+                    Annotations =
+                        {
+                            [ComponentMetadata.Common.OriginalAttributeName] = getNode.OriginalAttributeName,
+                        },
+                    AttributeName = valueAttributeName,
+                    BoundAttribute = valueAttribute, // Might be null if it doesn't match a component attribute
+                    PropertyName = valueAttribute?.GetPropertyName(),
+                    TagHelper = valueAttribute == null ? null : getNode.TagHelper,
+                    TypeName = valueAttribute?.IsWeaklyTyped() == false ? valueAttribute.TypeName : null,
+                };
+            }
 
             valueNode.Children.Clear();
             valueNode.Children.Add(new CSharpExpressionIntermediateNode());
@@ -503,18 +523,37 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
                 valueNode.Children[0].Children.Add(valueExpressionTokens[i]);
             }
 
-            var changeNode = new ComponentAttributeIntermediateNode(node)
+            ComponentAttributeIntermediateNode changeNode = null;
+            if (node != null)
             {
-                Annotations =
+                changeNode = new ComponentAttributeIntermediateNode(node)
+                {
+                    Annotations =
                     {
-                        [ComponentMetadata.Common.OriginalAttributeName] = node.OriginalAttributeName,
+                    [ComponentMetadata.Common.OriginalAttributeName] = node.OriginalAttributeName,
                     },
-                AttributeName = changeAttributeName,
-                BoundAttribute = changeAttribute, // Might be null if it doesn't match a component attribute
-                PropertyName = changeAttribute?.GetPropertyName(),
-                TagHelper = changeAttribute == null ? null : node.TagHelper,
-                TypeName = changeAttribute?.IsWeaklyTyped() == false ? changeAttribute.TypeName : null,
-            };
+                    AttributeName = changeAttributeName,
+                    BoundAttribute = changeAttribute, // Might be null if it doesn't match a component attribute
+                    PropertyName = changeAttribute?.GetPropertyName(),
+                    TagHelper = changeAttribute == null ? null : node.TagHelper,
+                    TypeName = changeAttribute?.IsWeaklyTyped() == false ? changeAttribute.TypeName : null,
+                };
+            }
+            else
+            {
+                changeNode = new ComponentAttributeIntermediateNode(getNode)
+                {
+                    Annotations =
+                    {
+                    [ComponentMetadata.Common.OriginalAttributeName] = getNode.OriginalAttributeName,
+                    },
+                    AttributeName = changeAttributeName,
+                    BoundAttribute = changeAttribute, // Might be null if it doesn't match a component attribute
+                    PropertyName = changeAttribute?.GetPropertyName(),
+                    TagHelper = changeAttribute == null ? null : getNode.TagHelper,
+                    TypeName = changeAttribute?.IsWeaklyTyped() == false ? changeAttribute.TypeName : null,
+                };
+            }
 
             changeNode.Children.Clear();
             changeNode.Children.Add(new CSharpExpressionIntermediateNode());
@@ -528,19 +567,36 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
             ComponentAttributeIntermediateNode expressionNode = null;
             if (expressionAttribute != null)
             {
-                expressionNode = new ComponentAttributeIntermediateNode(node)
+                if(node != null)
                 {
-                    Annotations =
-                        {
-                            [ComponentMetadata.Common.OriginalAttributeName] = node.OriginalAttributeName,
-                        },
-                    AttributeName = expressionAttributeName,
-                    BoundAttribute = expressionAttribute,
-                    PropertyName = expressionAttribute.GetPropertyName(),
-                    TagHelper = node.TagHelper,
-                    TypeName = expressionAttribute.IsWeaklyTyped() ? null : expressionAttribute.TypeName,
-                };
-
+                    expressionNode = new ComponentAttributeIntermediateNode(node)
+                    {
+                        Annotations =
+                            {
+                                [ComponentMetadata.Common.OriginalAttributeName] = node.OriginalAttributeName,
+                            },
+                        AttributeName = expressionAttributeName,
+                        BoundAttribute = expressionAttribute,
+                        PropertyName = expressionAttribute.GetPropertyName(),
+                        TagHelper = node.TagHelper,
+                        TypeName = expressionAttribute.IsWeaklyTyped() ? null : expressionAttribute.TypeName,
+                    };
+                }
+                else
+                {
+                    expressionNode = new ComponentAttributeIntermediateNode(getNode)
+                    {
+                        Annotations =
+                            {
+                                [ComponentMetadata.Common.OriginalAttributeName] = getNode.OriginalAttributeName,
+                            },
+                        AttributeName = expressionAttributeName,
+                        BoundAttribute = expressionAttribute,
+                        PropertyName = expressionAttribute.GetPropertyName(),
+                        TagHelper = getNode.TagHelper,
+                        TypeName = expressionAttribute.IsWeaklyTyped() ? null : expressionAttribute.TypeName,
+                    };
+                }
                 expressionNode.Children.Clear();
                 expressionNode.Children.Add(new CSharpExpressionIntermediateNode());
                 expressionNode.Children[0].Children.Add(new IntermediateToken()
@@ -739,29 +795,29 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         switch (setter, after, awaitable)
         {
             case (null, null, _):
-            changeExpressionTokens.Add(new IntermediateToken()
-            {
-                Content = $"__value => {original.Content} = __value",
-                Kind = TokenKind.CSharp,
-            });
-            break;
+                changeExpressionTokens.Add(new IntermediateToken()
+                {
+                    Content = $"__value => {original.Content} = __value",
+                    Kind = TokenKind.CSharp,
+                });
+                break;
             case (not null, null, _):
-            changeExpressionTokens.Add(new IntermediateToken()
-            {
-                // Figure out the type check
-                Content = setter.Content,
-                Kind = TokenKind.CSharp,
-            });
-            break;
+                changeExpressionTokens.Add(new IntermediateToken()
+                {
+                    // Figure out the type check
+                    Content = setter.Content,
+                    Kind = TokenKind.CSharp,
+                });
+                break;
             case (null, not null, false):
-            var syncAfterExpression = $"{ComponentsApi.RuntimeHelpers.InvokeSynchronousDelegate}({after})()";
-            changeExpressionTokens.Add(new IntermediateToken()
-            {
-                // Figure out the type check
-                Content = $"__value => {original.Content} = __value; {syncAfterExpression}",
-                Kind = TokenKind.CSharp,
-            });
-            break;
+                var syncAfterExpression = $"{ComponentsApi.RuntimeHelpers.InvokeSynchronousDelegate}({after})()";
+                changeExpressionTokens.Add(new IntermediateToken()
+                {
+                    // Figure out the type check
+                    Content = $"__value => {original.Content} = __value; {syncAfterExpression}",
+                    Kind = TokenKind.CSharp,
+                });
+                break;
             case (null, not null, true):
                 var asyncAfterExpression = $"{ComponentsApi.RuntimeHelpers.InvokeAsynchronousDelegate}({after})()";
                 changeExpressionTokens.Add(new IntermediateToken()
@@ -770,7 +826,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
                     Content = $"async __value => {original.Content} = __value; await {asyncAfterExpression}",
                     Kind = TokenKind.CSharp,
                 });
-            break;
+                break;
             default:
                 // Treat this as the original case, since we don't support bind:set and bind:after simultaneously, we will produce an error.
                 changeExpressionTokens.Add(new IntermediateToken()
