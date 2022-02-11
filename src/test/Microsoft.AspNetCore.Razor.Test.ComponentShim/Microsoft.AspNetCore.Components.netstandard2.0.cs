@@ -412,13 +412,10 @@ namespace Microsoft.AspNetCore.Components.CompilerServices
 {
     public static partial class RuntimeHelpers
     {
-
-        public static System.Func<System.Threading.Tasks.Task> InvokeSynchronousDelegate(System.Action callback) { throw null; }        
-        public static System.Func<System.Threading.Tasks.Task> InvokeAsynchronousDelegate(System.Action callback) { throw null; }
-        public static System.Func<System.Threading.Tasks.Task> InvokeAsynchronousDelegate(System.Func<System.Threading.Tasks.Task> callback) { throw null; }
-
+        public static void InvokeSynchronousDelegate(System.Action callback) { throw null; }        
+        public static System.Threading.Tasks.Task InvokeAsynchronousDelegate(System.Action callback) { throw null; }
+        public static System.Threading.Tasks.Task InvokeAsynchronousDelegate(System.Func<System.Threading.Tasks.Task> callback) { throw null; }
         public static Microsoft.AspNetCore.Components.EventCallback<T> CreateInferredEventCallback<T>(object receiver, System.Action<T> callback, T value) { throw null; }
-
         public static Microsoft.AspNetCore.Components.EventCallback<T> CreateInferredEventCallback<T>(object receiver, Microsoft.AspNetCore.Components.EventCallback<T> callback, T value) { throw null; }
         public static Microsoft.AspNetCore.Components.EventCallback<T> CreateInferredEventCallback<T>(object receiver, System.Func<T, System.Threading.Tasks.Task> callback, T value) { throw null; }
         public static T TypeCheck<T>(T value) { throw null; }

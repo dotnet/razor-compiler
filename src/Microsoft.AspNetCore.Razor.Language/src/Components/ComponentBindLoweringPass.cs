@@ -811,22 +811,20 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
             case (not null, null, _):
                 changeExpressionTokens.Add(new IntermediateToken()
                 {
-                    // Figure out the type check
                     Content = setter.Content,
                     Kind = TokenKind.CSharp,
                 });
                 break;
             case (null, not null, false):
-                var syncAfterExpression = $"{ComponentsApi.RuntimeHelpers.InvokeSynchronousDelegate}({after.Content})();";
+                var syncAfterExpression = $"{ComponentsApi.RuntimeHelpers.InvokeSynchronousDelegate}({after.Content});";
                 changeExpressionTokens.Add(new IntermediateToken()
                 {
-                    // Figure out the type check
                     Content = $"__value => {{ {original.Content} = __value; {syncAfterExpression} }}",
                     Kind = TokenKind.CSharp,
                 });
                 break;
             case (null, not null, true):
-                var asyncAfterExpression = $"{ComponentsApi.RuntimeHelpers.InvokeAsynchronousDelegate}({after.Content})();";
+                var asyncAfterExpression = $"{ComponentsApi.RuntimeHelpers.InvokeAsynchronousDelegate}({after.Content});";
                 changeExpressionTokens.Add(new IntermediateToken()
                 {
                     // Figure out the type check
