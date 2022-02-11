@@ -1576,6 +1576,591 @@ namespace Test
     }
 
     [Fact]
+    public void BindToElement_WithBindAfter()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    [BindElement(""div"", null, ""myvalue"", ""myevent"")]
+    public static class BindAttributes
+    {
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<div @bind=""@ParentValue"" @bind:after=""DoSomething"">
+</div>
+@code {
+    public string ParentValue { get; set; } = ""hi"";
+
+    Task DoSomething()
+    {
+        return Task.CompletedTask;
+    }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void BindToElement_WithGetSet()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    [BindElement(""div"", null, ""myvalue"", ""myevent"")]
+    public static class BindAttributes
+    {
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<div @bind:get=""@ParentValue"" @bind:set=""ValueChanged"">
+</div>
+@code {
+    public string ParentValue { get; set; } = ""hi"";
+
+    Task ValueChanged(string value)
+    {
+        return Task.CompletedTask;
+    }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void BindToComponent_WithGetSet_TaskReturningDelegate()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public Func<int, Task> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""UpdateValue"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+
+    public Task UpdateValue(int value) { ParentValue = value; return Task.CompletedTask; }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void BindToComponent_WithGetSet_TaskReturningLambda()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public Func<int, Task> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""value => { ParentValue = value; return Task.CompletedTask; }"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void BindToComponent_WithGetSet_Action()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public Action<int> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""UpdateValue"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+
+    public void UpdateValue(int value) => ParentValue = value;
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void BindToComponent_WithGetSet_ActionLambda()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public Action<int> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""value => ParentValue = value"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void BindToComponent_WithGetSet_EventCallback()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public EventCallback<int> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""UpdateValue"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+
+    public EventCallback<int> UpdateValue { get; set; }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void BindToComponent_WithGetSet_EventCallback_ReceivesAction()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public EventCallback<int> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""value => ParentValue = value"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void BindToComponent_WithGetSet_EventCallback_ReceivesFunction()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public EventCallback<int> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""UpdateValue"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+
+    public Task UpdateValue(int value) { ParentValue = value; return Task.CompletedTask; }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void BindToComponent_WithAfter_TaskReturningDelegate()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public Func<int, Task> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:after=""Update"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+
+    public Task Update() => Task.CompletedTask;
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void BindToComponent_WithAfter_TaskReturningLambda()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public Func<int, Task> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:after=""() => { return Task.CompletedTask; }"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void BindToComponent_WithAfter_Action()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public Action<int> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:after=""Update"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+
+    public void Update() { }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void BindToComponent_WithAfter_ActionLambda()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public Action<int> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:after=""() => { }"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void BindToComponent_WithAfter_EventCallback()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public EventCallback<int> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:after=""UpdateValue"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+
+    public EventCallback UpdateValue { get; set; }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void BindToComponent_WithAfter_EventCallback_ReceivesAction()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public EventCallback<int> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:after=""() => { }"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void BindToComponent_WithAfter_EventCallback_ReceivesFunction()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public EventCallback<int> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:after=""UpdateValue"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+
+    public Task UpdateValue() => Task.CompletedTask;
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact(Skip = "tmp")]
+    public void BindToComponent_WithAfter_AsyncLambdaProducesError()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public Action<int> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""value => { ParentValue = value; return Task.CompletedTask; }"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+    
+    [Fact]
     public void BindToElement_WithStringAttribute_WritesAttributes()
     {
         // Arrange
