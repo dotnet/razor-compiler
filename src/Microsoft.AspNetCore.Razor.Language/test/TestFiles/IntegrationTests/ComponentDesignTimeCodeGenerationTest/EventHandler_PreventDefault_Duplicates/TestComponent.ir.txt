@@ -18,7 +18,7 @@ Document -
                 HtmlContent - (42:0,42 [2] x:\dir\subdir\Test\TestComponent.cshtml)
                     LazyIntermediateToken - (42:0,42 [2] x:\dir\subdir\Test\TestComponent.cshtml) - Html - \n
                 MarkupElement - (44:1,0 [64] x:\dir\subdir\Test\TestComponent.cshtml) - input
-                    ComponentAttribute - (76:1,32 [4] x:\dir\subdir\Test\TestComponent.cshtml) - onclick - PreventDefault - AttributeStructure.DoubleQuotes
+                    ComponentAttribute - (76:1,32 [4] x:\dir\subdir\Test\TestComponent.cshtml) - onclick:preventDefault - onclick - AttributeStructure.DoubleQuotes
                         CSharpExpression - 
                             LazyIntermediateToken - (76:1,32 [4] x:\dir\subdir\Test\TestComponent.cshtml) - CSharp - true
                     HtmlAttribute -  - @onclick:preventDefault - 

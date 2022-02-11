@@ -36,7 +36,7 @@ using Microsoft.AspNetCore.Components.Web;
 #line hidden
 #nullable disable
             );
-            __o = global::Microsoft.AspNetCore.Components.CompilerServices.RuntimeHelpers.TypeCheck<global::System.Boolean>(
+            __o = 
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
                                                    ShouldPreventDefault()
@@ -44,7 +44,7 @@ using Microsoft.AspNetCore.Components.Web;
 #line default
 #line hidden
 #nullable disable
-            );
+            ;
         }
         #pragma warning restore 1998
 #nullable restore

@@ -30,7 +30,7 @@ using Microsoft.AspNetCore.Components.Web;
 #line hidden
 #nullable disable
             ));
-            __builder.AddEventPreventDefaultAttribute(2, "onfocus", 
+            __builder.AddEventPreventDefaultAttribute(2, "onfocus:preventDefault", 
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
                                                    ShouldPreventDefault()
