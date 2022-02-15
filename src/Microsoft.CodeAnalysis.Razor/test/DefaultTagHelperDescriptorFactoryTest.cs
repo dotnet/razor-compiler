@@ -1067,8 +1067,8 @@ public class DefaultTagHelperDescriptorFactoryTest
                 "overridden-attribute",
                 typeof(OverriddenAttributeTagHelper).FullName,
                 AssemblyName,
-                            typeNamespace: typeof(OverriddenAttributeTagHelper).FullName.Substring(0, typeof(OverriddenAttributeTagHelper).FullName.Length - nameof(OverriddenAttributeTagHelper).Length -1),
-                            typeNameIdentifier: nameof(OverriddenAttributeTagHelper),
+                typeNamespace: typeof(OverriddenAttributeTagHelper).FullName.Substring(0, typeof(OverriddenAttributeTagHelper).FullName.Length - nameof(OverriddenAttributeTagHelper).Length -1),
+                typeNameIdentifier: nameof(OverriddenAttributeTagHelper),
                 new Action<BoundAttributeDescriptorBuilder>[]
                 {
                         builder => builder

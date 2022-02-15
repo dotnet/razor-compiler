@@ -377,8 +377,6 @@ internal class DefaultRazorTagHelperBinderPhase : RazorEnginePhaseBase, IRazorTa
             }
         }
 
-        // Just for unit testing backwards compatibility with the previous implementation
-
         // Check if the given type is already in scope given the namespace of the current document.
         // E.g,
         // If the namespace of the document is `MyComponents.Components.Shared`,

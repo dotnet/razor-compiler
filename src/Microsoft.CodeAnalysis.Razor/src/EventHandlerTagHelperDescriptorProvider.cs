@@ -259,7 +259,9 @@ internal class EventHandlerTagHelperDescriptorProvider : ITagHelperDescriptorPro
 
         public string TypeName { get; }
         public string TypeNamespace { get; }
+
         public string TypeNameIdentifier { get; }
+
         public string Attribute { get; }
 
         public INamedTypeSymbol EventArgsType { get; }
