@@ -79,7 +79,7 @@ public abstract class TagMatchingRuleDescriptor : IEquatable<TagMatchingRuleDesc
             {
                 null => "*",
                 var prefix when attribute.NameComparison == RequiredAttributeDescriptor.NameComparisonMode.PrefixMatch => $"^{prefix}",
-                var full => $"{full}",
+                var full => full,
             };
 
             var value = attribute.Value switch

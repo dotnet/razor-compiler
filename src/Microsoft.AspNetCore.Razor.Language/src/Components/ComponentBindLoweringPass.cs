@@ -90,7 +90,16 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
 
             if (node.BoundAttributeParameter.Metadata.ContainsKey(ComponentMetadata.Bind.BindAttributeAlternative))
             {
-                bindEntries[(reference.Parent, node.AttributeNameWithoutParameter)] = new BindEntry(reference);
+                if (!bindEntries.TryGetValue((reference.Parent, node.AttributeNameWithoutParameter), out var existingEntry))
+                {
+                    bindEntries[(reference.Parent, node.AttributeNameWithoutParameter)] = new BindEntry(reference);
+                }
+                else
+                {
+                    existingEntry.BindNode.Diagnostics.Add(ComponentDiagnosticFactory.CreateBindAttributeParameter_InvalidSyntaxBindAndBindGet(
+                            node.Source,
+                            existingEntry.BindNode.AttributeName));
+                }
             }
         }
 
@@ -112,10 +121,20 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
                 // Check if this tag contains a corresponding non-parameterized bind node.
                 if (!bindEntries.TryGetValue((parent, node.AttributeNameWithoutParameter), out var entry))
                 {
-                    // There is no corresponding bind node. Add a diagnostic and move on.
-                    parameterReference.Parent.Diagnostics.Add(ComponentDiagnosticFactory.CreateBindAttributeParameter_MissingBind(
-                        node.Source,
-                        node.AttributeName));
+                    if (node.BoundAttributeParameter.Name != "set")
+                    {
+                        // There is no corresponding bind node. Add a diagnostic and move on.
+                        parameterReference.Parent.Diagnostics.Add(ComponentDiagnosticFactory.CreateBindAttributeParameter_MissingBind(
+                            node.Source,
+                            node.AttributeName));
+                    }
+                    else
+                    {
+                        // There is no corresponding bind node. Add a diagnostic and move on.
+                        parameterReference.Parent.Diagnostics.Add(ComponentDiagnosticFactory.CreateBindAttributeParameter_MissingBindGet(
+                            node.Source,
+                            node.AttributeNameWithoutParameter));
+                    }
                 }
                 else if (node.BoundAttributeParameter.Name == "event")
                 {
@@ -140,6 +159,12 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
                 }
                 else if (node.BoundAttributeParameter.Name == "set")
                 {
+                    if (entry.BindNode != null)
+                    {
+                        parameterReference.Parent.Diagnostics.Add(ComponentDiagnosticFactory.CreateBindAttributeParameter_UseBindGet(
+                            node.Source,
+                            node.BoundAttribute.Name));
+                    }
                     entry.BindSetNode = node;
                 }
                 else
@@ -157,6 +182,13 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         foreach (var entry in bindEntries)
         {
             var reference = entry.Value.BindNodeReference;
+            if (entry.Value.BindSetNode != null && entry.Value.BindAfterNode != null)
+            {
+                var afterNode = entry.Value.BindAfterNode;
+                entry.Key.Item1.Diagnostics.Add(ComponentDiagnosticFactory.CreateBindAttributeParameter_InvalidSyntaxBindSetAfter(
+                    afterNode.Source,
+                    afterNode.AttributeNameWithoutParameter));
+            }
             var rewritten = RewriteUsage(reference.Parent, entry.Value);
             reference.Remove();
 
@@ -319,10 +351,21 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         {
             // Skip anything we can't understand. It's important that we don't crash, that will bring down
             // the build.
-            node.Diagnostics.Add(ComponentDiagnosticFactory.CreateBindAttribute_InvalidSyntax(
-                node.Source,
-                node.AttributeName));
-            return new[] { node };
+            if (node != null)
+            {
+                node.Diagnostics.Add(ComponentDiagnosticFactory.CreateBindAttribute_InvalidSyntax(
+                    node.Source,
+                    node.AttributeName));
+                return new[] { node };
+            }
+            else
+            {
+                getNode.Diagnostics.Add(ComponentDiagnosticFactory.CreateBindAttribute_MissingBindSet(
+                    getNode.Source,
+                    getNode.AttributeName,
+                    $"{getNode.AttributeNameWithoutParameter}:set"));
+                return new[] { getNode };
+            }
         }
 
         var original = GetAttributeContent((IntermediateNode)node ?? getNode);

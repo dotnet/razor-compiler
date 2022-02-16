@@ -1614,7 +1614,7 @@ namespace Test
     }
 
     [Fact]
-    public void BindToElement_WithBindAfter()
+    public void BindToElement_WithBindAfterAndSuffix()
     {
         // Arrange
         AdditionalSyntaxTrees.Add(Parse(@"
@@ -1623,7 +1623,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Test
 {
-    [BindElement(""div"", null, ""myvalue"", ""myevent"")]
+    [BindElement(""div"", ""myvalue"", ""myvalue"", ""myevent"")]
     public static class BindAttributes
     {
     }
@@ -1631,7 +1631,7 @@ namespace Test
 
         // Act
         var generated = CompileToCSharp(@"
-<div @bind=""@ParentValue"" @bind:after=""DoSomething"">
+<div @bind-myvalue=""@ParentValue"" @bind-myvalue:after=""DoSomething"">
 </div>
 @code {
     public string ParentValue { get; set; } = ""hi"";
@@ -1649,7 +1649,7 @@ namespace Test
     }
 
     [Fact]
-    public void BindToElement_WithGetSet()
+    public void BindToElement_WithGetSetAndSuffix()
     {
         // Arrange
         AdditionalSyntaxTrees.Add(Parse(@"
@@ -1658,7 +1658,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Test
 {
-    [BindElement(""div"", null, ""myvalue"", ""myevent"")]
+    [BindElement(""div"", ""myvalue"", ""myvalue"", ""myevent"")]
     public static class BindAttributes
     {
     }
@@ -1666,7 +1666,7 @@ namespace Test
 
         // Act
         var generated = CompileToCSharp(@"
-<div @bind:get=""@ParentValue"" @bind:set=""ValueChanged"">
+<div @bind-myvalue:get=""@ParentValue"" @bind-myvalue:set=""ValueChanged"">
 </div>
 @code {
     public string ParentValue { get; set; } = ""hi"";
@@ -2594,6 +2594,199 @@ namespace Test
         CompileToAssembly(generated);
     }
 
+    [Fact]
+    public void BindToElement_MixingBindAndParamBindSet()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    [BindElement(""div"", ""value"", ""myvalue"", ""myevent"")]
+    public static class BindAttributes
+    {
+    }
+}"));
+        // Act
+        var generated = CompileToCSharp(@"
+<div @bind-value=""@ParentValue"" @bind-value:set=""UpdateValue"" />
+@code {
+    public string ParentValue { get; set; } = ""hi"";
+
+    public void UpdateValue(string value) => ParentValue = value;
+}", throwOnFailure: false);
+
+        // Assert
+        Assert.Collection(generated.Diagnostics,
+            diagnostic => Assert.Equal("RZ10015", diagnostic.Id));
+
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+    }
+
+    [Fact]
+    public void BindToElement_MixingBindWithoutSuffixAndParamBindSetWithSuffix()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    [BindElement(""div"", null, ""myvalue"", ""myevent"")]
+    public static class BindAttributes
+    {
+    }
+}"));
+        // Act
+        var generated = CompileToCSharp(@"
+<div @bind=""@ParentValue"" @bind-value:set=""UpdateValue"" />
+@code {
+    public string ParentValue { get; set; } = ""hi"";
+
+    public void UpdateValue(string value) => ParentValue = value;
+}", throwOnFailure: false);
+
+        // Assert
+        Assert.Collection(generated.Diagnostics,
+            diagnostic => Assert.Equal("RZ10016", diagnostic.Id));
+
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+    }
+
+    [Fact]
+    public void BindToElement_MixingBindValueWithGetSet()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    [BindElement(""div"", null, ""myvalue"", ""myevent"")]
+    public static class BindAttributes
+    {
+    }
+}"));
+        // Act
+        var generated = CompileToCSharp(@"
+<div @bind=""@ParentValue"" @bind:get=""@ParentValue"" @bind:set=""UpdateValue"" />
+@code {
+    public string ParentValue { get; set; } = ""hi"";
+
+    public void UpdateValue(string value) => ParentValue = value;
+}", throwOnFailure: false);
+
+        // Assert
+        Assert.Collection(generated.Diagnostics,
+            diagnostic => Assert.Equal("RZ10018", diagnostic.Id),
+            diagnostic => Assert.Equal("RZ10015", diagnostic.Id));
+
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+    }
+
+    [Fact]
+    public void BindToElement_MixingSetWithAfter()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    [BindElement(""div"", null, ""myvalue"", ""myevent"")]
+    public static class BindAttributes
+    {
+    }
+}"));
+        // Act
+        var generated = CompileToCSharp(@"
+<div @bind:get=""@ParentValue"" @bind:set=""UpdateValue"" @bind:after=""AfterUpdate"" />
+@code {
+    public string ParentValue { get; set; } = ""hi"";
+
+    public void UpdateValue(string value) => ParentValue = value;
+    public void AfterUpdate() { }
+}", throwOnFailure: false);
+
+        // Assert
+        Assert.Collection(generated.Diagnostics,
+            diagnostic => Assert.Equal("RZ10019", diagnostic.Id));
+
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+    }
+
+    [Fact]
+    public void BindToElement_MissingBindGet()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    [BindElement(""div"", ""value"", ""myvalue"", ""myevent"")]
+    public static class BindAttributes
+    {
+    }
+}"));
+        // Act
+        var generated = CompileToCSharp(@"
+<div @bind-value:set=""UpdateValue"" />
+@code {
+    public string ParentValue { get; set; } = ""hi"";
+
+    public void UpdateValue(string value) => ParentValue = value;
+}", throwOnFailure: false);
+
+        // Assert
+        Assert.Collection(generated.Diagnostics,
+            diagnostic => Assert.Equal("RZ10016", diagnostic.Id));
+
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+    }
+
+    [Fact]
+    public void BindToElement_MissingBindSet()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    [BindElement(""div"", ""value"", ""myvalue"", ""myevent"")]
+    public static class BindAttributes
+    {
+    }
+}"));
+        // Act
+        var generated = CompileToCSharp(@"
+<div @bind-value:get=""ParentValue"" />
+@code {
+    public string ParentValue { get; set; } = ""hi"";
+
+    public void UpdateValue(string value) => ParentValue = value;
+}", throwOnFailure: false);
+
+        // Assert
+        Assert.Collection(generated.Diagnostics,
+            diagnostic => Assert.Equal("RZ10017", diagnostic.Id));
+
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+    }
 
     [Fact]
     public void BuiltIn_BindToInputText_CanOverrideEvent()
