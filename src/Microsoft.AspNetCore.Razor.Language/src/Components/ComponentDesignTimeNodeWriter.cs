@@ -666,7 +666,6 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 {
                     context.CodeWriter.Write(ComponentsApi.RuntimeHelpers.TypeCheck);
                     context.CodeWriter.Write("<");
-                    context.CodeWriter.Write("global::");
                     QualifyEventCallback(context.CodeWriter, node.TypeName);
                     context.CodeWriter.Write(">");
                     context.CodeWriter.Write("(");
@@ -740,8 +739,9 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
 
             static void QualifyEventCallback(CodeWriter codeWriter, string typeName)
             {
-                if(ComponentAttributeIntermediateNode.TryGetEventCallbackArgument(typeName, out var argument))
+                if (ComponentAttributeIntermediateNode.TryGetEventCallbackArgument(typeName, out var argument))
                 {
+                    codeWriter.Write("global::");
                     codeWriter.Write(ComponentsApi.EventCallback.FullTypeName);
                     codeWriter.Write("<");
                     TypeNameHelper.WriteGloballyQualifiedName(codeWriter, argument);
@@ -749,7 +749,7 @@ internal class ComponentDesignTimeNodeWriter : ComponentNodeWriter
                 }
                 else
                 {
-                    codeWriter.Write(typeName);
+                    TypeNameHelper.WriteGloballyQualifiedName(codeWriter, typeName);
                 }
             }
         }
