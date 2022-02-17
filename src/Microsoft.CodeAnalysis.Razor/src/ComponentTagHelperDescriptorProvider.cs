@@ -1,6 +1,8 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+#nullable disable
+
 using System;
 using System.Text;
 using System.Collections.Generic;
@@ -16,6 +18,11 @@ internal class ComponentTagHelperDescriptorProvider : RazorEngineFeatureBase, IT
     private static readonly SymbolDisplayFormat FullNameTypeDisplayFormat =
         SymbolDisplayFormat.FullyQualifiedFormat
             .WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted)
+            .WithMiscellaneousOptions(SymbolDisplayFormat.FullyQualifiedFormat.MiscellaneousOptions & (~SymbolDisplayMiscellaneousOptions.UseSpecialTypes));
+
+    private static readonly SymbolDisplayFormat GloballyQualifiedFullNameTypeDisplayFormat =
+        SymbolDisplayFormat.FullyQualifiedFormat
+            .WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Included)
             .WithMiscellaneousOptions(SymbolDisplayFormat.FullyQualifiedFormat.MiscellaneousOptions & (~SymbolDisplayMiscellaneousOptions.UseSpecialTypes));
 
     public bool IncludeDocumentation { get; set; }
@@ -111,6 +118,8 @@ internal class ComponentTagHelperDescriptorProvider : RazorEngineFeatureBase, IT
 
         var builder = TagHelperDescriptorBuilder.Create(ComponentMetadata.Component.TagHelperKind, typeName, assemblyName);
         builder.SetTypeName(typeName);
+        builder.SetTypeNamespace(type.ContainingNamespace.ToDisplayString(FullNameTypeDisplayFormat));
+        builder.SetTypeNameIdentifier(type.Name);
         builder.CaseSensitive = true;
 
         // This opts out this 'component' tag helper for any processing that's specific to the default
@@ -174,7 +183,7 @@ internal class ComponentTagHelperDescriptorProvider : RazorEngineFeatureBase, IT
             pb.TypeName = property.Type.ToDisplayString(FullNameTypeDisplayFormat);
             pb.SetPropertyName(property.Name);
             pb.IsEditorRequired = property.GetAttributes().Any(a => a.AttributeClass.ToDisplayString() == "Microsoft.AspNetCore.Components.EditorRequiredAttribute");
-
+            pb.SetGloballyQualifiedTypeName(property.Type.ToDisplayString(GloballyQualifiedFullNameTypeDisplayFormat));
             if (kind == PropertyKind.Enum)
             {
                 pb.IsEnum = true;
@@ -270,36 +279,36 @@ internal class ComponentTagHelperDescriptorProvider : RazorEngineFeatureBase, IT
             // things like constructor constraints and not null constraints in the
             // type parameter so we create a single string representation of all the constraints
             // here.
-            var constraintString = new StringBuilder();
-            if (typeParameter.ConstraintTypes.Any())
+            var list = new List<string>();
+            for (var i = 0; i < typeParameter.ConstraintTypes.Length; i++)
             {
-                constraintString.Append(string.Join(", ", typeParameter.ConstraintTypes.Select(t => t.Name)));
-            }
-            if (typeParameter.HasConstructorConstraint)
-            {
-                constraintString.Append(", new()");
-            }
-            if (typeParameter.HasNotNullConstraint)
-            {
-                constraintString.Append(", notnull");
+                var constraintType = typeParameter.ConstraintTypes[i];
+                list.Add(constraintType.ToDisplayString(GloballyQualifiedFullNameTypeDisplayFormat));
             }
             if (typeParameter.HasReferenceTypeConstraint)
             {
-                constraintString.Append(", class");
-            }
-            if (typeParameter.HasUnmanagedTypeConstraint)
-            {
-                constraintString.Append(", unmanaged");
+                list.Add("class");
             }
             if (typeParameter.HasValueTypeConstraint)
             {
-                constraintString.Append(", struct");
+                list.Add("struct");
+            }
+            if (typeParameter.HasNotNullConstraint)
+            {
+                list.Add("notnull");
+            }
+            if (typeParameter.HasUnmanagedTypeConstraint)
+            {
+                list.Add("unmanaged");
+            }
+            if (typeParameter.HasConstructorConstraint)
+            {
+                list.Add("new()");
             }
 
-            if (constraintString.Length > 0)
+            if (list.Count > 0)
             {
-                constraintString.Insert(0, "where " + typeParameter.Name + " : ");
-                pb.Metadata[ComponentMetadata.Component.TypeParameterConstraintsKey] = constraintString.ToString();
+                pb.Metadata[ComponentMetadata.Component.TypeParameterConstraintsKey] = $"where {typeParameter.Name} : {string.Join(", ", list)}";
             }
 
             pb.Documentation = string.Format(CultureInfo.InvariantCulture, ComponentResources.ComponentTypeParameter_Documentation, typeParameter.Name, builder.Name);
@@ -313,6 +322,8 @@ internal class ComponentTagHelperDescriptorProvider : RazorEngineFeatureBase, IT
 
         var builder = TagHelperDescriptorBuilder.Create(ComponentMetadata.ChildContent.TagHelperKind, typeName, assemblyName);
         builder.SetTypeName(typeName);
+        builder.SetTypeNamespace(component.GetTypeNamespace());
+        builder.SetTypeNameIdentifier(component.GetTypeNameIdentifier());
         builder.CaseSensitive = true;
 
         // This opts out this 'component' tag helper for any processing that's specific to the default

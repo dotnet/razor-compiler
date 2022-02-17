@@ -1,6 +1,8 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+#nullable disable
+
 using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
 using Microsoft.AspNetCore.Razor.Language.Intermediate;
 
@@ -22,6 +24,7 @@ internal sealed class RouteAttributeExtensionNode : ExtensionIntermediateNode
     public override void WriteNode(CodeTarget target, CodeRenderingContext context)
     {
         context.CodeWriter.Write("[");
+        context.CodeWriter.Write("global::");
         context.CodeWriter.Write(ComponentsApi.RouteAttribute.FullTypeName);
         context.CodeWriter.Write("(\"");
         context.CodeWriter.Write(Template);

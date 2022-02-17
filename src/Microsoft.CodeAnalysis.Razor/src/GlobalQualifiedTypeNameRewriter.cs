@@ -1,6 +1,8 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+#nullable disable
+
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.CodeAnalysis.CSharp;
@@ -57,7 +59,21 @@ internal class GlobalQualifiedTypeNameRewriter : TypeNameRewriter
             node = (QualifiedNameSyntax)base.VisitQualifiedName(node);
 
             // Rewriting these is complicated, best to just tostring and parse again.
-            return SyntaxFactory.ParseTypeName("global::" + node.ToString());
+            return SyntaxFactory.ParseTypeName(IsGloballyQualified(node) ? node.ToString() : "global::" + node.ToString());
+
+            static bool IsGloballyQualified(QualifiedNameSyntax node)
+            {
+                var candidate = node;
+                while (candidate != null)
+                {
+                    if (candidate.Left is AliasQualifiedNameSyntax)
+                    {
+                        return true;
+                    }
+                    candidate = candidate.Left as QualifiedNameSyntax;
+                }
+                return false;
+            }
         }
 
         public override SyntaxNode VisitIdentifierName(IdentifierNameSyntax node)

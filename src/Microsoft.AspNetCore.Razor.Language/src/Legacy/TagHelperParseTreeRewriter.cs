@@ -1,6 +1,8 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+#nullable disable
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -260,7 +262,7 @@ internal static class TagHelperParseTreeRewriter
                 // OpenMatchingTags counter for current the TagHelperBlock so we don't end it too early.
                 // ex: <myth req="..."><myth></myth></myth> We don't want the first myth to close on the inside
                 // tag.
-                if (string.Equals(tagNameScope, tagName, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(tagNameScope, tagName, StringComparison.OrdinalIgnoreCase) && !startTag.IsSelfClosing())
                 {
                     tracker.OpenMatchingTags++;
                 }
