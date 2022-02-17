@@ -203,12 +203,12 @@ internal class BindTagHelperDescriptorProvider : ITagHelperDescriptorProvider
             attribute.BindAttributeParameter(parameter =>
             {
                 parameter.Name = "get";
-                parameter.TypeName = typeof(Delegate).FullName;
+                parameter.TypeName = typeof(object).FullName;
                 parameter.Documentation = ComponentResources.BindTagHelper_Element_Get_Documentation;
 
                 parameter.SetPropertyName("Get");
 
-                parameter.SetBindAttributeAlternative();
+                parameter.SetBindAttributeGetSet();
             });
 
             attribute.BindAttributeParameter(parameter =>
@@ -471,11 +471,11 @@ internal class BindTagHelperDescriptorProvider : ITagHelperDescriptorProvider
                 a.BindAttributeParameter(parameter =>
                 {
                     parameter.Name = "get";
-                    parameter.TypeName = typeof(Delegate).FullName;
+                    parameter.TypeName = typeof(object).FullName;
                     parameter.Documentation = ComponentResources.BindTagHelper_Element_Get_Documentation;
 
                     parameter.SetPropertyName("Get");
-                    parameter.SetBindAttributeAlternative();
+                    parameter.SetBindAttributeGetSet();
                 });
 
                 a.BindAttributeParameter(parameter =>
@@ -650,11 +650,11 @@ internal class BindTagHelperDescriptorProvider : ITagHelperDescriptorProvider
                     attribute.BindAttributeParameter(parameter =>
                     {
                         parameter.Name = "get";
-                        parameter.TypeName = typeof(Delegate).FullName;
+                        parameter.TypeName = typeof(object).FullName;
                         parameter.Documentation = ComponentResources.BindTagHelper_Element_Get_Documentation;
 
                         parameter.SetPropertyName("Get");
-                        parameter.SetBindAttributeAlternative();
+                        parameter.SetBindAttributeGetSet();
                     });
 
                     attribute.BindAttributeParameter(parameter =>

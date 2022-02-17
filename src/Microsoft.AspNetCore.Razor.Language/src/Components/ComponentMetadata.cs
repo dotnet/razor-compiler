@@ -49,7 +49,7 @@ internal static class ComponentMetadata
 
         public const string TagHelperKind = "Components.Bind";
 
-        public const string BindAttributeAlternative = "Components.Bind.AlternativeNotation";
+        public const string BindAttributeGetSet = "Components.Bind.AlternativeNotation";
 
         public const string FallbackKey = "Components.Bind.Fallback";
 
@@ -93,7 +93,7 @@ internal static class ComponentMetadata
 
         public const string DelegateSignatureKey = "Components.DelegateSignature";
 
-        public const string DelegateAwaitableResultKey = "Components.DelegateAwaitableResult";
+        public const string DelegateWithAwaitableResultKey = "Components.IsDelegateAwaitableResult";
 
         public const string EventCallbackKey = "Components.EventCallback";
 

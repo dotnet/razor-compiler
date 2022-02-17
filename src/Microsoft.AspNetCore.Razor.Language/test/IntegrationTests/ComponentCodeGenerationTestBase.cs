@@ -2751,9 +2751,6 @@ namespace Test
         // Assert
         Assert.Collection(generated.Diagnostics,
             diagnostic => Assert.Equal("RZ10016", diagnostic.Id));
-
-        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
-        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
     }
 
     [Fact]
@@ -2783,9 +2780,6 @@ namespace Test
         // Assert
         Assert.Collection(generated.Diagnostics,
             diagnostic => Assert.Equal("RZ10017", diagnostic.Id));
-
-        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
-        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
     }
 
     [Fact]

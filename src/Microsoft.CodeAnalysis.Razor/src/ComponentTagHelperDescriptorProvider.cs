@@ -203,7 +203,7 @@ internal class ComponentTagHelperDescriptorProvider : RazorEngineFeatureBase, IT
             if (kind == PropertyKind.Delegate)
             {
                 pb.Metadata.Add(ComponentMetadata.Component.DelegateSignatureKey, bool.TrueString);
-                pb.Metadata.Add(ComponentMetadata.Component.DelegateAwaitableResultKey, IsAwaitable(property));
+                pb.Metadata.Add(ComponentMetadata.Component.DelegateWithAwaitableResultKey, IsAwaitable(property));
             }
 
             if (HasTypeParameter(property.Type))

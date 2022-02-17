@@ -88,7 +88,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
                 continue;
             }
 
-            if (node.BoundAttributeParameter.Metadata.ContainsKey(ComponentMetadata.Bind.BindAttributeAlternative))
+            if (node.BoundAttributeParameter.Metadata.ContainsKey(ComponentMetadata.Bind.BindAttributeGetSet))
             {
                 if (!bindEntries.TryGetValue((reference.Parent, node.AttributeNameWithoutParameter), out var existingEntry))
                 {
@@ -455,7 +455,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
                 original,
                 setter,
                 after,
-                changeAttribute.IsAwaitableDelegateResult(),
+                changeAttribute.IsDelegateWithAwaitableResult(),
                 valueExpressionTokens,
                 changeExpressionTokens);
         }

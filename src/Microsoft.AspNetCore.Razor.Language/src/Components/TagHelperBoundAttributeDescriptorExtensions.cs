@@ -17,9 +17,9 @@ internal static class TagHelperBoundAttributeDescriptorExtensions
             string.Equals(value, bool.TrueString);
     }
 
-    public static bool IsAwaitableDelegateResult(this BoundAttributeDescriptor attribute)
+    public static bool IsDelegateWithAwaitableResult(this BoundAttributeDescriptor attribute)
     {
-        var key = ComponentMetadata.Component.DelegateAwaitableResultKey;
+        var key = ComponentMetadata.Component.DelegateWithAwaitableResultKey;
         return
             attribute.Metadata.TryGetValue(key, out var value) &&
             string.Equals(value, bool.TrueString);
