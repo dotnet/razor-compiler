@@ -1,11 +1,14 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
+
+#nullable disable
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Microsoft.AspNetCore.Razor.Language;
+using Microsoft.AspNetCore.Razor.Language.Components;
 using Microsoft.CodeAnalysis;
 
 namespace Microsoft.CodeAnalysis.Razor;
@@ -63,6 +66,8 @@ internal class DefaultTagHelperDescriptorFactory
 
         var descriptorBuilder = TagHelperDescriptorBuilder.Create(typeName, assemblyName);
         descriptorBuilder.SetTypeName(typeName);
+        descriptorBuilder.SetTypeNamespace(type.ContainingNamespace.ToDisplayString(FullNameTypeDisplayFormat));
+        descriptorBuilder.SetTypeNameIdentifier(type.Name);
 
         AddBoundAttributes(type, descriptorBuilder);
         AddTagMatchingRules(type, descriptorBuilder);

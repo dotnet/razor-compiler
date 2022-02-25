@@ -1,6 +1,8 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+#nullable disable
+
 using System;
 using System.IO;
 using System.Linq;
@@ -186,7 +188,6 @@ public abstract class RazorBaselineIntegrationTestBase : RazorIntegrationTestBas
         }
         else
         {
-
             var syntaxTree = codeDocument.GetSyntaxTree();
             var sourceBuffer = new char[syntaxTree.Source.Length];
             syntaxTree.Source.CopyTo(0, sourceBuffer, 0, syntaxTree.Source.Length);

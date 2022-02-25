@@ -1,6 +1,8 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+#nullable disable
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -335,11 +337,11 @@ internal class ComponentGenericTypePass : ComponentIntermediateNodePassBase, IRa
 
             foreach (var attribute in node.Attributes)
             {
-                string globallyQualifiedTypeName = null;
+                var globallyQualifiedTypeName = attribute.BoundAttribute.GetGloballyQualifiedTypeName();
 
                 if (attribute.TypeName != null)
                 {
-                    globallyQualifiedTypeName = rewriter.Rewrite(attribute.TypeName);
+                    globallyQualifiedTypeName = rewriter.Rewrite(globallyQualifiedTypeName ?? attribute.TypeName);
                     attribute.GloballyQualifiedTypeName = globallyQualifiedTypeName;
                 }
 
@@ -348,21 +350,33 @@ internal class ComponentGenericTypePass : ComponentIntermediateNodePassBase, IRa
                     // If we know the type name, then replace any generic type parameter inside it with
                     // the known types.
                     attribute.TypeName = globallyQualifiedTypeName;
+                    // This is a special case in which we are dealing with a property TItem.
+                    // Given that TItem can have been defined explicitly by the user to a partially
+                    // qualified type, (like MyType), we check if the globally qualified type name
+                    // contains "global::" which will be the case in all cases as we've computed
+                    // this information from the Roslyn symbol except for when the symbol is a generic
+                    // type parameter. In which case, we mark it with an additional annotation to
+                    // acount for that during code generation and avoid trying to fully qualify
+                    // the type name.
+                    if (!globallyQualifiedTypeName.StartsWith("global::", StringComparison.Ordinal))
+                    {
+                        attribute.Annotations.Add(ComponentMetadata.Component.ExplicitTypeNameKey, true);
+                    }
                 }
                 else if (attribute.TypeName == null && (attribute.BoundAttribute?.IsDelegateProperty() ?? false))
                 {
                     // This is a weakly typed delegate, treat it as Action<object>
-                    attribute.TypeName = "System.Action<System.Object>";
+                    attribute.TypeName = "global::System.Action<global::System.Object>";
                 }
                 else if (attribute.TypeName == null && (attribute.BoundAttribute?.IsEventCallbackProperty() ?? false))
                 {
                     // This is a weakly typed event-callback, treat it as EventCallback (non-generic)
-                    attribute.TypeName = ComponentsApi.EventCallback.FullTypeName;
+                    attribute.TypeName = $"global::{ComponentsApi.EventCallback.FullTypeName}";
                 }
                 else if (attribute.TypeName == null)
                 {
                     // This is a weakly typed attribute, treat it as System.Object
-                    attribute.TypeName = "System.Object";
+                    attribute.TypeName = "global::System.Object";
                 }
             }
 

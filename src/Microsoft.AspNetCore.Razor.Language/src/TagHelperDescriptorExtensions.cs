@@ -1,6 +1,8 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+#nullable disable
+
 using System;
 using Microsoft.AspNetCore.Razor.Language.Components;
 
@@ -17,6 +19,28 @@ public static class TagHelperDescriptorExtensions
 
         tagHelper.Metadata.TryGetValue(TagHelperMetadata.Common.TypeName, out var typeName);
         return typeName;
+    }
+
+    public static string GetTypeNamespace(this TagHelperDescriptor tagHelper)
+    {
+        if (tagHelper == null)
+        {
+            throw new ArgumentNullException(nameof(tagHelper));
+        }
+
+        tagHelper.Metadata.TryGetValue(TagHelperMetadata.Common.TypeNamespace, out var typeNamespace);
+        return typeNamespace;
+    }
+
+    public static string GetTypeNameIdentifier(this TagHelperDescriptor tagHelper)
+    {
+        if (tagHelper == null)
+        {
+            throw new ArgumentNullException(nameof(tagHelper));
+        }
+
+        tagHelper.Metadata.TryGetValue(TagHelperMetadata.Common.TypeNameIdentifier, out var typeNameIdentifier);
+        return typeNameIdentifier;
     }
 
     public static bool IsDefaultKind(this TagHelperDescriptor tagHelper)

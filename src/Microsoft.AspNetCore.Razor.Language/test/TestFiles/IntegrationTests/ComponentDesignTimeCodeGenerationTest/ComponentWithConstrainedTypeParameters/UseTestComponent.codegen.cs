@@ -15,7 +15,7 @@ using Test;
 #line default
 #line hidden
 #nullable disable
-    public partial class UseTestComponent : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class UseTestComponent : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 219
         private void __RazorDirectiveTokenHelpers__() {
@@ -25,9 +25,9 @@ using Test;
         private static System.Object __o = null;
         #pragma warning restore 0414
         #pragma warning disable 1998
-        protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
+        protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
-            __Blazor.Test.UseTestComponent.TypeInference.CreateTestComponent_0(__builder, -1, -1, 
+            global::__Blazor.Test.UseTestComponent.TypeInference.CreateTestComponent_0(__builder, -1, -1, 
 #nullable restore
 #line 2 "x:\dir\subdir\Test\UseTestComponent.cshtml"
                       item1
@@ -63,7 +63,7 @@ using Test;
             );
 #nullable restore
 #line 2 "x:\dir\subdir\Test\UseTestComponent.cshtml"
-__o = typeof(TestComponent<,,>);
+__o = typeof(global::Test.TestComponent<,,>);
 
 #line default
 #line hidden
@@ -89,9 +89,9 @@ namespace __Blazor.Test.UseTestComponent
     internal static class TypeInference
     {
         public static void CreateTestComponent_0<TItem1, TItem2, TItem3>(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder, int seq, int __seq0, TItem1 __arg0, int __seq1, global::System.Collections.Generic.List<TItem2> __arg1, int __seq2, TItem3 __arg2, int __seq3, global::Microsoft.AspNetCore.Components.RenderFragment<TItem2> __arg3)
-            where TItem1 : Image
-            where TItem2 : ITag
-            where TItem3 : Image, new()
+            where TItem1 : global::Image
+            where TItem2 : global::ITag
+            where TItem3 : global::Image, new()
         {
         __builder.OpenComponent<global::Test.TestComponent<TItem1, TItem2, TItem3>>(seq);
         __builder.AddAttribute(__seq0, "Item1", __arg0);

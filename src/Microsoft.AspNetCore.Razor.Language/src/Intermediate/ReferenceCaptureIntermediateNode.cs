@@ -1,6 +1,8 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+#nullable disable
+
 using System;
 using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
 using Microsoft.AspNetCore.Razor.Language.Components;
@@ -35,9 +37,9 @@ public sealed class ReferenceCaptureIntermediateNode : IntermediateNode
 
     public string ComponentCaptureTypeName { get; set; }
 
-    public string FieldTypeName => IsComponentCapture ? ComponentCaptureTypeName : "global::" + ComponentsApi.ElementReference.FullTypeName;
+    public string FieldTypeName => IsComponentCapture ? ComponentCaptureTypeName : $"global::{ComponentsApi.ElementReference.FullTypeName}";
 
-    public string TypeName => $"global::System.Action<{FieldTypeName}>";
+    public string TypeName => $"System.Action<{FieldTypeName}>";
 
     public override void Accept(IntermediateNodeVisitor visitor)
     {

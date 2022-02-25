@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Components;
 #line default
 #line hidden
 #nullable disable
-    public partial class TestComponent<TItem1, TItem2> : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class TestComponent<TItem1, TItem2> : global::Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 219
         private void __RazorDirectiveTokenHelpers__() {
@@ -44,11 +44,11 @@ global::System.Object TItem2 = null!;
         private static System.Object __o = null;
         #pragma warning restore 0414
         #pragma warning disable 1998
-        protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
+        protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
 #nullable restore
-#line 5 "x:\dir\subdir\Test\TestComponent.cshtml"
-foreach (var item2 in Items2)
+#line 6 "x:\dir\subdir\Test\TestComponent.cshtml"
+ foreach (var item2 in Items2)
 {
     
 
@@ -64,7 +64,7 @@ __o = ChildContent(item2);
 #nullable disable
 #nullable restore
 #line 10 "x:\dir\subdir\Test\TestComponent.cshtml"
-      
+        
 }
 
 #line default
@@ -74,7 +74,7 @@ __o = ChildContent(item2);
         #pragma warning restore 1998
 #nullable restore
 #line 12 "x:\dir\subdir\Test\TestComponent.cshtml"
-     
+       
     [Parameter] public TItem1 Item1 { get; set; }
     [Parameter] public List<TItem2> Items2 { get; set; }
     [Parameter] public RenderFragment<TItem2> ChildContent { get; set; }
