@@ -32,7 +32,7 @@ namespace Test
             __o = global::Microsoft.AspNetCore.Components.CompilerServices.RuntimeHelpers.TypeCheck<global::Microsoft.AspNetCore.Components.EventCallback<MyType>>(global::Microsoft.AspNetCore.Components.EventCallback.Factory.Create<MyType>(this, 
 #nullable restore
 #line 1 "x:\dir\subdir\Test\TestComponent.cshtml"
-                                   (MyType arg) => counter++
+                                 Increment
 
 #line default
 #line hidden
@@ -54,6 +54,8 @@ __o = typeof(global::Test.MyComponent<>);
 #line 3 "x:\dir\subdir\Test\TestComponent.cshtml"
        
     private int counter;
+
+    public void Increment(MyType type) => counter++;
 
 #line default
 #line hidden
