@@ -563,6 +563,72 @@ namespace Test
             Assert.False(parameter.IsStringProperty);
             Assert.False(parameter.IsBooleanProperty);
             Assert.False(parameter.IsEnum);
+
+            parameter = Assert.Single(attribute.BoundAttributeParameters, a => a.Name.Equals("get"));
+
+            // Invariants
+            Assert.Empty(parameter.Diagnostics);
+            Assert.False(parameter.HasErrors);
+            Assert.Equal(ComponentMetadata.Bind.TagHelperKind, parameter.Kind);
+            Assert.False(parameter.IsDefaultKind());
+
+            Assert.Equal(
+                "Specifies the expression to use for binding the value to the attribute.",
+                parameter.Documentation);
+
+            Assert.Equal("get", parameter.Name);
+            Assert.Equal("Get", parameter.GetPropertyName());
+            Assert.Equal(":get", parameter.DisplayName);
+
+            // Defined from the property type
+            Assert.Equal("System.Object", parameter.TypeName);
+            Assert.False(parameter.IsStringProperty);
+            Assert.False(parameter.IsBooleanProperty);
+            Assert.False(parameter.IsEnum);
+
+            parameter = Assert.Single(attribute.BoundAttributeParameters, a => a.Name.Equals("set"));
+
+            // Invariants
+            Assert.Empty(parameter.Diagnostics);
+            Assert.False(parameter.HasErrors);
+            Assert.Equal(ComponentMetadata.Bind.TagHelperKind, parameter.Kind);
+            Assert.False(parameter.IsDefaultKind());
+
+            Assert.Equal(
+                "Specifies the expression to use for updating the bound value when a new value is available.",
+                parameter.Documentation);
+
+            Assert.Equal("set", parameter.Name);
+            Assert.Equal("Set", parameter.GetPropertyName());
+            Assert.Equal(":set", parameter.DisplayName);
+
+            // Defined from the property type
+            Assert.Equal("System.Delegate", parameter.TypeName);
+            Assert.False(parameter.IsStringProperty);
+            Assert.False(parameter.IsBooleanProperty);
+            Assert.False(parameter.IsEnum);
+
+            parameter = Assert.Single(attribute.BoundAttributeParameters, a => a.Name.Equals("after"));
+
+            // Invariants
+            Assert.Empty(parameter.Diagnostics);
+            Assert.False(parameter.HasErrors);
+            Assert.Equal(ComponentMetadata.Bind.TagHelperKind, parameter.Kind);
+            Assert.False(parameter.IsDefaultKind());
+
+            Assert.Equal(
+                "Specifies an action to run after the new value has been set.",
+                parameter.Documentation);
+
+            Assert.Equal("after", parameter.Name);
+            Assert.Equal("After", parameter.GetPropertyName());
+            Assert.Equal(":after", parameter.DisplayName);
+
+            // Defined from the property type
+            Assert.Equal("System.Delegate", parameter.TypeName);
+            Assert.False(parameter.IsStringProperty);
+            Assert.False(parameter.IsBooleanProperty);
+            Assert.False(parameter.IsEnum);
         }
     }
 
