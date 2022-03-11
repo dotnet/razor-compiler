@@ -30,7 +30,7 @@ using Microsoft.AspNetCore.Components.Web;
 #line hidden
 #nullable disable
             ));
-            __builder.AddEventPreventDefaultAttribute(2, "onfocus:preventDefault", 
+            __builder.AddEventPreventDefaultAttribute(2, "onfocus", 
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
                                                               true
@@ -39,7 +39,7 @@ using Microsoft.AspNetCore.Components.Web;
 #line hidden
 #nullable disable
             );
-            __builder.AddEventStopPropagationAttribute(3, "onclick:stopPropagation", 
+            __builder.AddEventStopPropagationAttribute(3, "onclick", 
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
                                                                                               Foo
@@ -48,7 +48,7 @@ using Microsoft.AspNetCore.Components.Web;
 #line hidden
 #nullable disable
             );
-            __builder.AddEventStopPropagationAttribute(4, "onfocus:stopPropagation", 
+            __builder.AddEventStopPropagationAttribute(4, "onfocus", 
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
                                                                                                                              false

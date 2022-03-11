@@ -97,7 +97,7 @@ public sealed class ComponentAttributeIntermediateNode : IntermediateNode
             throw new ArgumentNullException(nameof(directiveAttributeParameterNode));
         }
 
-        AttributeName = directiveAttributeParameterNode.AttributeName;
+        AttributeName = directiveAttributeParameterNode.AttributeNameWithoutParameter;
         AttributeStructure = directiveAttributeParameterNode.AttributeStructure;
         BoundAttribute = directiveAttributeParameterNode.BoundAttribute;
         PropertyName = directiveAttributeParameterNode.BoundAttribute.GetPropertyName();

@@ -25,13 +25,13 @@ Document -
                             IntermediateToken -  - CSharp - global::Microsoft.AspNetCore.Components.EventCallback.Factory.Create<global::Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, 
                             LazyIntermediateToken - (62:1,18 [17] x:\dir\subdir\Test\TestComponent.cshtml) - CSharp - () => Foo = false
                             IntermediateToken -  - CSharp - )
-                    ComponentAttribute - (106:1,62 [4] x:\dir\subdir\Test\TestComponent.cshtml) - onfocus:preventDefault - onfocus - AttributeStructure.DoubleQuotes
+                    ComponentAttribute - (106:1,62 [4] x:\dir\subdir\Test\TestComponent.cshtml) - onfocus - onfocus - AttributeStructure.DoubleQuotes
                         CSharpExpression - 
                             LazyIntermediateToken - (106:1,62 [4] x:\dir\subdir\Test\TestComponent.cshtml) - CSharp - true
-                    ComponentAttribute - (138:1,94 [3] x:\dir\subdir\Test\TestComponent.cshtml) - onclick:stopPropagation - onclick - AttributeStructure.DoubleQuotes
+                    ComponentAttribute - (138:1,94 [3] x:\dir\subdir\Test\TestComponent.cshtml) - onclick - onclick - AttributeStructure.DoubleQuotes
                         CSharpExpression - 
                             LazyIntermediateToken - (138:1,94 [3] x:\dir\subdir\Test\TestComponent.cshtml) - CSharp - Foo
-                    ComponentAttribute - (169:1,125 [5] x:\dir\subdir\Test\TestComponent.cshtml) - onfocus:stopPropagation - onfocus - AttributeStructure.DoubleQuotes
+                    ComponentAttribute - (169:1,125 [5] x:\dir\subdir\Test\TestComponent.cshtml) - onfocus - onfocus - AttributeStructure.DoubleQuotes
                         CSharpExpression - 
                             LazyIntermediateToken - (169:1,125 [5] x:\dir\subdir\Test\TestComponent.cshtml) - CSharp - false
                 HtmlContent - (193:1,149 [2] x:\dir\subdir\Test\TestComponent.cshtml)

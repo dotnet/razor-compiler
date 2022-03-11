@@ -21,7 +21,7 @@ using Microsoft.AspNetCore.Components.Web;
         protected override void BuildRenderTree(global::Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
             __builder.OpenElement(0, "input");
-            __builder.AddEventPreventDefaultAttribute(1, "onclick:preventDefault", 
+            __builder.AddEventPreventDefaultAttribute(1, "onclick", 
 #nullable restore
 #line 2 "x:\dir\subdir\Test\TestComponent.cshtml"
                                 true
