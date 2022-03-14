@@ -721,7 +721,7 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
         }
     }
 
-    private async void RewriteNodesForComponentDelegateBind(
+    private void RewriteNodesForComponentDelegateBind(
         IntermediateToken original,
         IntermediateToken setter,
         IntermediateToken after,
