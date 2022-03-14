@@ -1051,7 +1051,7 @@ namespace Test
     #region Bind
 
     [Fact]
-    public void BindToComponent_WithMatchingProperties()
+    public void BindToComponent_SpecifiesValue_WithMatchingProperties()
     {
         // Arrange
         AdditionalSyntaxTrees.Add(Parse(@"
@@ -1242,7 +1242,7 @@ namespace Test
     }
 
     [Fact]
-    public void BindToComponent_WithoutMatchingProperties()
+    public void BindToComponent_SpecifiesValue_WithoutMatchingProperties()
     {
         // Arrange
         AdditionalSyntaxTrees.Add(Parse(@"
@@ -1270,7 +1270,7 @@ namespace Test
     }
 
     [Fact]
-    public void BindToComponentAndChangeEvent_WithMatchingProperties()
+    public void BindToComponent_SpecifiesValueAndChangeEvent_WithMatchingProperties()
     {
         // Arrange
         AdditionalSyntaxTrees.Add(Parse(@"
@@ -1302,7 +1302,7 @@ namespace Test
     }
 
     [Fact]
-    public void BindToComponentAndChangeEvent_WithoutMatchingProperties()
+    public void BindToComponent_SpecifiesValueAndChangeEvent_WithoutMatchingProperties()
     {
         // Arrange
         AdditionalSyntaxTrees.Add(Parse(@"
@@ -1329,7 +1329,7 @@ namespace Test
     }
 
     [Fact]
-    public void BindToComponentAndExpression()
+    public void BindToComponent_SpecifiesValueAndExpression()
     {
         // Arrange
         AdditionalSyntaxTrees.Add(Parse(@"
@@ -1403,7 +1403,7 @@ namespace Test
     }
 
     [Fact]
-    public void BindToComponentAndExpression_TypeChecked()
+    public void BindToComponent_SpecifiesValueAndExpression_TypeChecked()
     {
         // Arrange
         AdditionalSyntaxTrees.Add(Parse(@"
@@ -1442,7 +1442,7 @@ namespace Test
     }
 
     [Fact]
-    public void BindToComponentAndExpression_Generic()
+    public void BindToComponent_SpecifiesValueAndExpression_Generic()
     {
         // Arrange
         AdditionalSyntaxTrees.Add(Parse(@"
