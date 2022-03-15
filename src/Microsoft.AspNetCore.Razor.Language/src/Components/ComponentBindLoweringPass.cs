@@ -14,6 +14,13 @@ namespace Microsoft.AspNetCore.Razor.Language.Components;
 
 internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IRazorOptimizationPass
 {
+    private readonly bool _bindGetSetSupported;
+
+    public ComponentBindLoweringPass(bool bindGetSetSupported)
+    {
+        _bindGetSetSupported = bindGetSetSupported;
+    }
+
     // Run after event handler pass
     public override int Order => 100;
 
@@ -90,6 +97,12 @@ internal class ComponentBindLoweringPass : ComponentIntermediateNodePassBase, IR
 
             if (node.BoundAttributeParameter.Metadata.ContainsKey(ComponentMetadata.Bind.BindAttributeGetSet))
             {
+                if (!_bindGetSetSupported)
+                {
+                    node.Diagnostics.Add(ComponentDiagnosticFactory.CreateBindAttributeParameter_UnsupportedSyntaxBindGetSet(
+                        node.Source,
+                        node.AttributeName));
+                }
                 if (!bindEntries.TryGetValue((reference.Parent, node.AttributeNameWithoutParameter), out var existingEntry))
                 {
                     bindEntries[(reference.Parent, node.AttributeNameWithoutParameter)] = new BindEntry(reference);

@@ -3,6 +3,7 @@
 
 #nullable disable
 
+using System;
 using System.Globalization;
 using System.Linq;
 using Microsoft.AspNetCore.Razor.Language.Components;
@@ -2686,6 +2687,49 @@ namespace Test
         Assert.Collection(generated.Diagnostics,
             diagnostic => Assert.Equal("RZ10018", diagnostic.Id),
             diagnostic => Assert.Equal("RZ10015", diagnostic.Id));
+
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+    }
+
+    [Fact]
+    public void BindToComponent_WithGetSet_ProducesErrorOnOlderLanguageVersions()
+    {
+        _configuration = RazorConfiguration.Create(
+            RazorLanguageVersion.Version_6_0,
+            "unnamed",
+            Array.Empty<RazorExtension>(),
+            false);
+
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent : ComponentBase
+    {
+        [Parameter]
+        public int Value { get; set; }
+
+        [Parameter]
+        public Action<int> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""UpdateValue"" />
+@code {
+    public int ParentValue { get; set; } = 42;
+
+    public void UpdateValue(int value) => ParentValue = value;
+}", throwOnFailure: false);
+
+        // Assert
+        Assert.Collection(generated.Diagnostics,
+            diagnostic => Assert.Equal("RZ10020", diagnostic.Id));
 
         AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
         AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);

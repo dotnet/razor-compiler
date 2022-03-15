@@ -526,7 +526,6 @@ internal static class ComponentDiagnosticFactory
             () => "Attribute '{0}:after' can not be used with '{0}:set'. Invoke the code in '{0}:after' inside '{0}:set' instead.",
             RazorDiagnosticSeverity.Error);
 
-
     public static RazorDiagnostic CreateBindAttributeParameter_InvalidSyntaxBindSetAfter(SourceSpan? source, string attribute)
     {
         var diagnostic = RazorDiagnostic.Create(
@@ -536,4 +535,18 @@ internal static class ComponentDiagnosticFactory
         return diagnostic;
     }
 
+    public static readonly RazorDiagnosticDescriptor BindAttributeParameter_UnsupportedSyntaxBindGetSet =
+        new RazorDiagnosticDescriptor(
+        $"{DiagnosticPrefix}10020",
+        () => "Attribute '{0}' can't only be used with RazorLanguageVersion 7.0 or higher.",
+        RazorDiagnosticSeverity.Error);
+
+    public static RazorDiagnostic CreateBindAttributeParameter_UnsupportedSyntaxBindGetSet(SourceSpan? source, string attribute)
+    {
+        var diagnostic = RazorDiagnostic.Create(
+            BindAttributeParameter_UnsupportedSyntaxBindGetSet,
+            source ?? SourceSpan.Undefined,
+            attribute);
+        return diagnostic;
+    }
 }
