@@ -100,10 +100,10 @@ public sealed class ComponentAttributeIntermediateNode : IntermediateNode
         AttributeName = directiveAttributeParameterNode.AttributeNameWithoutParameter;
         AttributeStructure = directiveAttributeParameterNode.AttributeStructure;
         BoundAttribute = directiveAttributeParameterNode.BoundAttribute;
-        PropertyName = directiveAttributeParameterNode.BoundAttribute.GetPropertyName();
+        PropertyName = directiveAttributeParameterNode.BoundAttributeParameter.GetPropertyName();
         Source = directiveAttributeParameterNode.Source;
         TagHelper = directiveAttributeParameterNode.TagHelper;
-        TypeName = directiveAttributeParameterNode.BoundAttribute.IsWeaklyTyped() ? null : directiveAttributeParameterNode.BoundAttribute.TypeName;
+        TypeName = directiveAttributeParameterNode.BoundAttributeParameter.TypeName;
 
         for (var i = 0; i < directiveAttributeParameterNode.Children.Count; i++)
         {
