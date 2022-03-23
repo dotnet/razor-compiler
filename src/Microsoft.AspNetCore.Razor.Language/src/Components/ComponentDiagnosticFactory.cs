@@ -538,7 +538,7 @@ internal static class ComponentDiagnosticFactory
     public static readonly RazorDiagnosticDescriptor BindAttributeParameter_UnsupportedSyntaxBindGetSet =
         new RazorDiagnosticDescriptor(
         $"{DiagnosticPrefix}10020",
-        () => "Attribute '{0}' can't only be used with RazorLanguageVersion 7.0 or higher.",
+        () => "Attribute '{0}' can only be used with RazorLanguageVersion 7.0 or higher.",
         RazorDiagnosticSeverity.Error);
 
     public static RazorDiagnostic CreateBindAttributeParameter_UnsupportedSyntaxBindGetSet(SourceSpan? source, string attribute)
