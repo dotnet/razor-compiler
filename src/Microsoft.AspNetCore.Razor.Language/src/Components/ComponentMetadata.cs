@@ -1,6 +1,8 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+#nullable disable
+
 using System;
 
 namespace Microsoft.AspNetCore.Razor.Language.Components;
@@ -98,6 +100,10 @@ internal static class ComponentMetadata
         public const string TagHelperKind = "Components.Component";
 
         public const string GenericTypedKey = "Components.GenericTyped";
+
+        public const string ExplicitTypeNameKey = "Components.ExplicitTypeName";
+
+        public const string OpenGenericKey = "Components.OpenGeneric";
 
         public const string TypeParameterKey = "Components.TypeParameter";
 

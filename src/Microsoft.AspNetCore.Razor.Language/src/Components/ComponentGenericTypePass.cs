@@ -1,6 +1,8 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+#nullable disable
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -115,7 +117,7 @@ internal class ComponentGenericTypePass : ComponentIntermediateNodePassBase, IRa
                 if (ValidateTypeArguments(node, bindings))
                 {
                     var mappings = bindings.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Content);
-                    RewriteTypeNames(_pass.TypeNameFeature.CreateGenericTypeRewriter(mappings), node);
+                    RewriteTypeNames(_pass.TypeNameFeature.CreateGenericTypeRewriter(mappings), node, hasTypeArgumentSpecified);
                 }
 
                 return;
@@ -129,7 +131,7 @@ internal class ComponentGenericTypePass : ComponentIntermediateNodePassBase, IRa
 
             // Since we're generating code in a different namespace, we need to 'global qualify' all of the types
             // to avoid clashes with our generated code.
-            RewriteTypeNames(_pass.TypeNameFeature.CreateGlobalQualifiedTypeNameRewriter(bindings.Keys), node);
+            RewriteTypeNames(_pass.TypeNameFeature.CreateGlobalQualifiedTypeNameRewriter(bindings.Keys), node, hasTypeArgumentSpecified: false, bindings);
 
             //
             // We need to verify that an argument was provided that 'covers' each type parameter.
@@ -328,18 +330,20 @@ internal class ComponentGenericTypePass : ComponentIntermediateNodePassBase, IRa
             return true;
         }
 
-        private void RewriteTypeNames(TypeNameRewriter rewriter, ComponentIntermediateNode node)
+        private void RewriteTypeNames(TypeNameRewriter rewriter, ComponentIntermediateNode node, bool? hasTypeArgumentSpecified = null, IDictionary<string, Binding> bindings = null)
         {
+            var typeNameFeature = _pass.TypeNameFeature;
+
             // Rewrite the component type name
             node.TypeName = rewriter.Rewrite(node.TypeName);
 
             foreach (var attribute in node.Attributes)
             {
-                string globallyQualifiedTypeName = null;
+                var globallyQualifiedTypeName = attribute.BoundAttribute?.GetGloballyQualifiedTypeName();
 
                 if (attribute.TypeName != null)
                 {
-                    globallyQualifiedTypeName = rewriter.Rewrite(attribute.TypeName);
+                    globallyQualifiedTypeName = rewriter.Rewrite(globallyQualifiedTypeName ?? attribute.TypeName);
                     attribute.GloballyQualifiedTypeName = globallyQualifiedTypeName;
                 }
 
@@ -348,21 +352,41 @@ internal class ComponentGenericTypePass : ComponentIntermediateNodePassBase, IRa
                     // If we know the type name, then replace any generic type parameter inside it with
                     // the known types.
                     attribute.TypeName = globallyQualifiedTypeName;
+                    // This is a special case in which we are dealing with a property TItem.
+                    // Given that TItem can have been defined explicitly by the user to a partially
+                    // qualified type, (like MyType), we check if the globally qualified type name
+                    // contains "global::" which will be the case in all cases as we've computed
+                    // this information from the Roslyn symbol except for when the symbol is a generic
+                    // type parameter. In which case, we mark it with an additional annotation to
+                    // acount for that during code generation and avoid trying to fully qualify
+                    // the type name.
+                    if (hasTypeArgumentSpecified == true)
+                    {
+                        attribute.Annotations.Add(ComponentMetadata.Component.ExplicitTypeNameKey, true);
+                    }
+                    else if(attribute.BoundAttribute?.IsEventCallbackProperty() ?? false)
+                    {
+                        var callbackArgument = typeNameFeature.ParseTypeParameters(attribute.TypeName)[0];
+                        if (bindings.ContainsKey(callbackArgument))
+                        {
+                            attribute.Annotations.Add(ComponentMetadata.Component.OpenGenericKey, true);
+                        }
+                    }
                 }
                 else if (attribute.TypeName == null && (attribute.BoundAttribute?.IsDelegateProperty() ?? false))
                 {
                     // This is a weakly typed delegate, treat it as Action<object>
-                    attribute.TypeName = "System.Action<System.Object>";
+                    attribute.TypeName = "global::System.Action<global::System.Object>";
                 }
                 else if (attribute.TypeName == null && (attribute.BoundAttribute?.IsEventCallbackProperty() ?? false))
                 {
                     // This is a weakly typed event-callback, treat it as EventCallback (non-generic)
-                    attribute.TypeName = ComponentsApi.EventCallback.FullTypeName;
+                    attribute.TypeName = $"global::{ComponentsApi.EventCallback.FullTypeName}";
                 }
                 else if (attribute.TypeName == null)
                 {
                     // This is a weakly typed attribute, treat it as System.Object
-                    attribute.TypeName = "System.Object";
+                    attribute.TypeName = "global::System.Object";
                 }
             }
 

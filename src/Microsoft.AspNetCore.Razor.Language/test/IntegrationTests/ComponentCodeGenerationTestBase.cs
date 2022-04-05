@@ -1,6 +1,9 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+#nullable disable
+
+using System.Globalization;
 using System.Linq;
 using Microsoft.AspNetCore.Razor.Language.Components;
 using Xunit;
@@ -2580,11 +2583,11 @@ namespace Test3
 
         if (DesignTime)
         {
-            Assert.Collection(result.Diagnostics, d =>
+            Assert.Collection(generated.Diagnostics, d =>
             {
-                Assert.Equal("CS0104", d.Id);
-                Assert.Equal(CodeAnalysis.DiagnosticSeverity.Error, d.Severity);
-                Assert.Equal("'SomeComponent' is an ambiguous reference between 'Test2.SomeComponent' and 'Test3.SomeComponent'", d.GetMessage());
+                Assert.Equal("RZ9985", d.Id);
+                Assert.Equal(RazorDiagnosticSeverity.Error, d.Severity);
+                Assert.Equal("Multiple components use the tag 'SomeComponent'. Components: Test2.SomeComponent, Test3.SomeComponent", d.GetMessage(CultureInfo.InvariantCulture));
             });
         }
     }
@@ -2820,6 +2823,80 @@ namespace Test
     private void Increment() {
         counter++;
     }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void EventCallbackOfT_GenericComponent_ExplicitType()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent<T> : ComponentBase
+    {
+        [Parameter]
+        public EventCallback<T> OnClick { get; set; }
+    }
+
+    public class MyType
+    {
+    }
+}
+"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent T=""MyType"" OnClick=""@((MyType arg) => counter++)""/>
+
+@code {
+    private int counter;
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void EventCallbackOfT_GenericComponent_ExplicitType_MethodGroup()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent<T> : ComponentBase
+    {
+        [Parameter]
+        public EventCallback<T> OnClick { get; set; }
+    }
+
+    public class MyType
+    {
+    }
+}
+"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent T=""MyType"" OnClick=""Increment""/>
+
+@code {
+    private int counter;
+
+    public void Increment(MyType type) => counter++;
 }");
 
         // Assert
@@ -3708,6 +3785,36 @@ namespace Test
     }
 
     [Fact]
+    public void GenericComponent_NonPrimitiveType()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent<TItem> : ComponentBase
+    {
+        [Parameter] public TItem Item { get; set; }
+    }
+
+    public class CustomType
+    {
+    }
+}
+"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent TItem=""CustomType"" Item=""new CustomType()""/>");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
     public void ChildComponent_Generic_TypeInference()
     {
         // Arrange
@@ -3885,6 +3992,220 @@ namespace Test
         // Act
         var generated = CompileToCSharp(@"
 <Grid Items=""@(Array.Empty<DateTime>())""><Column /><Column /></Grid>");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void CascadingGenericInference_Inferred_WithConstraints()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    [CascadingTypeParameter(nameof(TItem))]
+    public class Grid<TItem> : ComponentBase
+    {
+        [Parameter] public RenderFragment ColumnsTemplate { get; set; }
+    }
+
+    public abstract partial class BaseColumn<TItem> : ComponentBase where TItem : class
+    {
+        [CascadingParameter]
+        internal Grid<TItem> Grid { get; set; }
+    }
+
+    public class Column<TItem> : BaseColumn<TItem>, IGridFieldColumn<TItem> where TItem : class
+    {
+        [Parameter]
+        public string FieldName { get; set; }
+    }
+
+    internal interface IGridFieldColumn<TItem> where TItem : class
+    {
+    }
+
+    public class WeatherForecast { }
+}
+"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<Grid TItem=""WeatherForecast"" Items=""@(Array.Empty<WeatherForecast>())"">
+    <ColumnsTemplate>
+        <Column Title=""Date"" FieldName=""Date"" Format=""d"" Width=""10rem"" />
+    </ColumnsTemplate>
+</Grid>
+");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void CascadingGenericInference_Inferred_MultipleConstraints()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    [CascadingTypeParameter(nameof(TItem))]
+    public class Grid<TItem> : ComponentBase
+    {
+        [Parameter] public RenderFragment ColumnsTemplate { get; set; }
+    }
+
+    public abstract partial class BaseColumn<TItem> : ComponentBase where TItem : class, new()
+    {
+        [CascadingParameter]
+        internal Grid<TItem> Grid { get; set; }
+    }
+
+    public class Column<TItem> : BaseColumn<TItem>, IGridFieldColumn<TItem> where TItem : class, new()
+    {
+        [Parameter]
+        public string FieldName { get; set; }
+    }
+
+    internal interface IGridFieldColumn<TItem> where TItem : class
+    {
+    }
+
+    public class WeatherForecast { }
+}
+"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<Grid TItem=""WeatherForecast"" Items=""@(Array.Empty<WeatherForecast>())"">
+    <ColumnsTemplate>
+        <Column Title=""Date"" FieldName=""Date"" Format=""d"" Width=""10rem"" />
+    </ColumnsTemplate>
+</Grid>
+");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void CascadingGenericInference_Inferred_MultipleConstraints_ClassesAndInterfaces()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using Microsoft.AspNetCore.Components;
+using Models;
+
+namespace Test
+{
+    [CascadingTypeParameter(nameof(TItem))]
+    public class Grid<TItem> : ComponentBase
+    {
+        [Parameter] public RenderFragment ColumnsTemplate { get; set; }
+    }
+
+    public abstract partial class BaseColumn<TItem> : ComponentBase where TItem : WeatherForecast, new()
+    {
+        [CascadingParameter]
+        internal Grid<TItem> Grid { get; set; }
+    }
+
+    public class Column<TItem> : BaseColumn<TItem>, IGridFieldColumn<TItem> where TItem : WeatherForecast, new()
+    {
+        [Parameter]
+        public string FieldName { get; set; }
+    }
+
+    internal interface IGridFieldColumn<TItem> where TItem : class
+    {
+    }
+}
+namespace Models {
+    public class WeatherForecast { }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+@using Models;
+
+<Grid TItem=""WeatherForecast"" Items=""@(Array.Empty<WeatherForecast>())"">
+    <ColumnsTemplate>
+        <Column Title=""Date"" FieldName=""Date"" Format=""d"" Width=""10rem"" />
+    </ColumnsTemplate>
+</Grid>
+");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void CascadingGenericInference_Inferred_MultipleConstraints_GenericClassConstraints()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    [CascadingTypeParameter(nameof(TItem))]
+    public class Grid<TItem> : ComponentBase
+    {
+        [Parameter] public RenderFragment ColumnsTemplate { get; set; }
+    }
+
+    public abstract partial class BaseColumn<TItem> : ComponentBase where TItem : System.Collections.Generic.IEnumerable<TItem>
+    {
+        [CascadingParameter]
+        internal Grid<TItem> Grid { get; set; }
+    }
+
+    public class Column<TItem> : BaseColumn<TItem> where TItem : System.Collections.Generic.IEnumerable<TItem>
+    {
+        [Parameter]
+        public string FieldName { get; set; }
+    }
+}
+
+namespace Models {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    public class WeatherForecast : IEnumerable<WeatherForecast> {
+        public IEnumerator<WeatherForecast> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+@using Models;
+<Grid TItem=""WeatherForecast"" Items=""@(Array.Empty<WeatherForecast>())"">
+    <ColumnsTemplate>
+        <Column Title=""Date"" FieldName=""Date"" Format=""d"" Width=""10rem"" />
+    </ColumnsTemplate>
+</Grid>
+");
 
         // Assert
         AssertDocumentNodeMatchesBaseline(generated.CodeDocument);

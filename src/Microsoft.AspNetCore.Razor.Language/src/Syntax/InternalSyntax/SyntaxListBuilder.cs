@@ -1,6 +1,8 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+#nullable disable
+
 using System;
 using System.Diagnostics;
 
@@ -42,7 +44,10 @@ internal class SyntaxListBuilder
 
     public void Add(GreenNode item)
     {
-        if (item == null) return;
+        if (item == null)
+        {
+            return;
+        }
 
         if (item.IsList)
         {
@@ -134,7 +139,10 @@ internal class SyntaxListBuilder
         var currentSize = _nodes.Length;
         var requiredSize = Count + additionalCount;
 
-        if (requiredSize <= currentSize) return;
+        if (requiredSize <= currentSize)
+        {
+            return;
+        }
 
         var newSize =
             requiredSize < 8 ? 8 :

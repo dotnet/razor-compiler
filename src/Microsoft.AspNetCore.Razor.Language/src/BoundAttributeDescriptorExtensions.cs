@@ -1,6 +1,8 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+#nullable disable
+
 using System;
 using Microsoft.AspNetCore.Razor.Language.Components;
 
@@ -16,6 +18,17 @@ public static class BoundAttributeDescriptorExtensions
         }
 
         attribute.Metadata.TryGetValue(TagHelperMetadata.Common.PropertyName, out var propertyName);
+        return propertyName;
+    }
+
+    public static string GetGloballyQualifiedTypeName(this BoundAttributeDescriptor attribute)
+    {
+        if (attribute == null)
+        {
+            throw new ArgumentNullException(nameof(attribute));
+        }
+
+        attribute.Metadata.TryGetValue(TagHelperMetadata.Common.GloballyQualifiedTypeName, out var propertyName);
         return propertyName;
     }
 

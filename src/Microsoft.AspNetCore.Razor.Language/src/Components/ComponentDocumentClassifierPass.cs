@@ -1,6 +1,8 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+#nullable disable
+
 using System;
 using System.IO;
 using System.Linq;
@@ -98,7 +100,7 @@ internal class ComponentDocumentClassifierPass : DocumentClassifierPassBase
         }
         else
         {
-            @class.BaseType = ComponentsApi.ComponentBase.FullTypeName;
+            @class.BaseType = "global::" + ComponentsApi.ComponentBase.FullTypeName;
 
             // Constrained type parameters are only supported in Razor language versions v6.0
             var razorLanguageVersion = codeDocument.GetParserOptions()?.Version ?? RazorLanguageVersion.Latest;
@@ -131,7 +133,7 @@ internal class ComponentDocumentClassifierPass : DocumentClassifierPassBase
             method.Parameters.Add(new MethodParameter()
             {
                 ParameterName = ComponentsApi.RenderTreeBuilder.BuilderParameter,
-                TypeName = ComponentsApi.RenderTreeBuilder.FullTypeName,
+                TypeName = $"global::{ComponentsApi.RenderTreeBuilder.FullTypeName}",
             });
         }
     }
