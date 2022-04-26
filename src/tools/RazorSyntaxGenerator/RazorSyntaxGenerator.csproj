@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>Generates Razor syntax nodes from xml. For internal use only.</Description>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <TargetFramework Condition="'$(DotNetBuildFromSource)' == 'true'">net7.0</TargetFramework>
+    <TargetFramework Condition="'$(DotNetBuildFromSource)' == 'true'">net6.0</TargetFramework>
     <AssemblyName>dotnet-razorsyntaxgenerator</AssemblyName>
     <PackageId>RazorSyntaxGenerator</PackageId>
     <OutputType>Exe</OutputType>
