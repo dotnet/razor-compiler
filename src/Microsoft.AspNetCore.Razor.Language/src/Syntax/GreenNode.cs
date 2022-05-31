@@ -9,7 +9,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Microsoft.AspNetCore.Razor.Language.Syntax;
@@ -18,11 +17,10 @@ internal abstract class GreenNode
 {
     private static readonly RazorDiagnostic[] EmptyDiagnostics = Array.Empty<RazorDiagnostic>();
     private static readonly SyntaxAnnotation[] EmptyAnnotations = Array.Empty<SyntaxAnnotation>();
-    private static readonly ConditionalWeakTable<GreenNode, RazorDiagnostic[]> DiagnosticsTable =
-        new ConditionalWeakTable<GreenNode, RazorDiagnostic[]>();
-    private static readonly ConditionalWeakTable<GreenNode, SyntaxAnnotation[]> AnnotationsTable =
-        new ConditionalWeakTable<GreenNode, SyntaxAnnotation[]>();
     private byte _slotCount;
+
+    private readonly RazorDiagnostic[] diagnostics = EmptyDiagnostics;
+    private readonly SyntaxAnnotation[] annotations = EmptyAnnotations;
 
     protected GreenNode(SyntaxKind kind)
     {
@@ -46,7 +44,7 @@ internal abstract class GreenNode
         if (diagnostics?.Length > 0)
         {
             Flags |= NodeFlags.ContainsDiagnostics;
-            DiagnosticsTable.Add(this, diagnostics);
+            this.diagnostics = diagnostics;
         }
 
         if (annotations?.Length > 0)
@@ -60,7 +58,7 @@ internal abstract class GreenNode
             }
 
             Flags |= NodeFlags.ContainsAnnotations;
-            AnnotationsTable.Add(this, annotations);
+            this.annotations = annotations;
         }
     }
 
@@ -229,10 +227,7 @@ internal abstract class GreenNode
     {
         if (ContainsDiagnostics)
         {
-            if (DiagnosticsTable.TryGetValue(this, out var diagnostics))
-            {
-                return diagnostics;
-            }
+            return diagnostics;
         }
 
         return EmptyDiagnostics;
@@ -246,11 +241,8 @@ internal abstract class GreenNode
     {
         if (ContainsAnnotations)
         {
-            if (AnnotationsTable.TryGetValue(this, out var annotations))
-            {
-                Debug.Assert(annotations.Length != 0, "There cannot be an empty annotation entry.");
-                return annotations;
-            }
+            Debug.Assert(annotations.Length != 0, "There cannot be an empty annotation entry.");
+            return annotations;
         }
 
         return EmptyAnnotations;
