@@ -3853,6 +3853,38 @@ namespace Test
     }
 
     [Fact]
+    public void GenericComponent_NonPrimitiveTypeRenderFragment()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent<TItem> : ComponentBase
+    {
+        [Parameter] public TItem Item { get; set; }
+
+        [Parameter] public RenderFragment<CustomType> ChildContent { get; set; }
+    }
+
+    public class CustomType
+    {
+    }
+}
+"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent Item=""new CustomType()"">@context.ToString()</MyComponent>");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
     public void ChildComponent_Generic_TypeInference()
     {
         // Arrange
