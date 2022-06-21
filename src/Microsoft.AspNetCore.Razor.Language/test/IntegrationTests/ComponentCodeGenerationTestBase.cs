@@ -2166,7 +2166,7 @@ namespace Test
         CompileToAssembly(generated);
     }
 
-    [Fact(Skip = "tmp")]
+    [Fact]
     public void BindToComponent_WithAfter_AsyncLambdaProducesError()
     {
         // Arrange
@@ -2188,7 +2188,7 @@ namespace Test
 
         // Act
         var generated = CompileToCSharp(@"
-<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""value => { ParentValue = value; return Task.CompletedTask; }"" />
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""(value => { ParentValue = value; return Task.CompletedTask; })"" />
 @code {
     public int ParentValue { get; set; } = 42;
 }");
@@ -2196,9 +2196,13 @@ namespace Test
         // Assert
         AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
         AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
-        CompileToAssembly(generated);
+        var assembly = CompileToAssembly(generated, throwOnFailure: false);
+        // This has some errors
+        Assert.Collection(
+            assembly.Diagnostics.OrderBy(d => d.Id),
+            d => Assert.Equal("CS8030", d.Id));
     }
-    
+
     [Fact]
     public void BindToElement_WithStringAttribute_WritesAttributes()
     {
