@@ -123,7 +123,7 @@ public abstract class ParserTestBase
             throw new XunitException($"The resource {baselineFileName} was not found.");
         }
 
-        var baseline = stFile.ReadAllText().Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        var baseline = stFile.ReadAllText();
         SyntaxNodeVerifier.Verify(root, baseline);
 
         // Verify diagnostics
@@ -145,17 +145,15 @@ public abstract class ParserTestBase
         }
         else
         {
-            var classifiedSpanBaseline = new string[0];
-            classifiedSpanBaseline = classifiedSpanFile.ReadAllText().Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            var classifiedSpanBaseline = classifiedSpanFile.ReadAllText();
             ClassifiedSpanVerifier.Verify(syntaxTree, classifiedSpanBaseline);
         }
 
         // Verify tag helper spans
         var tagHelperSpanFile = TestFile.Create(baselineTagHelperSpansFileName, GetType().GetTypeInfo().Assembly);
-        var tagHelperSpanBaseline = new string[0];
         if (tagHelperSpanFile.Exists())
         {
-            tagHelperSpanBaseline = tagHelperSpanFile.ReadAllText().Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            var tagHelperSpanBaseline = tagHelperSpanFile.ReadAllText();
             TagHelperSpanVerifier.Verify(syntaxTree, tagHelperSpanBaseline);
         }
     }
