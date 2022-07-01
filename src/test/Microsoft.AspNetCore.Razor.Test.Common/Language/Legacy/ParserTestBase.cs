@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
+using Roslyn.Test.Utilities;
 using Xunit;
 using Xunit.Sdk;
 
@@ -123,8 +124,9 @@ public abstract class ParserTestBase
             throw new XunitException($"The resource {baselineFileName} was not found.");
         }
 
-        var baseline = stFile.ReadAllText();
-        SyntaxNodeVerifier.Verify(root, baseline);
+        var syntaxNodeBaseline = stFile.ReadAllText();
+        var actualSyntaxNodes = SyntaxNodeSerializer.Serialize(root);
+        AssertEx.AssertEqualToleratingWhitespaceDifferences(syntaxNodeBaseline, actualSyntaxNodes);
 
         // Verify diagnostics
         var baselineDiagnostics = string.Empty;
@@ -146,7 +148,8 @@ public abstract class ParserTestBase
         else
         {
             var classifiedSpanBaseline = classifiedSpanFile.ReadAllText();
-            ClassifiedSpanVerifier.Verify(syntaxTree, classifiedSpanBaseline);
+            var actualClassifiedSpans = ClassifiedSpanSerializer.Serialize(syntaxTree);
+            AssertEx.AssertEqualToleratingWhitespaceDifferences(classifiedSpanBaseline, actualClassifiedSpans);
         }
 
         // Verify tag helper spans
@@ -154,7 +157,8 @@ public abstract class ParserTestBase
         if (tagHelperSpanFile.Exists())
         {
             var tagHelperSpanBaseline = tagHelperSpanFile.ReadAllText();
-            TagHelperSpanVerifier.Verify(syntaxTree, tagHelperSpanBaseline);
+            var actualTagHelperSpans = TagHelperSpanSerializer.Serialize(syntaxTree);
+            AssertEx.AssertEqualToleratingWhitespaceDifferences(tagHelperSpanBaseline, actualTagHelperSpans);
         }
     }
 
