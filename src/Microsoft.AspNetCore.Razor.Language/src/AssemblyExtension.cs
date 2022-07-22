@@ -1,8 +1,6 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-#nullable disable
-
 using System;
 using System.Reflection;
 
@@ -30,7 +28,7 @@ public class AssemblyExtension : RazorExtension
 
     public Assembly Assembly { get; }
 
-    internal RazorExtensionInitializer CreateInitializer()
+    internal RazorExtensionInitializer? CreateInitializer()
     {
         // It's not an error to have an assembly with no initializers. This is useful to specify a dependency
         // that doesn't really provide any Razor configuration.
