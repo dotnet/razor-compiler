@@ -46,7 +46,7 @@
     <IsPackable Condition="'$(IsUnitTestProject)' == 'false'">true</IsPackable>
 
     <IncludeSymbols>true</IncludeSymbols>
-    <DefaultNetCoreTargetFramework>net6.0</DefaultNetCoreTargetFramework>
+    <DefaultNetCoreTargetFramework>net7.0</DefaultNetCoreTargetFramework>
     <DefaultNetFxTargetFramework>net462</DefaultNetFxTargetFramework>
   </PropertyGroup>
 
