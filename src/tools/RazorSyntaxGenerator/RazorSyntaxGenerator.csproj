@@ -10,6 +10,7 @@
     <!-- No need to track public APIs of this tool. -->
     <AddPublicApiAnalyzers>false</AddPublicApiAnalyzers>
     <ExcludeFromSourceBuild>true</ExcludeFromSourceBuild>
+    <UseAppHost>false</UseAppHost>
   </PropertyGroup>
 
 </Project>
