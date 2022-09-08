@@ -205,6 +205,28 @@ namespace Test
     }
 
     [Fact]
+    public void ComponentWithDecimalParameter()
+    {
+        // Arrange
+
+        // Act
+        var generated = CompileToCSharp(@"
+<strong>@TestDecimal</strong>
+
+<TestComponent TestDecimal=""4"" />
+
+@code {
+    [Parameter]
+    public decimal TestDecimal { get; set; }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
     public void ComponentWithDynamicParameter()
     {
         // Arrange
