@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -402,14 +403,14 @@ public class RazorIntegrationTestBase
 
     private class CompilationFailedException : XunitException
     {
-        public CompilationFailedException(Compilation compilation, IEnumerable<Diagnostic> diagnostics = null)
+        public CompilationFailedException(Compilation compilation, ImmutableArray<Diagnostic>? diagnostics = null)
         {
             Compilation = compilation;
             Diagnostics = diagnostics;
         }
 
         public Compilation Compilation { get; }
-        public IEnumerable<Diagnostic> Diagnostics { get; }
+        public ImmutableArray<Diagnostic>? Diagnostics { get; }
 
         public override string Message
         {
