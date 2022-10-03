@@ -90,6 +90,9 @@ variables:
              /p:PostBuildSign=$(PostBuildSign)
     - name: _PublishArgs
       value: ''
+  - ${{ if in(variables['Build.Reason'], 'PullRequest') }}:
+    - name: Codeql.Enabled
+      value: true​
 
 stages:
 - stage: build
