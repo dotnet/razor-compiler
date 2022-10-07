@@ -9,7 +9,7 @@ Source Location: (86:1,7 [104] x:\dir\subdir\Test\TestComponent.cshtml)
 
     public EventCallback UpdateValue { get; set; }
 |
-Generated Location: (2258:47,7 [104] )
+Generated Location: (2259:47,7 [104] )
 |
     public int ParentValue { get; set; } = 42;
 
