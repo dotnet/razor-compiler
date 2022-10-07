@@ -1933,42 +1933,7 @@ namespace Test
     }
 
     [Fact]
-    public void BindToComponent_WithGetSet_EventCallback()
-    {
-        // Arrange
-        AdditionalSyntaxTrees.Add(Parse(@"
-using System;
-using Microsoft.AspNetCore.Components;
-
-namespace Test
-{
-    public class MyComponent : ComponentBase
-    {
-        [Parameter]
-        public int Value { get; set; }
-
-        [Parameter]
-        public EventCallback<int> ValueChanged { get; set; }
-    }
-}"));
-
-        // Act
-        var generated = CompileToCSharp(@"
-<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""UpdateValue"" />
-@code {
-    public int ParentValue { get; set; } = 42;
-
-    public EventCallback<int> UpdateValue { get; set; }
-}");
-
-        // Assert
-        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
-        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
-        CompileToAssembly(generated);
-    }
-
-    [Fact]
-    public void BindToGenericComponent_InferredType_WithGetSet_EventCallback()
+    public void BindToGenericComponent_InferredType_WithGetSet_Action()
     {
         // Arrange
         AdditionalSyntaxTrees.Add(Parse(@"
@@ -1997,7 +1962,7 @@ namespace Test
 @code {
     public CustomValue ParentValue { get; set; } = new CustomValue();
 
-    public EventCallback<CustomValue> UpdateValue { get; set; }
+    public void UpdateValue(CustomValue value) => ParentValue = value;
 }");
 
         // Assert
@@ -2007,7 +1972,47 @@ namespace Test
     }
 
     [Fact]
-    public void BindToGenericComponent_ExplicitType_WithGetSet_EventCallback()
+    public void BindToGenericComponent_InferredType_WithGetSet_Function()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent<TValue> : ComponentBase
+    {
+        [Parameter]
+        public TValue Value { get; set; }
+
+        [Parameter]
+        public EventCallback<TValue> ValueChanged { get; set; }
+    }
+
+    public class CustomValue
+    {
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""UpdateValue"" />
+@code {
+    public CustomValue ParentValue { get; set; } = new CustomValue();
+
+    public Task UpdateValue(CustomValue value) { ParentValue = value; return Task.CompletedTask; }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+
+    [Fact]
+    public void BindToGenericComponent_ExplicitType_WithGetSet_Action()
     {
         // Arrange
         AdditionalSyntaxTrees.Add(Parse(@"
@@ -2036,7 +2041,7 @@ namespace Test
 @code {
     public CustomValue ParentValue { get; set; } = new CustomValue();
 
-    public EventCallback<CustomValue> UpdateValue { get; set; }
+    public void UpdateValue(CustomValue value) => ParentValue = value;
 }");
 
         // Assert
@@ -2046,7 +2051,46 @@ namespace Test
     }
 
     [Fact]
-    public void GenericComponentBindToGenericComponent_InferredType_WithGetSet_EventCallback()
+    public void BindToGenericComponent_ExplicitType_WithGetSet_Function()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent<TValue> : ComponentBase
+    {
+        [Parameter]
+        public TValue Value { get; set; }
+
+        [Parameter]
+        public EventCallback<TValue> ValueChanged { get; set; }
+    }
+
+    public class CustomValue
+    {
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+<MyComponent TValue=""CustomValue"" @bind-Value:get=""ParentValue"" @bind-Value:set=""UpdateValue"" />
+@code {
+    public CustomValue ParentValue { get; set; } = new CustomValue();
+
+        public Task UpdateValue(CustomValue value) { ParentValue = value; return Task.CompletedTask; }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void GenericComponentBindToGenericComponent_InferredType_WithGetSet_Action()
     {
         // Arrange
         AdditionalSyntaxTrees.Add(Parse(@"
@@ -2072,7 +2116,7 @@ namespace Test
 @code {
     public TParam ParentValue { get; set; } = default;
 
-    public EventCallback<TParam> UpdateValue { get; set; }
+    public void UpdateValue(TParam value) { ParentValue = value; }
 }");
 
         // Assert
@@ -2082,7 +2126,43 @@ namespace Test
     }
 
     [Fact]
-    public void GenericBindToGenericComponent_ExplicitType_WithGetSet_EventCallback()
+    public void GenericComponentBindToGenericComponent_InferredType_WithGetSet_Function()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent<TValue> : ComponentBase
+    {
+        [Parameter]
+        public TValue Value { get; set; }
+
+        [Parameter]
+        public EventCallback<TValue> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+@typeparam TParam
+<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:set=""UpdateValue"" />
+@code {
+    public TParam ParentValue { get; set; } = default;
+
+    public Task UpdateValue(TParam value) { ParentValue = value; return Task.CompletedTask; }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void GenericBindToGenericComponent_ExplicitType_WithGetSet_Action()
     {
         // Arrange
         AdditionalSyntaxTrees.Add(Parse(@"
@@ -2108,7 +2188,43 @@ namespace Test
 @code {
     public TParam ParentValue { get; set; } = default;
 
-    public EventCallback<TParam> UpdateValue { get; set; }
+    public void UpdateValue(TParam value) { ParentValue = value; }
+}");
+
+        // Assert
+        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
+        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
+        CompileToAssembly(generated);
+    }
+
+    [Fact]
+    public void GenericBindToGenericComponent_ExplicitType_WithGetSet_Function()
+    {
+        // Arrange
+        AdditionalSyntaxTrees.Add(Parse(@"
+using System;
+using Microsoft.AspNetCore.Components;
+
+namespace Test
+{
+    public class MyComponent<TValue> : ComponentBase
+    {
+        [Parameter]
+        public TValue Value { get; set; }
+
+        [Parameter]
+        public EventCallback<TValue> ValueChanged { get; set; }
+    }
+}"));
+
+        // Act
+        var generated = CompileToCSharp(@"
+@typeparam TParam
+<MyComponent TValue=""TParam"" @bind-Value:get=""ParentValue"" @bind-Value:set=""UpdateValue"" />
+@code {
+    public TParam ParentValue { get; set; } = default;
+
+    public Task UpdateValue(TParam value) { ParentValue = value; return Task.CompletedTask; }
 }");
 
         // Assert
@@ -2457,41 +2573,6 @@ namespace Test
 <MyComponent @bind-Value:get=""ParentValue"" @bind-Value:after=""() => { }"" />
 @code {
     public int ParentValue { get; set; } = 42;
-}");
-
-        // Assert
-        AssertDocumentNodeMatchesBaseline(generated.CodeDocument);
-        AssertCSharpDocumentMatchesBaseline(generated.CodeDocument);
-        CompileToAssembly(generated);
-    }
-
-    [Fact]
-    public void BindToComponent_WithAfter_EventCallback()
-    {
-        // Arrange
-        AdditionalSyntaxTrees.Add(Parse(@"
-using System;
-using Microsoft.AspNetCore.Components;
-
-namespace Test
-{
-    public class MyComponent : ComponentBase
-    {
-        [Parameter]
-        public int Value { get; set; }
-
-        [Parameter]
-        public EventCallback<int> ValueChanged { get; set; }
-    }
-}"));
-
-        // Act
-        var generated = CompileToCSharp(@"
-<MyComponent @bind-Value:get=""ParentValue"" @bind-Value:after=""UpdateValue"" />
-@code {
-    public int ParentValue { get; set; } = 42;
-
-    public EventCallback UpdateValue { get; set; }
 }");
 
         // Assert
