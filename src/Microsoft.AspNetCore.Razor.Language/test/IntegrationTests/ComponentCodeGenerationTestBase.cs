@@ -1964,7 +1964,7 @@ namespace Test
         var result = CompileToAssembly(generated, throwOnFailure: false);
 
         var error = Assert.Single(result.Diagnostics);
-        // Argument 1: cannot convert from 'Microsoft.AspNetCore.Components.EventCallback' to 'System.Action'
+        // Argument 1: cannot convert from 'Microsoft.AspNetCore.Components.EventCallback' to '...' (System.Action/System.Func<Task>)
         Assert.Equal("CS1503", error.Id);
     }
 
@@ -2003,7 +2003,7 @@ namespace Test
         var result = CompileToAssembly(generated, throwOnFailure: false);
 
         var error = Assert.Single(result.Diagnostics);
-        // Argument 1: cannot convert from 'Microsoft.AspNetCore.Components.EventCallback' to 'System.Action'
+        // Argument 1: cannot convert from 'Microsoft.AspNetCore.Components.EventCallback' to '...' (System.Action/System.Func<Task>)
         Assert.Equal("CS1503", error.Id);
     }
 
@@ -2042,7 +2042,7 @@ namespace Test
         var result = CompileToAssembly(generated, throwOnFailure: false);
 
         var error = Assert.Single(result.Diagnostics);
-        // Argument 1: cannot convert from 'Microsoft.AspNetCore.Components.EventCallback' to 'System.Action'
+        // Argument 1: cannot convert from 'Microsoft.AspNetCore.Components.EventCallback' to '...' (System.Action/System.Func<Task>)
         Assert.Equal("CS1503", error.Id);
 
     }
@@ -2080,7 +2080,7 @@ namespace Test
         var result = CompileToAssembly(generated, throwOnFailure: false);
 
         var error = Assert.Single(result.Diagnostics);
-        // Argument 1: cannot convert from 'Microsoft.AspNetCore.Components.EventCallback' to 'System.Action'
+        // Argument 1: cannot convert from 'Microsoft.AspNetCore.Components.EventCallback' to '...' (System.Action/System.Func<Task>)
         Assert.Equal("CS1503", error.Id);
     }
 
@@ -2117,7 +2117,7 @@ namespace Test
         var result = CompileToAssembly(generated, throwOnFailure: false);
 
         var error = Assert.Single(result.Diagnostics);
-        // Argument 1: cannot convert from 'Microsoft.AspNetCore.Components.EventCallback' to 'System.Action'
+        // Argument 1: cannot convert from 'Microsoft.AspNetCore.Components.EventCallback' to '...' (System.Action/System.Func<Task>)
         Assert.Equal("CS1503", error.Id);
     }
 
@@ -2522,7 +2522,7 @@ namespace Test
         var result = CompileToAssembly(generated, throwOnFailure: false);
 
         var error = Assert.Single(result.Diagnostics);
-        // Argument 1: cannot convert from 'Microsoft.AspNetCore.Components.EventCallback' to 'System.Action'
+        // Argument 1: cannot convert from 'Microsoft.AspNetCore.Components.EventCallback' to '...' (System.Action/System.Func<Task>)
         Assert.Equal("CS1503", error.Id);
     }
 
