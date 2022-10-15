@@ -152,6 +152,19 @@ internal class DesignTimeDirectiveTargetExtension : IDesignTimeDirectiveTargetEx
 
                 case DirectiveTokenKind.String:
 
+                    var stringSyntax = context.DocumentKind switch
+                    {
+                        "mvc.1.0.razor-page" => "Route",
+                        "component.1.0" => "ComponentRoute",
+                        _ => null
+                    };
+                    if (stringSyntax is not null)
+                    {
+                        context.CodeWriter.CurrentIndent = originalIndent;
+                        context.CodeWriter.Write("// language=").Write(stringSyntax);
+                        context.CodeWriter.CurrentIndent = 0;
+                    }
+
                     // global::System.Object __typeHelper = "{node.Content}";
                     using (context.CodeWriter.BuildLinePragma(node.Source, context))
                     {
